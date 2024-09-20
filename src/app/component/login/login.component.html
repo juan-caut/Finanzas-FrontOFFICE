@@ -1,0 +1,32 @@
+<form action="" [formGroup]="FormgroupLogin" id="login">
+    <mat-card class="flex">
+        <mat-card-header>Login</mat-card-header>
+        <mat-card-actions>
+            <mat-card-subtitle>Username:</mat-card-subtitle>
+            <mat-form-field class="full-width">
+                <input formControlName="username" matInput placeholder="username" required
+                    (blur)="updateErrorMessage()">
+                @if (FormgroupLogin.get('username')?.invalid) {
+                <mat-error>{{errorMessage()}}</mat-error>
+                }
+            </mat-form-field>
+
+            <mat-card-subtitle>Password:</mat-card-subtitle>
+            <mat-form-field class="full-width">
+                <input formControlName="password" type="password" matInput placeholder="insert password" required
+                    (blur)="updateErrorMessage()">
+                @if (FormgroupLogin.get('password')?.invalid) {
+                <mat-error>{{errorMessage()}}</mat-error>
+                }
+            </mat-form-field>
+        </mat-card-actions>
+        <div>
+            <a href="">forget the password <br></a>
+            <a href="">create new account</a>
+
+        </div>
+        <div>
+            <button mat-button (click)="obtenerdata()">Login</button>
+        </div>
+    </mat-card>
+</form>
