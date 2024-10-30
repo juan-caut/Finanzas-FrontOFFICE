@@ -1,0 +1,84 @@
+<div class="signup-container">
+    <div class="signup-card">
+      <h2>Sign Up</h2>
+  
+      <form (ngSubmit)="onSubmit()" #signupForm="ngForm">
+         <!-- User Input -->
+         <div class="form-group">
+            <input
+              type="user"
+              id="user"
+              name="user"
+              placeholder="User"
+              class="form-control"
+              required
+            />
+          </div>
+           <!-- DNI Input -->
+         <div class="form-group">
+            <input
+              type="dni"
+              id="dni"
+              name="dni"
+              placeholder="Dni"
+              class="form-control"
+              required
+            />
+          </div>
+        <!-- Email Input -->
+        <div class="form-group">
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Email"
+            class="form-control"
+            [(ngModel)]="user.email"
+            required
+          />
+        </div>
+  
+        <!-- Password Input -->
+        <div class="form-group">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Password"
+            class="form-control"
+            [(ngModel)]="user.password"
+            required
+          />
+        </div>
+  
+        <!-- Confirm Password Input -->
+        <div class="form-group">
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            placeholder="Confirm Password"
+            class="form-control"
+            [(ngModel)]="user.confirmPassword"
+            required
+          />
+        </div>
+  
+        <!-- Terms and Policy -->
+        <div class="terms">
+          By creating an account, you agree to the 
+          <a href="#">Terms of Service</a> and 
+          <a href="#">Privacy Policy</a>.
+        </div>
+  
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary">Create a new account</button>
+  
+        <div class="login-link">
+          Have an account? <a href="/login">Sign In</a>
+        </div>
+      </form>
+  
+    </div>
+  </div>
+  

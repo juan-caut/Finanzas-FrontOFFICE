@@ -1,0 +1,33 @@
+<div class="contact-list-container">
+    <div class="header">
+      <h2>Contacts</h2>
+      <button class="add-contact">+ Add Contact</button>
+    </div>
+  
+    <table class="contact-table">
+      <thead>
+        <tr>
+          <th><input type="checkbox" /></th>
+          <th>Name</th>
+          <th>Company</th>
+          <th>Status</th>
+          <th>Assigned to</th>
+          <th>Phone</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let contact of contacts">
+          <td><input type="checkbox" /></td>
+          <td>
+            <strong>{{ contact.name }}</strong><br />
+            <span>{{ contact.role }}</span>
+          </td>
+          <td>{{ contact.company }}</td>
+          <td><span class="status salaried">{{ contact.status }}</span></td>
+          <td>{{ contact.assignedTo }}</td>
+          <td>{{ contact.phone }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
