@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common'; // 👈 Reemplaza BrowserModule por CommonModule
 
+import { MatIconModule } from '@angular/material/icon'; // 👈 Importamos el módulo
+
 @Component({
   selector: 'app-tabpanel',
   standalone: true,
   // 👇 Importamos los módulos necesarios directamente en el componente standalone.
-  imports: [CommonModule
-  ],
+  imports: [CommonModule,MatIconModule ],
   templateUrl: './tabpanel.component.html',
   styleUrls: ['./tabpanel.component.css'], // 👈 Corrección: "styleUrl" -> "styleUrls"
   providers: [],

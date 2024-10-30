@@ -29,7 +29,7 @@
         <div class="task-item" *ngFor="let task of filteredTasks">
           <div class="task-header">
             <strong>{{ task.title }}</strong>
-            <span class="more-options">⋮</span>
+            <mat-icon class="more-options">more_vert</mat-icon>
           </div>
           <p class="task-details">{{ task.date }} by {{ task.owner }}</p>
         </div>
