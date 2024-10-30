@@ -1,0 +1,43 @@
+<div class="task-panel">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <ul class="menu">
+        <div>
+            <li
+            *ngFor="let status of statuses"
+            [class.active]="status === selectedStatus"
+            (click)="selectStatus(status)"
+          >
+            <i class="icon"></i>
+            {{ status }}
+          </li>
+        </div>
+        <div>
+            <li
+            *ngFor="let botuse of botuses"
+          >
+            <i class="icon"></i>
+            {{ botuse }}
+          </li>
+        </div>
+      </ul>
+    </aside>
+  
+    <!-- Task List -->
+    <section class="task-list">
+      <div *ngIf="filteredTasks.length > 0; else noTasks">
+        <div class="task-item" *ngFor="let task of filteredTasks">
+          <div class="task-header">
+            <strong>{{ task.title }}</strong>
+            <span class="more-options">⋮</span>
+          </div>
+          <p class="task-details">{{ task.date }} by {{ task.owner }}</p>
+        </div>
+      </div>
+  
+      <ng-template #noTasks>
+        <div class="no-tasks">No tasks available.</div>
+      </ng-template>
+    </section>
+  </div>
+  
