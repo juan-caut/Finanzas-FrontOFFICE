@@ -5,7 +5,7 @@ import { Observable } from "rxjs";
     providedIn: 'root'
 })
 export class ApiService {
-    private url = 'http://localhost:8080/api/obtener-lista-usuarios'
+    private url = 'http://localhost:8080'
 
     constructor(private http: HttpClient) { }
     public getData(): Observable<any> {
