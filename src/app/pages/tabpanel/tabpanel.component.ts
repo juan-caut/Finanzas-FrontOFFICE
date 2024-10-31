@@ -35,12 +35,20 @@ export class TabpanelComponent {
     { title: 'Training Material', date: '2023/09/16', owner: 'John Heart', status: 'In Progress' },
   ];
 
-  get filteredTasks() {
-    return this.tasks.filter(task => task.status === this.selectedStatus);
+  cartera: Cartera[] = [
+    { nombrec: 'LETRAS OCTUBRE A NOVIEMBRE 2025', tipodoc: 'LETRA', fechacrea: '2023/09/16',moneda:'USD', configstat: 'Gestion de carteras' },
+    { nombrec: 'New Website Design', tipodoc: 'FACTURA', fechacrea: '2023/09/16',moneda:'PEN', configstat: 'Gestion de carteras' },
+    { nombrec: 'Bandwidth Increase', tipodoc: 'LETRA', fechacrea: '2023/09/16',moneda:'PEN', configstat: 'Gestion de carteras' },
+    { nombrec: 'Support', tipodoc: 'FACTURA', fechacrea: '2023/09/16',moneda:'USD', configstat: 'In Progress' },
+    { nombrec: 'Training Material', tipodoc: 'LETRA', fechacrea: '2023/09/16',moneda:'PEN', configstat: 'Gestion de carteras' },
+  ];
+
+  get filteredCart() {
+    return this.cartera.filter(cartera => cartera.configstat === this.selectedStatus);
   }
 
-  selectStatus(status: string) {
-    this.selectedStatus = status;
+  selectStatus(cartera: string) {
+    this.selectedStatus = cartera;
   }
 }
 
@@ -50,4 +58,12 @@ interface Task {
   date: string;
   owner: string;
   status: string;
+}
+
+interface Cartera {
+  nombrec: string;
+  fechacrea: string;
+  tipodoc: string;
+  moneda: string;
+  configstat:string;
 }
