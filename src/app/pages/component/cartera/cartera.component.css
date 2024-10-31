@@ -1,0 +1,58 @@
+
+/* Task List */
+
+  
+  .task-list {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+  }
+   
+  
+  .task-item {
+    background-color: white;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    padding: 15px;
+  }
+  
+  .task-item:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+  }
+  
+  .task-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .task-header strong {
+    font-size: 16px;
+  }
+  
+  
+  .more-options {
+    cursor: pointer;
+    font-size: 24px; /* Ajusta el tamaño del icono */
+    color: #888;
+    transition: color 0.2s;
+  }
+  
+  .more-options:hover {
+    color: #000;
+  }
+  
+  
+  .task-details {
+    margin: 10px 0px 0px 0px;
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .no-tasks {
+    text-align: center;
+    color: #888;
+    margin-top: 50px;
+  }
+  

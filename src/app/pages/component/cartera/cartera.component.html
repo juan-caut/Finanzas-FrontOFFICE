@@ -1,0 +1,15 @@
+<section class="task-list">
+    <div *ngIf="filteredCart.length > 0; else noTasks">
+      <div class="task-item" *ngFor="let task of filteredCart">
+        <div class="task-header">
+          <strong>{{ task.nombrec }} | {{ task.moneda }}</strong>
+          <mat-icon class="more-options">more_vert</mat-icon>
+        </div>
+        <p class="task-details">{{ task.tipodoc }} | {{ task.fechacrea }}</p>
+      </div>
+    </div>
+
+    <ng-template #noTasks>
+      <div class="no-tasks">No tasks available.</div>
+    </ng-template>
+  </section>
