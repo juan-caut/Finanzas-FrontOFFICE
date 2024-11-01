@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common'; // 👈 Reemplaza BrowserModule por CommonModule
+import { TabpanelComponent } from '../tabpanel/tabpanel.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,6 +14,13 @@ import { CommonModule } from '@angular/common'; // 👈 Reemplaza BrowserModule 
 
 })
 export class LoginComponent {
+
+  
+  @ViewChild(TabpanelComponent) panelComponent!: TabpanelComponent;
+
+  constructor(private router: Router) {}
+
+
   user = {
     email: '',
     password: '',
@@ -21,5 +30,9 @@ export class LoginComponent {
   onSubmit() {
     console.log('User:', this.user);
     // Aquí puedes agregar la lógica de autenticación
+    this.router.navigate(['/panel']);
+
   }
+
+ 
 }

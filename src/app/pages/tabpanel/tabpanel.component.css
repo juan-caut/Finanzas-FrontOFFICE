@@ -1,9 +1,5 @@
 /* Layout general del panel */
 
-.listsection{
-  height: 100%;
-  width: 100%;
-}
 
 .task-panel {
   display: flex;
@@ -57,11 +53,8 @@
  
 }
 
-.title-list {
-  background-color: white;
-  color: #000;
-  padding: 15px 20px;
-  margin: 0;
-  font-size: 1.5rem;
-  font-weight: 500;
+.listsection{
+  height: 100%;
+  width: 100%;
 }
+

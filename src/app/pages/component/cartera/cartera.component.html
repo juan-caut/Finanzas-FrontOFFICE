@@ -1,5 +1,13 @@
-<section class="task-list">
-    <div *ngIf="filteredCart.length > 0; else noTasks">
+<div *ngIf="filteredCart.length > 0; else noTasks">
+
+  <div class="header">
+    <h2 class="title-list">{{ selectedStatus }}</h2>
+    <button (click)="openDialog(dialogTemplate)" class="add-cartera">Agregar cartera</button>
+  </div>
+  
+  <section class="task-list">
+  
+    <div>
       <div class="task-item" *ngFor="let task of filteredCart">
         <div class="task-header">
           <strong>{{ task.nombrec }} | {{ task.moneda }}</strong>
@@ -8,8 +16,43 @@
         <p class="task-details">{{ task.tipodoc }} | {{ task.fechacrea }}</p>
       </div>
     </div>
-
-    <ng-template #noTasks>
-      <div class="no-tasks">No tasks available.</div>
-    </ng-template>
+  
+  
+    
   </section>
+
+
+</div>
+
+<ng-template #noTasks>
+</ng-template>
+
+
+<ng-template #dialogTemplate let-dialogRef>
+  <div class="dialog-container">
+
+    <h2 mat-dialog-title class="dialog-title">Crear cartera</h2>
+    
+    <div class="dialog-content">
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Nombre</mat-label>
+        <input matInput [(ngModel)]="animal" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Tipo de documento</mat-label>
+        <input matInput [(ngModel)]="animal" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Moneda</mat-label>
+        <input matInput [(ngModel)]="animal" />
+      </mat-form-field>
+
+    </div>
+
+    <mat-dialog-actions align="end" class="dialog-actions">
+      <button mat-button class="cancel-button" (click)="onNoClick()">CANCELAR</button>
+      <button mat-button class="confirm-button" [mat-dialog-close]="animal" cdkFocusInitial>REGISTRAR</button>
+    </mat-dialog-actions>
+  </div>
+</ng-template>

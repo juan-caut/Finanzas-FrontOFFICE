@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common'; // 👈 Reemplaza BrowserModule por CommonModule
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',
   standalone: true, // ¡Este es un componente standalone!
-  imports: [FormsModule,CommonModule],
+  imports: [FormsModule,CommonModule,MatFormFieldModule],
 })
 export class SignupComponent {
   user = {

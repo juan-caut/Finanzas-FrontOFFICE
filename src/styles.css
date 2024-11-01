@@ -2,3 +2,10 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* styles.css */
+.custom-mat-dialog-container {
+    border-radius: 0 !important; /* Bordes rectangulares */
+    background-color: #f9f9f9;
+  }
+  

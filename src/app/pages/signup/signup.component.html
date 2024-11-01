@@ -4,7 +4,8 @@
   
       <form (ngSubmit)="onSubmit()" #signupForm="ngForm">
          <!-- User Input -->
-         <div class="form-group">
+         <mat-form-field appearance="outline" class="form-group">
+          <mat-label>User</mat-label>
             <input
               type="user"
               id="user"
@@ -13,7 +14,7 @@
               class="form-control"
               required
             />
-          </div>
+          </mat-form-field>
            <!-- DNI Input -->
          <div class="form-group">
             <input

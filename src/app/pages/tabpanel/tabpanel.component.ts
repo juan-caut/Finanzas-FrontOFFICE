@@ -3,17 +3,19 @@ import { CommonModule } from '@angular/common'; // 👈 Reemplaza BrowserModule 
 
 import { MatIconModule } from '@angular/material/icon'; // 👈 Importamos el módulo
 import { CarteraComponent } from '../component/cartera/cartera.component';
-;
+import { ListexampleComponent } from "../listexample/listexample.component";
+
 
 @Component({
   selector: 'app-tabpanel',
   standalone: true,
   // 👇 Importamos los módulos necesarios directamente en el componente standalone.
-  imports: [CommonModule,MatIconModule,CarteraComponent ],
+  imports: [CommonModule, MatIconModule, CarteraComponent, ListexampleComponent],
   templateUrl: './tabpanel.component.html',
   styleUrls: ['./tabpanel.component.css'], // 👈 Corrección: "styleUrl" -> "styleUrls"
   providers: [],
 })
+
 export class TabpanelComponent {
 
   
@@ -42,6 +44,5 @@ export class TabpanelComponent {
     
     this.carteraComponent.selectedStatus = stat;
   }
-
-
 }
+

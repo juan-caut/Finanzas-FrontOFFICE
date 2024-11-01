@@ -57,30 +57,6 @@
     background-color: #0056b3;
   }
   
-  .google-login {
-    background-color: #4285f4;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-  }
-  
-  .microsoft-login {
-    background-color: #2b579a;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-  }
-  
-  .google-login img,
-  .microsoft-login img {
-    width: 20px;
-    height: 20px;
-  }
-  
   .forgot-password {
     display: block;
     margin-top: 10px;
