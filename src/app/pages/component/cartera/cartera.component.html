@@ -1,7 +1,7 @@
 <div *ngIf="filteredCart.length > 0; else noTasks">
   <div class="header">
     <h2 class="title-list">{{ selectedStatus }}</h2>
-    <button (click)="openDialog(dialogTemplate)" class="add-cartera">
+    <button (click)="openRegistrarDialog()" class="add-cartera">
       Agregar cartera
     </button>
   </div>
@@ -20,45 +20,38 @@
 </div>
 
 <ng-template #noTasks> </ng-template>
-<ng-template #dialogTemplate let-dialogRef>
-  <div class="dialog-container">
-    <h2 mat-dialog-title class="dialog-title">Crear cartera</h2>
+<div class="custom-dialog-overlay" *ngIf="isDialogOpen">
+  <div class="custom-dialog">
+    <h2 class="dialog-title">Crear cartera</h2>
 
     <div class="dialog-content">
-      <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Nombre</mat-label>
-        <input matInput [(ngModel)]="nombredoc" />
-      </mat-form-field>
+      <div class="form-field">
+        <label for="nombre">Nombre</label>
+        <input id="nombre" type="text" [(ngModel)]="nombredoc" />
+      </div>
 
-      <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Tipo de documento</mat-label>
-        <mat-select [(ngModel)]="tipodoc">
-          <mat-option value="one">First option</mat-option>
-          <mat-option value="two">Second option</mat-option>
-        </mat-select>
-      </mat-form-field>
+      <div class="form-field">
+        <label for="tipodoc">Tipo de documento</label>
+        <select id="tipodoc" [(ngModel)]="tipodoc">
+          <option value="Factura">Factura</option>
+          <option value="Letra">Letra</option>
+        </select>
+      </div>
 
-      <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Moneda</mat-label>
-        <mat-select [(ngModel)]="monedadoc">
-          <mat-option value="one">First option</mat-option>
-          <mat-option value="two">Second option</mat-option>
-        </mat-select>
-      </mat-form-field>
+      <div class="form-field">
+        <label for="moneda">Moneda</label>
+        <select id="moneda" [(ngModel)]="monedadoc">
+          <option value="USD">USD</option>
+          <option value="PEN">PEN</option>
+        </select>
+      </div>
+
+
     </div>
 
-    <mat-dialog-actions align="end" class="dialog-actions">
-      <button mat-button class="cancel-button" (click)="onNoClick()">
-        CANCELAR
-      </button>
-      <button
-        mat-button
-        class="confirm-button"
-        [mat-dialog-close]="nombredoc"
-        
-      >
-        REGISTRAR
-      </button>
-    </mat-dialog-actions>
+    <div class="dialog-actions">
+      <button class="cancel-button" (click)="onCancel()" >CANCELAR</button>
+      <button class="confirm-button" (click)="onRegister()">REGISTRAR</button>
+    </div>
   </div>
-</ng-template>
+</div>

@@ -35,7 +35,7 @@ export class TabpanelComponent {
     'Mi cuenta',
   ];
 
-  selectedStatus = 'Principal';
+  selectedStatus = 'Gestion de carteras';
 
 
   selectStatus(stat: string) {

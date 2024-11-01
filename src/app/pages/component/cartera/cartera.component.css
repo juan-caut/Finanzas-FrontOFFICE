@@ -1,5 +1,3 @@
-
-
 /* ------------------------------------ TITLE  List */
 .header {
   display: flex;
@@ -7,7 +5,7 @@
   align-items: center;
   background-color: white;
   padding: 15px 20px;
-  
+
   border-bottom: 1px solid #ddd;
 }
 
@@ -29,7 +27,6 @@
 }
 .add-cartera:hover {
   background-color: #bdddff;
- 
 }
 
 /* ------------------------------------ TITLE  List */
@@ -88,63 +85,93 @@
 
 /*  ------------------------------------ List DETAIL   */
 
-
-/*  ------------------------------------ DIALOG   */
-
-/* Contenedor principal del diálogo */
-.dialog-container {
-  width: 400px; /* Ancho personalizado */
-  padding: 30px;
-  background-color: #f9f9f9;
- 
+/*  ----------------------------------------DIALOG SIN ANGULAR*/
+.custom-dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
 }
 
+/* Contenedor principal del diálogo */
+.custom-dialog {
+  background-color: #fff;
+  width: 400px;
+  padding: 50px;
+  border-radius: 0px;
+}
 
 /* Título del diálogo */
 .dialog-title {
   font-size: 1.5rem;
-  color: #333;
-  margin-bottom: 8px;
+  font-weight: 500;
   text-align: center;
-}
-
-/* Contenido del diálogo */
-.dialog-content {
-  font-size: 1rem;
-  color: #555;
   margin-bottom: 16px;
 }
 
+/* Contenido del formulario */
+.dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 16px;
+}
 
 /* Campo del formulario */
 .form-field {
-  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Acciones del diálogo (botones) */
+.form-field label {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 4px;
+}
+
+.form-field input,
+.form-field select {
+  padding: 12px;
+  margin-top: 5px;
+  border: 1px solid #ddd;
+
+  font-size: 16px;
+}
+
+/* Botones de acción */
 .dialog-actions {
   display: flex;
   justify-content: flex-end;
-  padding: 0px;
+  gap: 8px;
 }
 
-/* Botones del diálogo */
-.dialog-button {
-  padding: 8px 16px;
+.cancel-button,
+.confirm-button {
+  padding: 15px 15px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  border-radius: 0px;
 }
 
 .cancel-button {
-  border-radius: 0%;
+  background: #ccc;
+  color: #333;
 }
 
-.confirm-button .mdc-button__label {
-
-  border-radius: 0%;
+.confirm-button {
+  background: #1976d2;
+  color: white;
 }
 
 .confirm-button:hover {
-  border-radius: 0%;
+  background: #1565c0;
 }
 
-
-/*  ------------------------------------ DIALOG   */
+/*  ----------------------------------------DIALOG SIN ANGULAR*/

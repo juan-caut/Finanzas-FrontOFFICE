@@ -1,15 +1,15 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common'; // 👈 Reemplaza BrowserModule por CommonModule
 import { TabpanelComponent } from '../tabpanel/tabpanel.component';
 import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
   standalone: true,
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
-  imports: [FormsModule, CommonModule ], // Módulos necesarios se importan directamente aquí
+  imports: [FormsModule ], // Módulos necesarios se importan directamente aquí
 
 })
 export class LoginComponent {
@@ -32,6 +32,5 @@ export class LoginComponent {
     this.router.navigate(['/panel']);
 
   }
-
  
 }
