@@ -26,7 +26,7 @@
   border: 1px solid #ddd;
 }
 .add-cartera:hover {
-  background-color: #bdddff;
+  background-color: #e0e0e0;
 }
 
 /* ------------------------------------ TITLE  List */
@@ -58,6 +58,7 @@
 
 .task-header strong {
   font-size: 16px;
+  font-weight:normal;
 }
 
 .more-options {
@@ -120,7 +121,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  margin-bottom: 16px;
+  margin-bottom: 25px;
 }
 
 /* Campo del formulario */
