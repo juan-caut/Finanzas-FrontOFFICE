@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common'; // 👈 Reemplaza BrowserModule 
 import { TabpanelComponent } from '../tabpanel/tabpanel.component';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-login',
   standalone: true,

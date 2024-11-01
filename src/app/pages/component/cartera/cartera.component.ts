@@ -1,6 +1,6 @@
 import { Component, inject, TemplateRef } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { CommonModule } from '@angular/common';
+ import { CommonModule } from '@angular/common';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,6 +12,9 @@ import {
 } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/select';
+
 
 @Component({
   selector: 'app-cartera',
@@ -26,10 +29,11 @@ import { MatInputModule } from '@angular/material/input';
     MatInputModule,
     MatDialogActions,
     MatButtonModule,
-    FormsModule,
+    FormsModule,MatSelect,MatOption
   ],
   templateUrl: './cartera.component.html',
   styleUrls: ['./cartera.component.css'], // Cambié `styleUrl` por `styleUrls`
+  
 })
 
 
@@ -50,24 +54,22 @@ export class CarteraComponent {
 
   //DIALOOOOOOOOOG
   dialog = inject(MatDialog);
-  animal: string = '';
-  data = { name: 'User' };
+  nombredoc: string = '';
+  tipodoc: string = '';
+  monedadoc: string = '';
 
   openDialog(templateRef: TemplateRef<any>) {
 
     const config = new MatDialogConfig();
     config.panelClass = 'custom-mat-dialog-container';  // Clase CSS personalizada
 
-    const dialogRef = this.dialog.open(templateRef, {
-      data: this.data,
-      ...config
-    });
-    
+   
+    const dialogRef = this.dialog.open(templateRef, config);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.animal = result;
-        console.log('Favorite animal:', result);
+        this.nombredoc = result;
+        console.log('nombredoc:', result);
       }
     });
   }
@@ -75,6 +77,7 @@ export class CarteraComponent {
   onNoClick(): void {
     this.dialog.closeAll();
   }
+
 
 
 }

@@ -1,12 +1,12 @@
 <div *ngIf="filteredCart.length > 0; else noTasks">
-
   <div class="header">
     <h2 class="title-list">{{ selectedStatus }}</h2>
-    <button (click)="openDialog(dialogTemplate)" class="add-cartera">Agregar cartera</button>
+    <button (click)="openDialog(dialogTemplate)" class="add-cartera">
+      Agregar cartera
+    </button>
   </div>
-  
+
   <section class="task-list">
-  
     <div>
       <div class="task-item" *ngFor="let task of filteredCart">
         <div class="task-header">
@@ -16,43 +16,49 @@
         <p class="task-details">{{ task.tipodoc }} | {{ task.fechacrea }}</p>
       </div>
     </div>
-  
-  
-    
   </section>
-
-
 </div>
 
-<ng-template #noTasks>
-</ng-template>
-
-
+<ng-template #noTasks> </ng-template>
 <ng-template #dialogTemplate let-dialogRef>
   <div class="dialog-container">
-
     <h2 mat-dialog-title class="dialog-title">Crear cartera</h2>
-    
-    <div class="dialog-content">
 
+    <div class="dialog-content">
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Nombre</mat-label>
-        <input matInput [(ngModel)]="animal" />
-      </mat-form-field>
-      <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Tipo de documento</mat-label>
-        <input matInput [(ngModel)]="animal" />
-      </mat-form-field>
-      <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Moneda</mat-label>
-        <input matInput [(ngModel)]="animal" />
+        <input matInput [(ngModel)]="nombredoc" />
       </mat-form-field>
 
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Tipo de documento</mat-label>
+        <mat-select [(ngModel)]="tipodoc">
+          <mat-option value="one">First option</mat-option>
+          <mat-option value="two">Second option</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Moneda</mat-label>
+        <mat-select [(ngModel)]="monedadoc">
+          <mat-option value="one">First option</mat-option>
+          <mat-option value="two">Second option</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
 
     <mat-dialog-actions align="end" class="dialog-actions">
-      <button mat-button class="cancel-button" (click)="onNoClick()">CANCELAR</button>
-      <button mat-button class="confirm-button" [mat-dialog-close]="animal" cdkFocusInitial>REGISTRAR</button>
+      <button mat-button class="cancel-button" (click)="onNoClick()">
+        CANCELAR
+      </button>
+      <button
+        mat-button
+        class="confirm-button"
+        [mat-dialog-close]="nombredoc"
+        
+      >
+        REGISTRAR
+      </button>
     </mat-dialog-actions>
   </div>
 </ng-template>
