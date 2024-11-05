@@ -1,7 +1,11 @@
 import { Component, inject, TemplateRef } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
+import {
+  MatDialog,
+  MatDialogConfig,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import {
@@ -44,45 +48,38 @@ export class CarteraComponent {
       tipodoc: 'LETRA',
       fechacrea: '2023/09/16',
       moneda: 'USD',
-      configstat: 'Gestion de carteras',
     },
     {
       nombrec: 'New Website Design',
       tipodoc: 'FACTURA',
       fechacrea: '2023/09/16',
       moneda: 'PEN',
-      configstat: 'Gestion de carteras',
     },
     {
       nombrec: 'Bandwidth Increase',
       tipodoc: 'LETRA',
       fechacrea: '2023/09/16',
       moneda: 'PEN',
-      configstat: 'Gestion de carteras',
     },
     {
       nombrec: 'Support',
       tipodoc: 'FACTURA',
       fechacrea: '2023/09/16',
       moneda: 'USD',
-      configstat: 'In Progress',
     },
     {
       nombrec: 'Training Material',
       tipodoc: 'LETRA',
       fechacrea: '2023/09/16',
       moneda: 'PEN',
-      configstat: 'Gestion de carteras',
     },
   ];
 
-  get filteredCart() {
-    return this.cartera.filter(
-      (cartera) => cartera.configstat === this.selectedStatus
-    );
+  get listCart() {
+    return this.cartera;
   }
 
-  ///// DIALOG
+  ///// =====================================================================DIALOG
   isDialogOpen = false; // Controla la visibilidad del diálogo
   nombredoc: string = '';
   tipodoc: string = '';
@@ -91,10 +88,9 @@ export class CarteraComponent {
   openRegistrarDialog(): void {
     this.isDialogOpen = true; // Con
   }
-  
-    onCancel(): void {
+
+  onCancel(): void {
     this.isDialogOpen = false; // Cierra el diálogo
-   
   }
 
   onRegister(): void {
@@ -117,5 +113,4 @@ interface Cartera {
   fechacrea: string;
   tipodoc: string;
   moneda: string;
-  configstat: string;
 }

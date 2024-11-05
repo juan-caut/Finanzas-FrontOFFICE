@@ -27,6 +27,19 @@
   </aside>
 
   <div class="listsection">
-    <app-cartera></app-cartera>
+
+    <div *ngIf="selectedStatus=== 'Principal'">
+      <app-panel></app-panel>
+    </div>
+    <div *ngIf="selectedStatus=== 'Gestion de carteras'">
+      <app-cartera></app-cartera>
+    </div>
+    <div *ngIf="selectedStatus=== 'Soporte'">
+      <app-suport></app-suport>
+    </div>
+    <div *ngIf="selectedStatus=== 'Mi cuenta'">
+      <app-micuenta></app-micuenta>
+    </div>
+    
   </div>
 </div>
