@@ -153,10 +153,10 @@
             
             <div class="form-field">
               <label for="tasanomconv">Tasa Nominal</label>
-              <input id="tasanomconv" type="text" [(ngModel)]="tasaefectiva" />
+              <input id="tasanomconv" type="text" [(ngModel)]="tasanominal" />
 
               <label for="tipotasa">Tipo de Tasa</label>
-              <select id="tipotasa" [(ngModel)]="fechavencim">
+              <select id="tipotasa" [(ngModel)]="tipotasanominal">
                 <option value="360">Tasa Nominal Anual (TNA)</option>
                 <option value="180">Tasa Nominal Semestral (TNS)</option>
                 <option value="120">Tasa Nominal Cuatrimestral (TNC)</option>
@@ -168,7 +168,7 @@
               </select>
 
               <label for="capitalizacion">Capitalización</label>
-              <select id="capitalizacion" [(ngModel)]="fechavencim">
+              <select id="capitalizacion" [(ngModel)]="capitatasanom">
                 <option value="360">ANUAL</option>
                 <option value="180">SEMESTRAL</option>
                 <option value="120">CUATRIMENTRAL</option>
@@ -180,7 +180,7 @@
               </select>
 
               <button class="bt-calctea">Calcular Tasa Efectiva Anual (TEA)</button>              
-              <input id="teacalc" type="text"[readonly]="true"  [(ngModel)]="fechavencim" />
+              <input id="teacalc" type="text"[readonly]="true"  [(ngModel)]="teacalc" />
             
             </div>
           </div>

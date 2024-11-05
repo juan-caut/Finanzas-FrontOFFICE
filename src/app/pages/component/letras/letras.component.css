@@ -18,7 +18,7 @@
 
 
 .table-container {
- margin: 15px;
+ margin: 20px;
  background-color: white;
     max-width: 100%;
     overflow: auto;
@@ -239,7 +239,7 @@
 }
 
 .bt-calctea {
-  background-color: #ffffff;
+  background-color: #f3f3f3;
   border: none;
   outline: none;
   padding: 10px 20px;
@@ -251,7 +251,7 @@
 }
 
 .bt-calctea:hover {
-  background-color: #ddd;
+  background-color: #d4d3d3;
 }
 
 .bt-calctea.active {

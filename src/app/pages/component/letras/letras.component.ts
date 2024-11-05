@@ -92,6 +92,12 @@ export class LetrasComponent implements  AfterViewInit {
   tasaefectiva: string='';
   valornominal:string= '';
 
+  //tasanominal
+  tasanominal: string="";
+  tipotasanominal: string='';
+  capitatasanom:string= '';
+  teacalc:string= '';
+
   openRegistrarLetra(): void {
     this.isDialogOpen = true; // Con
   }
