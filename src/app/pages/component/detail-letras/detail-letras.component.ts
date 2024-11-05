@@ -1,5 +1,5 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -11,6 +11,8 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrl: './detail-letras.component.css'
 })
 export class DetailLetrasComponent implements OnInit{
+
+  
   displayedColumns: string[] = ['select', 'orderId', 'city', 'country', 'region', 'date', 'amount'];
   dataSource = new MatTableDataSource<Order>([
     { orderId: 10248, city: 'New York', country: 'United States', region: 'North America', date: new Date('2013-01-06'), amount: 1740 },
@@ -56,6 +58,9 @@ export class DetailLetrasComponent implements OnInit{
   toggleRowSelection(row: Order) {
     this.selection.toggle(row);
   }
+  
+
+
 }
 
 
@@ -67,8 +72,4 @@ interface Order {
   region: string;
   date: Date;
   amount: number;
-}
-
-function ViewChild(MatPaginator: typeof MatPaginator): (target: DetailLetrasComponent, propertyKey: "paginator") => void {
-  throw new Error('Function not implemented.');
 }
