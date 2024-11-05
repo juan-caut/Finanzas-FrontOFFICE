@@ -9,6 +9,13 @@
   border-bottom: 1px solid #ddd;
 }
 
+.sidebar {
+  width: 250px; /* Ancho de la barra lateral */
+  background-color: #343a40; /* Color de fondo */
+  color: white; /* Color de texto */
+  padding: 20px;
+  height: 100vh; /* Altura completa de la ventana */
+}
 .title-list {
   color: #000;
   margin: 0;

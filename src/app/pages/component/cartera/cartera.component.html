@@ -8,7 +8,7 @@
     </button>
   </div>
 
-  <div *ngIf="listCart.length > 0; else noCarts">
+  <div *ngIf="listCart.length > 0; else noCarts" style="height: 300px; overflow-y: scroll;">
     <section class="task-list">
       <div>
         <div class="task-item" *ngFor="let cart of listCart"  (click)="goListLetFac(cart.idcartera)">
@@ -16,7 +16,7 @@
             <strong>{{ cart.nombrec }} | {{ cart.moneda }}</strong>
             <mat-icon class="more-options">more_vert</mat-icon>
           </div>
-          <p class="task-details">{{ cart.tipodoc }} | {{ cart.fechacrea }}</p>
+          <p class="task-details">{{ cart.tipodoc }} | {{ cart.fechacrea }} | {{cart.tasaCambio}}</p>
         </div>
       </div>
     </section>
@@ -50,6 +50,10 @@
             <option value="PEN">PEN</option>
           </select>
         </div>
+        <div class="form-field">
+          <label for="moneda">Tasa de Cambio</label>
+          <input id="tasaCambio" type="text" [(ngModel)]="tasaCambio" />
+        </div>
       </div>
 
       <div class="dialog-actions">
@@ -58,7 +62,6 @@
       </div>
     </div>
   </div>
-
 
 </div>
 
