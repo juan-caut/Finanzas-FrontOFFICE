@@ -97,17 +97,24 @@
 
         <div class="form-field">
           <label for="fechaemision">Fecha de Emision</label>
-          <input id="fechaemision" type="text" [(ngModel)]="fechaemision" />
-          <mat-card class="demo-inline-calendar-card">
-            <mat-calendar [(selected)]="selected"></mat-calendar>
+          <input id="fechaemision" type="text" [(ngModel)]="fechaemision" placeholder="DD/MM/AAAA"  (focus)="showCalendar()" readonly/>
+          <mat-card *ngIf="isCalendarVisible" class="demo-inline-calendar-card">
+            <mat-datepicker-toggle matSuffix (click)="hideCalendar()">
+              <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+            </mat-datepicker-toggle>
+            <mat-calendar [(selected)]="selected" (selectedChange)="onDateChange($event)"></mat-calendar>
           </mat-card>
-          <p>Selected date: {{selected()}}</p>
-          >
         </div>
-
+        
         <div class="form-field">
           <label for="fechavencim">Fecha de Vencimiento</label>
-          <input id="fechavencim" type="text" [(ngModel)]="fechavencim" />
+          <input id="fechavencim" type="text" [(ngModel)]="fechavencim" placeholder="DD/MM/AAAA"  (focus)="showCalendar1()" readonly/>
+          <mat-card *ngIf="isCalendar2Visible" class="demo-inline-calendar-card">
+            <mat-datepicker-toggle matSuffix (click)="hideCalendar2()">
+              <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+            </mat-datepicker-toggle>
+            <mat-calendar [(selected)]="selected2" (selectedChange)="onDateChange2($event)"></mat-calendar>
+          </mat-card>
         </div>
 
         <!-- INGRESAR TASA EFECTIVA O NOMINAL -->
@@ -191,6 +198,9 @@
       </div>
     </div>
   </div>
+
+
+
 </div>
 
 <div *ngIf="goLetraDetail === true">

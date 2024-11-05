@@ -120,6 +120,10 @@
   width: 550px;
   padding: 50px;
   border-radius: 0px;
+
+  max-height: 80vh; /* Limita la altura del diálogo en general */
+  display: flex;
+  flex-direction: column;
 }
 
 /* Título del diálogo */
@@ -136,6 +140,10 @@
   flex-direction: column;
   gap: 16px;
   margin-bottom: 25px;
+  flex-grow: 1;
+  overflow-y: auto; /* Activa el desplazamiento vertical */
+  max-height: 60vh; /* Define la altura máxima para el contenido */
+  padding-right: 10px; /* Espacio para el scrollbar */
 }
 
 /* Campo del formulario */
@@ -250,6 +258,11 @@
   background-color: #ddd;
   font-weight: bold;
   color: #333;
+}
+
+.mat-mdc-card{
+  width: 50%;
+  box-shadow: none;
 }
 
 /*  ----------------------------------------TAB GROUP-----------------------*/
