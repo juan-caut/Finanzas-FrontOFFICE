@@ -9,5 +9,5 @@ import { Component } from '@angular/core';
 })
 export class PanelComponent {
 
-  selectedStatus: string = 'Panel';
+  selectedStatus: string = 'Principal';
 }

@@ -25,26 +25,31 @@ export class TabpanelComponent {
   statuses = ['Principal', 'Gestion de carteras', 'Soporte'];
   botuses = ['Mi cuenta'];
 
-  selectedStatus = 'Panel';
+  selectedStatus = 'Principal';
 
   selectStatus(stat: string) {
     this.selectedStatus = stat;
     //falta condicion para llamar a otros componentes segun el stat selecionado
     switch (stat) {
       case 'Principal':
-        // Aquí puedes realizar acciones específicas para la opción 1
-        this.panelComponent.selectedStatus = stat;
+        if (this.panelComponent) {
+          this.panelComponent.selectedStatus = stat;
+        }
         break;
       case 'Gestion de carteras':
-        this.carteraComponent.selectedStatus = stat;
-        // Aquí puedes realizar acciones específicas para la opción 2
+        if (this.carteraComponent) {
+          this.carteraComponent.selectedStatus = stat;
+        }
         break;
       case 'Soporte':
-        // Aquí puedes realizar acciones específicas para la opción 3
-        this.soporteComponent.selectedStatus = stat;
+        if (this.soporteComponent) {
+          this.soporteComponent.selectedStatus = stat;
+        }
         break;
       case 'Mi cuenta':
-        this.micuentaComponent.selectedStatus = stat;
+        if (this.micuentaComponent) {
+          this.micuentaComponent.selectedStatus = stat;
+        }
         break;
       default:
         console.log('Opción no válida, intenta de nuevo.');
