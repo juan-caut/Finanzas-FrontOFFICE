@@ -2,6 +2,8 @@ import { Component, inject, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TabpanelComponent } from '../tabpanel/tabpanel.component';
 import { Router } from '@angular/router';
+import { ApiService } from '../../api/api.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @Component({
@@ -9,7 +11,7 @@ import { Router } from '@angular/router';
   standalone: true,
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
-  imports: [FormsModule ], // Módulos necesarios se importan directamente aquí
+  imports: [FormsModule,HttpClientModule ], // Módulos necesarios se importan directamente aquí
 
 })
 export class LoginComponent {
@@ -17,7 +19,7 @@ export class LoginComponent {
   
   @ViewChild(TabpanelComponent) panelComponent!: TabpanelComponent;
 
-  constructor(private router: Router) {}
+  constructor( private router: Router,  private apiService:ApiService) {}
 
 
   user = {
@@ -27,10 +29,16 @@ export class LoginComponent {
   };
 
   onSubmit() {
-    console.log('User:', this.user);
-    // Aquí puedes agregar la lógica de autenticación
-    this.router.navigate(['/panel']);
 
+    this.apiService.getData(this.user.email, this.user.password).subscribe({
+      next: (response) => {
+        console.log('API Response:', response);
+        this.router.navigate(['/panel']);
+      },
+      error: (err) => {
+        console.error('Error al autenticar:', err);
+      }
+    });
   }
  
 }
