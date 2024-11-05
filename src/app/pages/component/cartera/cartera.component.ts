@@ -113,15 +113,17 @@ export class CarteraComponent {
     this.monedadoc = '';
   }
 
-  
+  ///VER DETALLLE DE LETRA O FACTURA
   @ViewChild(LetrasComponent) letraComponent!: LetrasComponent;
   @ViewChild(FacturasComponent) facturaComponent!: FacturasComponent;
 
   goListLetFac(idLetFac:string){
 
     this.goLetrasoFac=true;
-   
+   ///asignar el ID DE LA CARTERA 
 
+  // this.letraComponent.
+  // this.facturaComponent
 
   }
 }

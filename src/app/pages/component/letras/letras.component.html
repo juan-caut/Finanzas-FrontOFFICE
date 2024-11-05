@@ -1,71 +1,198 @@
-<div class="header">
-  <h2 class="title-list">Cartera - Letras</h2>
+<div *ngIf="goLetraDetail === false">
+  <div class="header">
+    <h2 class="title-list">Cartera - Letras</h2>
+    <button (click)="openRegistrarLetra()" class="add-letra">
+      Agregar letra
+    </button>
+  </div>
+
+  <div class="table-container">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <!-- Checkbox Column -->
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox
+            (change)="toggleSelectAll()"
+            [checked]="isAllSelected()"
+            indeterminate="isAnySelected()"
+          ></mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox
+            (change)="toggleRowSelection(row)"
+            [checked]="selection.isSelected(row)"
+          ></mat-checkbox>
+        </td>
+      </ng-container>
+
+      <!-- Order ID Column -->
+      <ng-container matColumnDef="idletra">
+        <th mat-header-cell *matHeaderCellDef>ID Letra</th>
+        <td mat-cell *matCellDef="let doc">{{ doc.idletra }}</td>
+      </ng-container>
+
+      <!-- City Column -->
+      <ng-container matColumnDef="numletra">
+        <th mat-header-cell *matHeaderCellDef>Num Letra</th>
+        <td mat-cell *matCellDef="let doc">{{ doc.numletra }}</td>
+      </ng-container>
+
+      <!-- Country Column -->
+      <ng-container matColumnDef="fechaemision">
+        <th mat-header-cell *matHeaderCellDef>Fecha Emision</th>
+        <td mat-cell *matCellDef="let doc">{{ doc.fechaemision }}</td>
+      </ng-container>
+
+      <!-- Region Column -->
+      <ng-container matColumnDef="fechavencim">
+        <th mat-header-cell *matHeaderCellDef>Fecha Vencimiento</th>
+        <td mat-cell *matCellDef="let doc">{{ doc.fechavencim }}</td>
+        
+        
+      </ng-container>
+
+      <!-- Date Column -->
+      <ng-container matColumnDef="tasaefectiva">
+        <th mat-header-cell *matHeaderCellDef>Tasa Efectiva</th>
+        <td mat-cell *matCellDef="let doc">{{ doc.tasaefectiva }}</td>
+      </ng-container>
+
+      <!-- Amount Column -->
+      <ng-container matColumnDef="valornominal">
+        <th mat-header-cell *matHeaderCellDef>Valor Nominal</th>
+        <td mat-cell *matCellDef="let doc">{{ doc.valornominal }}</td>
+      </ng-container>
+
+      <!-- Detail Button Column -->
+      <ng-container matColumnDef="detalle">
+        <th mat-header-cell *matHeaderCellDef>Detalle</th>
+        <td mat-cell *matCellDef="let doc" class="detalle-column">
+          <mat-icon (click)="verLetradetail(doc.id)">visibility</mat-icon>
+        </td>
+      </ng-container>
+
+      <!-- Header and Row Declarations -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-paginator
+      [length]="dataSource.data.length"
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+    >
+    </mat-paginator>
+  </div>
+
+  <!--==================================================DIALOG INSERT LETRA====================================================-->
+  <div class="custom-dialog-overlay" *ngIf="isDialogOpen">
+    <div class="custom-dialog">
+      <h2 class="dialog-title">Alta Letra</h2>
+
+      <div class="dialog-content">
+        <div class="form-field">
+          <label for="numletra">Num Letra</label>
+          <input id="numletra" type="text" [(ngModel)]="numletra" />
+        </div>
+
+        <div class="form-field">
+          <label for="fechaemision">Fecha de Emision</label>
+          <input id="fechaemision" type="text" [(ngModel)]="fechaemision" />
+          <mat-card class="demo-inline-calendar-card">
+            <mat-calendar [(selected)]="selected"></mat-calendar>
+          </mat-card>
+          <p>Selected date: {{selected()}}</p>
+          >
+        </div>
+
+        <div class="form-field">
+          <label for="fechavencim">Fecha de Vencimiento</label>
+          <input id="fechavencim" type="text" [(ngModel)]="fechavencim" />
+        </div>
+
+        <!-- INGRESAR TASA EFECTIVA O NOMINAL -->
+
+        <div class="tab-container">
+          <!-- Encabezados de las pestañas -->
+          <div class="tab-headers">
+            <button
+              class="tab-link"
+              [ngClass]="{ active: activeTab === 'tab1' }"
+              (click)="openTab('tab1')"
+            >
+              Tasa Efectiva
+            </button>
+            <button
+              class="tab-link"
+              [ngClass]="{ active: activeTab === 'tab2' }"
+              (click)="openTab('tab2')"
+            >
+              Tasa Nominal
+            </button>
+          </div>
+
+          <!-- Contenido de cada pestaña -->
+          <div *ngIf="activeTab === 'tab1'" class="tab-content">
+            <div class="form-field">
+              <input
+                id="tasaefectiva"
+                type="number"
+                [(ngModel)]="tasaefectiva"
+              />
+            </div>
+          </div>
+
+          <div *ngIf="activeTab === 'tab2'" class="tab-content">
+            
+            <div class="form-field">
+              <label for="tasanomconv">Tasa Nominal</label>
+              <input id="tasanomconv" type="text" [(ngModel)]="tasaefectiva" />
+
+              <label for="tipotasa">Tipo de Tasa</label>
+              <select id="tipotasa" [(ngModel)]="fechavencim">
+                <option value="360">Tasa Nominal Anual (TNA)</option>
+                <option value="180">Tasa Nominal Semestral (TNS)</option>
+                <option value="120">Tasa Nominal Cuatrimestral (TNC)</option>
+                <option value="90">Tasa Nominal Trimestral (TNT)</option>
+                <option value="60">Tasa Nominal Bimestral (TNB)</option>
+                <option value="30">Tasa Nominal Mensua (TNM)</option>
+                <option value="15">Tasa Nominal Quincenal (TNQ)</option>
+                <option value="1">Tasa Nominal Diaria (TND)</option>
+              </select>
+
+              <label for="capitalizacion">Capitalización</label>
+              <select id="capitalizacion" [(ngModel)]="fechavencim">
+                <option value="360">ANUAL</option>
+                <option value="180">SEMESTRAL</option>
+                <option value="120">CUATRIMENTRAL</option>
+                <option value="90">TRIMESTRAL</option>
+                <option value="60">BIMESTRAL</option>
+                <option value="30">MENSUAL</option>
+                <option value="15">QUINCENAL</option>
+                <option value="1">DIARIA</option>
+              </select>
+
+              <button class="bt-calctea">Calcular Tasa Efectiva Anual (TEA)</button>              
+              <input id="teacalc" type="text"[readonly]="true"  [(ngModel)]="fechavencim" />
+            
+            </div>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="valornominal">Valor Nominal</label>
+          <input id="valornominal" type="number" [(ngModel)]="valornominal" />
+        </div>
+      </div>
+
+      <div class="dialog-actions">
+        <button class="cancel-button" (click)="onCancel()">CANCELAR</button>
+        <button class="confirm-button" (click)="onRegister()">REGISTRAR</button>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="table-container">
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-    <!-- Checkbox Column -->
-    <ng-container matColumnDef="select">
-      <th mat-header-cell *matHeaderCellDef>
-        <mat-checkbox
-          (change)="toggleSelectAll()"
-          [checked]="isAllSelected()"
-          indeterminate="isAnySelected()"
-        ></mat-checkbox>
-      </th>
-      <td mat-cell *matCellDef="let row">
-        <mat-checkbox
-          (change)="toggleRowSelection(row)"
-          [checked]="selection.isSelected(row)"
-        ></mat-checkbox>
-      </td>
-    </ng-container>
-
-    <!-- Order ID Column -->
-    <ng-container matColumnDef="orderId">
-      <th mat-header-cell *matHeaderCellDef>Order ID</th>
-      <td mat-cell *matCellDef="let order">{{ order.orderId }}</td>
-    </ng-container>
-
-    <!-- City Column -->
-    <ng-container matColumnDef="city">
-      <th mat-header-cell *matHeaderCellDef>City</th>
-      <td mat-cell *matCellDef="let order">{{ order.city }}</td>
-    </ng-container>
-
-    <!-- Country Column -->
-    <ng-container matColumnDef="country">
-      <th mat-header-cell *matHeaderCellDef>Country</th>
-      <td mat-cell *matCellDef="let order">{{ order.country }}</td>
-    </ng-container>
-
-    <!-- Region Column -->
-    <ng-container matColumnDef="region">
-      <th mat-header-cell *matHeaderCellDef>Region</th>
-      <td mat-cell *matCellDef="let order">{{ order.region }}</td>
-    </ng-container>
-
-    <!-- Date Column -->
-    <ng-container matColumnDef="date">
-      <th mat-header-cell *matHeaderCellDef>Date</th>
-      <td mat-cell *matCellDef="let order">{{ order.date }}</td>
-    </ng-container>
-
-    <!-- Amount Column -->
-    <ng-container matColumnDef="amount">
-      <th mat-header-cell *matHeaderCellDef>Amount</th>
-      <td mat-cell *matCellDef="let order">{{ order.amount }}</td>
-    </ng-container>
-
-    <!-- Header and Row Declarations -->
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
-
-  <mat-paginator
-    [length]="10"
-    [pageSize]="10"
-    [pageSizeOptions]="[5, 10, 25, 100]"
-  >
-  </mat-paginator>
+<div *ngIf="goLetraDetail === true">
+  <app-detail-letras></app-detail-letras>
 </div>
