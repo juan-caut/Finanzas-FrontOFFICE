@@ -31,7 +31,7 @@ export interface carteraGrabar {
 
 export class ApiService {
   private url = 'http://localhost:8080'
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
   public getData(username: string, password: string): Observable<any> {
     const url = `${this.url}/api/usuario/login/${username}/${password}`;
     return this.http.get(url, { responseType: 'text' }).pipe(

@@ -8,7 +8,7 @@
     </button>
   </div>
 
-  <div *ngIf="listCart.length > 0; else noCarts" style="height: 300px; overflow-y: scroll;">
+  <div *ngIf="listCart.length > 0; else noCarts">
     <section class="task-list">
       <div>
         <div class="task-item" *ngFor="let cart of listCart"  (click)="goListLetFac(cart.idcartera)">
