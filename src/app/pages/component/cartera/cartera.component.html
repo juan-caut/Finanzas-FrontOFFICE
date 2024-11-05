@@ -1,57 +1,68 @@
-<div *ngIf="filteredCart.length > 0; else noTasks">
+<div *ngIf="goLetrasoFac === false">
   <div class="header">
-    <h2 class="title-list">{{ selectedStatus }}</h2>
+    <h2 class="title-list">Carteras</h2>
     <button (click)="openRegistrarDialog()" class="add-cartera">
       Agregar cartera
     </button>
   </div>
 
-  <section class="task-list">
-    <div>
-      <div class="task-item" *ngFor="let task of filteredCart">
-        <div class="task-header">
-          <strong>{{ task.nombrec }} | {{ task.moneda }}</strong>
-          <mat-icon class="more-options">more_vert</mat-icon>
+  <div *ngIf="listCart.length > 0; else noCarts" style="height: 300px; overflow-y: scroll;">
+    <section class="task-list">
+      <div>
+        <div class="task-item" *ngFor="let cart of listCart"  (click)="goListLetFac(cart.idcartera)">
+          <div class="task-header">
+            <strong>{{ cart.nombrec }} | {{ cart.moneda }}</strong>
+            <mat-icon class="more-options">more_vert</mat-icon>
+          </div>
+          <p class="task-details">{{ cart.tipodoc }} | {{ cart.fechacrea }} | {{cart.tasaCambio}}</p>
         </div>
-        <p class="task-details">{{ task.tipodoc }} | {{ task.fechacrea }}</p>
       </div>
-    </div>
-  </section>
-</div>
+    </section>
+  </div>
 
-<ng-template #noTasks> </ng-template>
-<div class="custom-dialog-overlay" *ngIf="isDialogOpen">
-  <div class="custom-dialog">
-    <h2 class="dialog-title">Crear cartera</h2>
+  <ng-template #noCarts> <p>No hay registro de Carteras</p></ng-template>
 
-    <div class="dialog-content">
-      <div class="form-field">
-        <label for="nombre">Nombre</label>
-        <input id="nombre" type="text" [(ngModel)]="nombredoc" />
+  <!--====================DIALOG======================-->
+  <div class="custom-dialog-overlay" *ngIf="isDialogOpen">
+    <div class="custom-dialog">
+      <h2 class="dialog-title">Crear cartera</h2>
+
+      <div class="dialog-content">
+        <div class="form-field">
+          <label for="nombre">Nombre</label>
+          <input id="nombre" type="text" [(ngModel)]="nombredoc" />
+        </div>
+
+        <div class="form-field">
+          <label for="tipodoc">Tipo de documento</label>
+          <select id="tipodoc" [(ngModel)]="tipodoc">
+            <option value="Factura">Factura</option>
+            <option value="Letra">Letra</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label for="moneda">Moneda</label>
+          <select id="moneda" [(ngModel)]="monedadoc">
+            <option value="USD">USD</option>
+            <option value="PEN">PEN</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="moneda">Tasa de Cambio</label>
+          <input id="tasaCambio" type="text" [(ngModel)]="tasaCambio" />
+        </div>
       </div>
 
-      <div class="form-field">
-        <label for="tipodoc">Tipo de documento</label>
-        <select id="tipodoc" [(ngModel)]="tipodoc">
-          <option value="Factura">Factura</option>
-          <option value="Letra">Letra</option>
-        </select>
+      <div class="dialog-actions">
+        <button class="cancel-button" (click)="onCancel()">CANCELAR</button>
+        <button class="confirm-button" (click)="onRegister()">REGISTRAR</button>
       </div>
-
-      <div class="form-field">
-        <label for="moneda">Moneda</label>
-        <select id="moneda" [(ngModel)]="monedadoc">
-          <option value="USD">USD</option>
-          <option value="PEN">PEN</option>
-        </select>
-      </div>
-
-
-    </div>
-
-    <div class="dialog-actions">
-      <button class="cancel-button" (click)="onCancel()" >CANCELAR</button>
-      <button class="confirm-button" (click)="onRegister()">REGISTRAR</button>
     </div>
   </div>
+
+</div>
+
+<div *ngIf="goLetrasoFac === true">
+  <app-letras></app-letras>
 </div>

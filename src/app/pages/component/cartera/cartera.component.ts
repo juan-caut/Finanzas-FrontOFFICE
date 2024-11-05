@@ -1,7 +1,6 @@
-import { Component, inject, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import {
@@ -14,7 +13,19 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/select';
+import { DetailLetrasComponent } from "../detail-letras/detail-letras.component";
+import { LetrasComponent } from '../letras/letras.component';
+import { FacturasComponent } from '../facturas/facturas.component';
+import { ApiService, carteraGrabar } from '../../../api/api.service';
 
+interface Cartera {
+  idcartera: string;
+  nombrec: string;
+  fechacrea: string;
+  tipodoc: string;
+  moneda: string;
+  tasaCambio: string;
+}
 @Component({
   selector: 'app-cartera',
   standalone: true,
@@ -31,91 +42,102 @@ import { MatOption } from '@angular/material/select';
     FormsModule,
     MatSelect,
     MatOption,
+    DetailLetrasComponent,
+    LetrasComponent
   ],
   templateUrl: './cartera.component.html',
   styleUrls: ['./cartera.component.css'], // Cambié `styleUrl` por `styleUrls`
 })
-export class CarteraComponent {
-  selectedStatus: string = 'Gestion de carteras';
+export class CarteraComponent implements OnInit {
+  constructor(private carteraService: ApiService) {  }
 
-  cartera: Cartera[] = [
-    {
-      nombrec: 'LETRAS OCTUBRE A NOVIEMBRE 2025',
-      tipodoc: 'LETRA',
-      fechacrea: '2023/09/16',
-      moneda: 'USD',
-      configstat: 'Gestion de carteras',
-    },
-    {
-      nombrec: 'New Website Design',
-      tipodoc: 'FACTURA',
-      fechacrea: '2023/09/16',
-      moneda: 'PEN',
-      configstat: 'Gestion de carteras',
-    },
-    {
-      nombrec: 'Bandwidth Increase',
-      tipodoc: 'LETRA',
-      fechacrea: '2023/09/16',
-      moneda: 'PEN',
-      configstat: 'Gestion de carteras',
-    },
-    {
-      nombrec: 'Support',
-      tipodoc: 'FACTURA',
-      fechacrea: '2023/09/16',
-      moneda: 'USD',
-      configstat: 'In Progress',
-    },
-    {
-      nombrec: 'Training Material',
-      tipodoc: 'LETRA',
-      fechacrea: '2023/09/16',
-      moneda: 'PEN',
-      configstat: 'Gestion de carteras',
-    },
-  ];
+  cartera: Cartera[] = [];
+  ngOnInit(): void {
+    const userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
+    console.log('esto es la cartera', userData)
 
-  get filteredCart() {
-    return this.cartera.filter(
-      (cartera) => cartera.configstat === this.selectedStatus
-    );
+    const activate = this.carteraService.getlistCartera(userData.iduser);
+    activate.forEach((data) => {
+      data.map(datareal => (
+        this.cartera = [...this.cartera, { idcartera: datareal.idCartera, nombrec: datareal.nombreCartera, moneda: datareal.moneda, tipodoc: datareal.tipoDoc, fechacrea: datareal.fechaCreacion, tasaCambio: datareal.tasaCambio }]
+      ))
+    });
+    console.log('esto es la cartera', this.cartera)
   }
 
-  ///// DIALOG
+  selectedStatus: string = 'Gestion de carteras';
+  goLetrasoFac: boolean = false;
+  get listCart() {
+    return this.cartera;
+  }
+  ///// ==========================================DIALOG REGISTRO CARTERA
   isDialogOpen = false; // Controla la visibilidad del diálogo
   nombredoc: string = '';
   tipodoc: string = '';
   monedadoc: string = '';
-
+  tasaCambio: string = '';
   openRegistrarDialog(): void {
     this.isDialogOpen = true; // Con
   }
-  
-    onCancel(): void {
+  onCancel(): void {
     this.isDialogOpen = false; // Cierra el diálogo
-   
   }
-
   onRegister(): void {
+
+    const userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
+    const tasaCambioNum = parseFloat(this.tasaCambio);
+    if (isNaN(tasaCambioNum) || tasaCambioNum <= 0) {
+      console.error('La tasa de cambio debe ser un número válido mayor que 0.');
+      return;
+    }
     const data = {
       nombre: this.nombredoc,
       tipo: this.tipodoc,
       moneda: this.monedadoc,
+      tasaCambio: tasaCambioNum,
     };
-    console.log('Datos registrados:', data);
+
+    const carteraData: carteraGrabar = {
+      nombreCartera: data.nombre,
+      tipoDoc: data.tipo,
+      moneda: data.moneda,
+      fechaCreador: new Date().toISOString(),
+      tasaCambio: data.tasaCambio.toString(),
+      usuarioCreador: {
+        iduser: userData.iduser, // Asegúrate de que iduser existe en el JSON
+        username: userData.username,
+        ident: userData.ident,
+        password: userData.password,
+        email: userData.email,
+        estado: userData.estado,
+        fechacreacion: userData.fechacreacion,
+        rol: {
+          idRol: userData.rol?.idRol, // Opcional: ? verifica que rol existe
+          name: userData.rol?.name,
+        }
+      }
+    };
+    console.log('esta el el json ', carteraData)
+    this.carteraService.createCartera(carteraData).subscribe({
+      next: (response) => {
+        console.log('Cartera creada exitosamente:', response);
+      },
+      error: (err) => {
+        console.error('Error al crear la cartera:', err);
+      }
+    });
     this.isDialogOpen = false;
-    // Restablece los campos del formulario
     this.nombredoc = '';
     this.tipodoc = '';
     this.monedadoc = '';
+    this.tasaCambio = '';
   }
+  @ViewChild(LetrasComponent) letraComponent!: LetrasComponent;
+  @ViewChild(FacturasComponent) facturaComponent!: FacturasComponent;
+  goListLetFac(idLetFac: string) {
+    this.goLetrasoFac = true;
+  }
+
+
 }
 
-interface Cartera {
-  nombrec: string;
-  fechacrea: string;
-  tipodoc: string;
-  moneda: string;
-  configstat: string;
-}

@@ -23,17 +23,25 @@ export class LoginComponent {
 
 
   user = {
-    email: '',
+    username: '',
     password: '',
     rememberMe: false
   };
 
   onSubmit() {
 
-    this.apiService.getData(this.user.email, this.user.password).subscribe({
+    this.apiService.getData(this.user.username, this.user.password).subscribe({
       next: (response) => {
-        console.log('API Response:', response);
-        this.router.navigate(['/panel']);
+        this.apiService.getdataUser(this.user.username).subscribe({
+          next: (userData) => {
+           sessionStorage.setItem('userData', JSON.stringify(userData));
+           console.log('data',userData)
+            this.router.navigate(['/panel']);
+          },
+          error: (err) => {
+            console.error('Error al obtener los datos del usuario:', err);
+          }
+        });
       },
       error: (err) => {
         console.error('Error al autenticar:', err);
