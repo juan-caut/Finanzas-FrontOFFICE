@@ -97,25 +97,23 @@
 
         <div class="form-field">
           <label for="fechaemision">Fecha de Emision</label>
-          <input id="fechaemision" type="text" [(ngModel)]="fechaemision" placeholder="DD/MM/AAAA"  (focus)="showCalendar()" readonly/>
-          <mat-card *ngIf="isCalendarVisible" class="demo-inline-calendar-card">
-            <mat-datepicker-toggle matSuffix (click)="hideCalendar()">
-              <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-            </mat-datepicker-toggle>
-            <mat-calendar [(selected)]="selected" (selectedChange)="onDateChange($event)"></mat-calendar>
-          </mat-card>
+          <mat-form-field class="mat-form-date">
+            <input placeholder="MM/DD/YYYY" class="date-imput" matInput [matDatepicker]="picker1" [(ngModel)]="fechaemision">
+            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker  #picker1></mat-datepicker>
+          </mat-form-field>
         </div>
-        
+
         <div class="form-field">
           <label for="fechavencim">Fecha de Vencimiento</label>
-          <input id="fechavencim" type="text" [(ngModel)]="fechavencim" placeholder="DD/MM/AAAA"  (focus)="showCalendar1()" readonly/>
-          <mat-card *ngIf="isCalendar2Visible" class="demo-inline-calendar-card">
-            <mat-datepicker-toggle matSuffix (click)="hideCalendar2()">
-              <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-            </mat-datepicker-toggle>
-            <mat-calendar [(selected)]="selected2" (selectedChange)="onDateChange2($event)"></mat-calendar>
-          </mat-card>
+          <mat-form-field class="mat-form-date">
+            <input placeholder="MM/DD/YYYY" class="date-imput" matInput [matDatepicker]="picker2" [(ngModel)]="fechavencim">
+            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker  #picker2></mat-datepicker>
+          </mat-form-field>
+          
         </div>
+        
 
         <!-- INGRESAR TASA EFECTIVA O NOMINAL -->
 
@@ -141,6 +139,8 @@
           <!-- Contenido de cada pestaña -->
           <div *ngIf="activeTab === 'tab1'" class="tab-content">
             <div class="form-field">
+              
+              <label>Tasa Efectiva Anual</label>
               <input
                 id="tasaefectiva"
                 type="number"
@@ -153,7 +153,7 @@
             
             <div class="form-field">
               <label for="tasanomconv">Tasa Nominal</label>
-              <input id="tasanomconv" type="text" [(ngModel)]="tasanominal" />
+              <input id="tasanomconv" type="number" [(ngModel)]="tasanominal" />
 
               <label for="tipotasa">Tipo de Tasa</label>
               <select id="tipotasa" [(ngModel)]="tipotasanominal">
@@ -180,7 +180,7 @@
               </select>
 
               <button class="bt-calctea">Calcular Tasa Efectiva Anual (TEA)</button>              
-              <input id="teacalc" type="text"[readonly]="true"  [(ngModel)]="teacalc" />
+              <input id="teacalc" type="number"[readonly]="true"  [(ngModel)]="teacalc" />
             
             </div>
           </div>
