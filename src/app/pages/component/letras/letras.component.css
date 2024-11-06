@@ -21,12 +21,18 @@
   background-color: white;
   max-width: 100%;
   overflow: auto;
+  /*SCROLL TABLE*/
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  max-height: 85vh; /* Limita la altura del diálogo en general */
+  overflow-y: auto; /* Activa el desplazamiento vertical */
+  padding-right: 10px; /* Espacio para el scrollbar */
 }
 
 table {
   width: 100%;
   background-color: white;
-  border:  1px solid #ddd;;
 }
 
 .mat-column-select,
@@ -169,6 +175,7 @@ table {
   padding: 0px;
   border: none;
   margin: 0px;
+border-radius: 0px;
   font-size: 16px;
 }
 
@@ -179,7 +186,7 @@ table {
 .dialog-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 30px;
+  gap: 8px;
 }
 
 .cancel-button,

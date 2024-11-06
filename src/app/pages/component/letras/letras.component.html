@@ -47,13 +47,11 @@
       <ng-container matColumnDef="fechavencim">
         <th mat-header-cell *matHeaderCellDef>Fecha Vencimiento</th>
         <td mat-cell *matCellDef="let doc">{{ doc.fechavencim }}</td>
-        
-        
       </ng-container>
 
       <!-- Date Column -->
       <ng-container matColumnDef="tasaefectiva">
-        <th mat-header-cell *matHeaderCellDef>Tasa Efectiva</th>
+        <th mat-header-cell *matHeaderCellDef>TEA</th>
         <td mat-cell *matCellDef="let doc">{{ doc.tasaefectiva }}</td>
       </ng-container>
 
@@ -97,7 +95,7 @@
 
         <div class="form-field">
           <label for="fechaemision">Fecha de Emision</label>
-          <mat-form-field class="mat-form-date">
+          <mat-form-field appearance="outline" class="mat-form-date">
             <input placeholder="MM/DD/YYYY" class="date-imput" matInput [matDatepicker]="picker1" [(ngModel)]="fechaemision">
             <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker  #picker1></mat-datepicker>
@@ -106,7 +104,7 @@
 
         <div class="form-field">
           <label for="fechavencim">Fecha de Vencimiento</label>
-          <mat-form-field class="mat-form-date">
+          <mat-form-field appearance="outline" class="mat-form-date">
             <input placeholder="MM/DD/YYYY" class="date-imput" matInput [matDatepicker]="picker2" [(ngModel)]="fechavencim">
             <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
             <mat-datepicker  #picker2></mat-datepicker>

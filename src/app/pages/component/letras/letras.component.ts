@@ -131,44 +131,7 @@ export class LetrasComponent implements  AfterViewInit {
     this.activeTab = tabId;
   }
 
-  //================CALENDAR============
-  selected: Date | null = null;
-  selected2: Date | null = null;
-  isCalendarVisible: boolean = false;
-  isCalendar2Visible: boolean = false;
-
-  showCalendar(): void {
-    this.isCalendarVisible = true;
-  }
-  showCalendar1(): void {
-    this.isCalendar2Visible = true;
-  }
-
-  hideCalendar(): void {
-    // Usamos un pequeño retardo para permitir la selección antes de ocultar
-    setTimeout(() => this.isCalendarVisible = false, 50);
-  }
-  hideCalendar2(): void {
-    // Usamos un pequeño retardo para permitir la selección antes de ocultar
-    setTimeout(() => this.isCalendar2Visible = false, 50);
-  }
-
-  onDateChange(date: Date): void {
-    this.isCalendarVisible = false;  // Oculta el calendario después de seleccionar una fecha
-    // Convertir la fecha seleccionada al formato DD/MM/AAAA
-    this.fechaemision = formatDate(date, 'dd/MM/yyyy', 'en-US');
-  }
-  onDateChange2(date: Date): void {
-    this.isCalendar2Visible = false;  // Oculta el calendario después de seleccionar una fecha
-    // Convertir la fecha seleccionada al formato DD/MM/AAAA
-    this.fechavencim = formatDate(date, 'dd/MM/yyyy', 'en-US');
-  }
-
-  
-
 }
-
-
 
 interface Letra {
   idletra: number;
