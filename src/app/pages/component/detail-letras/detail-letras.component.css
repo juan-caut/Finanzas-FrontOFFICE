@@ -1,23 +1,40 @@
 /* ------------------------------------ TITLE  List */
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: white;
-    padding: 15px 20px;
-  
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .title-list {
-    color: #000;
-    margin: 0;
-    font-size: 1.5rem;
-    font-weight: 500;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 15px 20px;
 
-  
+  border-bottom: 1px solid #ddd;
+}
 
+.title-list {
+  color: #000;
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
 
+.detail-letra-expansion {
+  margin: 20px;
+  border:  1px solid #ddd;;
+}
+.expansion-panel-detail-letra {
+  border-radius: 0%;
+  box-shadow: none;
+}
+.expansion-panel-detail-letra .mat-expansion-panel-header {
+  background-color: white;
+  border: 1px solid #ddd;
+}
 
-  
+.mat-expansion-panel:not([class*=mat-elevation-z]) {
+  box-shadow: none;
+}
+
+.divider-expansion-panels{
+  height: 30px;
+  width: 100%;
+
+}

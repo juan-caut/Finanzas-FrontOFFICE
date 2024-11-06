@@ -2,16 +2,35 @@
   <h2 class="title-list">Cartera - Letras - Detalle Letra</h2>
 </div>
 
-
-<div @transitionMessages>
-
-  <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false) ">
+<div class="detail-letra-expansion">
+  <mat-expansion-panel
+    class="expansion-panel-detail-letra"
+    [expanded]="panelOpenState()"
+    (opened)="panelOpenState.set(true)"
+    (closed)="panelOpenState.set(false)"
+  >
     <mat-expansion-panel-header>
-      <mat-panel-title> Self aware panel </mat-panel-title>
-      <mat-panel-description>
-        Currently I am {{panelOpenState() ? 'open' : 'closed'}}
-      </mat-panel-description>
+      <mat-panel-description>Nombre Letra</mat-panel-description>
+      <mat-panel-description>Valor Nominal</mat-panel-description>
+      <mat-panel-description>Fecha de Vencimiento</mat-panel-description>
     </mat-expansion-panel-header>
+
+    <p>I'm visible because I am open</p>
+  </mat-expansion-panel>
+</div>
+
+
+<div class="detail-letra-expansion">
+  <mat-expansion-panel
+    class="expansion-panel-detail-letra"
+    [expanded]="panelOpenState2()"
+    (opened)="panelOpenState2.set(true)"
+    (closed)="panelOpenState2.set(false)"
+  >
+    <mat-expansion-panel-header>
+      <mat-panel-description>Descuento</mat-panel-description>
+    </mat-expansion-panel-header>
+
     <p>I'm visible because I am open</p>
   </mat-expansion-panel>
 </div>
