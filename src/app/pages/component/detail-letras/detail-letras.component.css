@@ -16,6 +16,9 @@
   font-weight: 500;
 }
 
+/* ------------------------------------ TITLE  List */
+/* ------------------------------------ EXPANSION CSS */
+
 .detail-letra-expansion {
   margin: 20px;
   border:  1px solid #ddd;;
@@ -38,3 +41,31 @@
   width: 100%;
 
 }
+
+/* ------------------------------------ TITLE  List */
+/* ------------------------------------ DATA LETRA */
+
+.letra-details {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.letra-detail-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.detail-label {
+  font-weight: bold;
+  color: #333;
+}
+
+.detail-value {
+  color: #555;
+}
+
+
+

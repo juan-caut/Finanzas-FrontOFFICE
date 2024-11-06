@@ -10,12 +10,38 @@
     (closed)="panelOpenState.set(false)"
   >
     <mat-expansion-panel-header>
-      <mat-panel-description>Nombre Letra</mat-panel-description>
-      <mat-panel-description>Valor Nominal</mat-panel-description>
-      <mat-panel-description>Fecha de Vencimiento</mat-panel-description>
+      <mat-panel-description>Num Letra: {{letra.numletra}}</mat-panel-description>
+      <mat-panel-description>Fecha Vencimiento: {{letra.fechavencim}}</mat-panel-description>
+      <mat-panel-description>Valor Nominal: {{letra.valornominal}}</mat-panel-description>
     </mat-expansion-panel-header>
 
-    <p>I'm visible because I am open</p>
+    <!-- Detalle de los datos de la letra -->
+    <div class="letra-details">
+      <div class="letra-detail-item">
+        <span class="detail-label">ID Letra:</span>
+        <span class="detail-value">{{ letra.idletra }}</span>
+      </div>
+      <div class="letra-detail-item">
+        <span class="detail-label">Num Letra:</span>
+        <span class="detail-value">{{ letra.numletra }}</span>
+      </div>
+      <div class="letra-detail-item">
+        <span class="detail-label">Fecha Emisión:</span>
+        <span class="detail-value">{{ letra.fechaemision }}</span>
+      </div>
+      <div class="letra-detail-item">
+        <span class="detail-label">Fecha Vencimiento:</span>
+        <span class="detail-value">{{ letra.fechavencim }}</span>
+      </div>
+      <div class="letra-detail-item">
+        <span class="detail-label">Tasa Efectiva:</span>
+        <span class="detail-value">{{ letra.tasaefectiva }}%</span>
+      </div>
+      <div class="letra-detail-item">
+        <span class="detail-label">Valor Nominal:</span>
+        <span class="detail-value">{{ letra.valornominal }}</span>
+      </div>
+    </div>
   </mat-expansion-panel>
 </div>
 

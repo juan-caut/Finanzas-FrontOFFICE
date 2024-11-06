@@ -20,6 +20,22 @@ export class DetailLetrasComponent {
   readonly panelOpenState = signal(true);
   
   readonly panelOpenState2 = signal(false);
+  letra: Letra = {
+    idletra: 1,
+    numletra: '001',
+    fechaemision: '2024-11-05',
+    fechavencim: '2025-11-05',
+    tasaefectiva: '5.00',
+    valornominal: '1000.00'
+  };
 
+}
 
+interface Letra {
+  idletra: number;
+  numletra:string;
+  fechaemision: string;
+  fechavencim: string;
+  tasaefectiva: string;
+  valornominal: string;
 }
