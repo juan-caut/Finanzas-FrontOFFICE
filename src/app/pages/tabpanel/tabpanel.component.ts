@@ -3,15 +3,23 @@ import { CommonModule } from '@angular/common'; // 👈 Reemplaza BrowserModule 
 
 import { MatIconModule } from '@angular/material/icon'; // 👈 Importamos el módulo
 import { CarteraComponent } from '../component/cartera/cartera.component';
-import { PanelComponent } from "../panel/panel.component";
-import { SuportComponent } from "../suport/suport.component";
-import { MicuentaComponent } from "../micuenta/micuenta.component";
+import { PanelComponent } from '../panel/panel.component';
+import { SuportComponent } from '../suport/suport.component';
+import { MicuentaComponent } from '../micuenta/micuenta.component';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-tabpanel',
   standalone: true,
   // 👇 Importamos los módulos necesarios directamente en el componente standalone.
-  imports: [CommonModule, MatIconModule, CarteraComponent, PanelComponent, SuportComponent, MicuentaComponent],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    CarteraComponent,
+    PanelComponent,
+    SuportComponent,
+    MicuentaComponent,
+  ],
   templateUrl: './tabpanel.component.html',
   styleUrls: ['./tabpanel.component.css'], // 👈 Corrección: "styleUrl" -> "styleUrls"
   providers: [],
@@ -22,8 +30,13 @@ export class TabpanelComponent {
   @ViewChild(SuportComponent) soporteComponent!: SuportComponent;
   @ViewChild(MicuentaComponent) micuentaComponent!: MicuentaComponent;
 
-  statuses = ['Principal', 'Gestion de carteras', 'Soporte'];
-  botuses = ['Mi cuenta'];
+  
+  constructor( private router: Router) {}
+
+
+
+  statuses = ['Principal', 'Gestión de carteras', 'Soporte'];
+  botuses = ['Mi cuenta', 'Cerrar sesión'];
 
   selectedStatus = 'Principal';
 
@@ -36,7 +49,7 @@ export class TabpanelComponent {
           this.panelComponent.selectedStatus = stat;
         }
         break;
-      case 'Gestion de carteras':
+      case 'Gestión de carteras':
         if (this.carteraComponent) {
           this.carteraComponent.selectedStatus = stat;
         }
@@ -50,6 +63,12 @@ export class TabpanelComponent {
         if (this.micuentaComponent) {
           this.micuentaComponent.selectedStatus = stat;
         }
+        break;
+      case 'Cerrar sesión':
+          sessionStorage.setItem('userData','')
+          console.log("user",sessionStorage.getItem('userData'));
+          this.router.navigate(['/login']);
+          
         break;
       default:
         console.log('Opción no válida, intenta de nuevo.');

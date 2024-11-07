@@ -8,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './facturas.component.css'
 })
 export class FacturasComponent {
+  idcartera!:number;
 
 }

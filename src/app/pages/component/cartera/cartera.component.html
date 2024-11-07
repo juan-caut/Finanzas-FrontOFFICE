@@ -1,4 +1,4 @@
-<div *ngIf="goLetrasoFac === false">
+<div *ngIf="goLetras === false && goFacturas===false" >
   
   
   <div class="header">
@@ -11,7 +11,7 @@
   <div *ngIf="listCart.length > 0; else noCarts">
     <section class="task-list">
       <div>
-        <div class="task-item" *ngFor="let cart of listCart"  (click)="goListLetFac(cart.idcartera)">
+        <div class="task-item" *ngFor="let cart of listCart"  (click)="goListLetFac(cart)">  
           <div class="task-header">
             <strong>{{ cart.nombrec }} | {{ cart.moneda }}</strong>
             <mat-icon class="more-options">more_vert</mat-icon>
@@ -38,8 +38,8 @@
         <div class="form-field">
           <label for="tipodoc">Tipo de documento</label>
           <select id="tipodoc" [(ngModel)]="tipodoc">
-            <option value="Factura">Factura</option>
-            <option value="Letra">Letra</option>
+            <option value="FACTURA">Factura</option>
+            <option value="LETRA">Letra</option>
           </select>
         </div>
 
@@ -65,6 +65,10 @@
 
 </div>
 
-<div *ngIf="goLetrasoFac === true">
+<div *ngIf="goLetras === true">
   <app-letras></app-letras>
+</div>
+
+<div *ngIf="goFacturas=== true">
+  <app-facturas></app-facturas>
 </div>
