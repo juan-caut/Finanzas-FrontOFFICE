@@ -50,6 +50,7 @@ interface Cartera {
   styleUrls: ['./cartera.component.css'], // Cambié `styleUrl` por `styleUrls`
 })
 export class CarteraComponent implements OnInit, AfterViewInit {
+  
   @ViewChild(LetrasComponent) letraComponent!: LetrasComponent;
   @ViewChild(FacturasComponent) facturaComponent!: FacturasComponent;
   
@@ -155,14 +156,20 @@ export class CarteraComponent implements OnInit, AfterViewInit {
     this.tasaCambio = '';
   }
 
+
+  _idcarteraselect!:number;
+
+
   goListLetFac(carter: Cartera) {
+
+    this._idcarteraselect=carter.idcartera;
 
     if (carter.tipodoc === 'LETRA' ) {
       this.goLetras = true;
-      this.letraComponent.idcartera  = carter.idcartera;
+      this.letraComponent.idcartera  = this._idcarteraselect;
     } else if (carter.tipodoc === 'FACTURA') {
       this.goFacturas = true;
-      this.facturaComponent.idcartera = carter.idcartera;
+      this.facturaComponent.idcartera = this._idcarteraselect;
     }
   }
 }

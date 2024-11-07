@@ -42,7 +42,6 @@ export class TabpanelComponent {
 
   selectStatus(stat: string) {
     this.selectedStatus = stat;
-    //falta condicion para llamar a otros componentes segun el stat selecionado
     switch (stat) {
       case 'Principal':
         if (this.panelComponent) {

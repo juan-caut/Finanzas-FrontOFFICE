@@ -28,7 +28,7 @@ import { MatCardModule } from '@angular/material/card';  // Importa MatCardModul
 export class LetrasComponent implements  AfterViewInit {
 
   goLetraDetail:boolean=false;
-  idcartera!:number;
+  idcartera:number=0;
 
 
 
