@@ -90,8 +90,15 @@ export class CarteraComponent implements OnInit, AfterViewInit {
   }
 
   get listCart() {
-    return this.carterau;
+    return this.carterau.slice().sort((a, b) => {
+      // Convertimos las fechas a objetos Date para una comparación precisa
+      const fechaA = a.idcartera;
+      const fechaB = b.idcartera;
+  
+      return fechaA - fechaB; // Orden ascendente por fechacrea
+    });
   }
+
   isDialogOpen = false; // Controla la visibilidad del diálogo
   nombredoc: string = '';
   tipodoc: string = '';

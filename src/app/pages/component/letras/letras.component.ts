@@ -21,7 +21,7 @@ import { ApiService, letraResposive } from '../../../api/api.service';
 
 
 interface Letra {
-  nombreletra: number;
+  idletra: number;
   numletra: String;
   fechaemision: String;
   fechavencim: String;
@@ -46,7 +46,7 @@ export class LetrasComponent implements OnInit {
         console.log('Datos obtenidos:', data);
 
         const transformedData: Letra[] = data.map((letra) => ({
-          nombreletra: letra.idLetra,
+          idletra: letra.idLetra,
           numletra: letra.numeroLetra,
           fechaemision: (letra.fechaEmision).toString(),
           fechavencim: (letra.fechaVencimiento).toString(),
@@ -104,6 +104,9 @@ export class LetrasComponent implements OnInit {
   tasaefectiva: string = '';
   valornominal: string = '';
 
+  fechaemisionI: Date = new Date();
+  fechavencimI: Date = new Date();
+
   //tasanominal
   tasanominal: string = "";
   tipotasanominal: string = '';
@@ -120,27 +123,27 @@ export class LetrasComponent implements OnInit {
 
   onRegister(): void {
     const data = {
-      cartera: { idCartera: this.idcartera },
-      fechaEmision: this.fechaemision,
-      fechaVencimiento: this.fechavencim,
       numeroLetra: this.numletra,
+      fechaEmision: this.fechaemisionI.toISOString().split('T')[0],
+      fechaVencimiento: this.fechavencimI.toISOString().split('T')[0],
+      valorNominal: parseFloat(this.valornominal),
       tasaEfectiva: parseFloat(this.tasaefectiva),
-      valorNominal: parseFloat(this.valornominal)
+      cartera: this.idcartera ,
     };
     console.log('Datos registrados:', data);
     this.server.crearletra({
-      cartera: { idCartera: this.idcartera },
-      fechaEmision: this.fechaemision,
-      fechaVencimiento: this.fechavencim,
       numeroLetra: this.numletra,
+      fechaEmision: this.fechaemisionI.toISOString().split('T')[0],
+      fechaVencimiento: this.fechavencimI.toISOString().split('T')[0],
+      valorNominal: parseFloat(this.valornominal),
       tasaEfectiva: parseFloat(this.tasaefectiva),
-      valorNominal: parseFloat(this.valornominal)
+      carteraid: this.idcartera ,
     })
     this.isDialogOpen = false;
     // Restablece los campos del formulario
     this.numletra = '';
-    this.fechaemision = '';
-    this.fechavencim = '';
+    this.fechaemisionI = new Date;
+    this.fechavencimI =  new Date;
     this.tasaefectiva = '';
     this.valornominal = '';
   }

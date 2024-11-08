@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http"
 import { Injectable } from "@angular/core";
 //import test from "node:test";
 import { catchError, Observable, throwError } from "rxjs";
+
 export interface Letragrabar{
 
   numeroLetra: String,
@@ -9,10 +10,12 @@ export interface Letragrabar{
   fechaVencimiento: String,
   valorNominal: number,
   tasaEfectiva: number,
-  cartera: {
-    idCartera: number
-  }
+  carteraid: number
+  
 }
+
+
+
 
 export interface letraResposive {
   idLetra: number,
@@ -135,9 +138,11 @@ export class ApiService {
     );
   }
 
-  public crearletra(letra: Letragrabar) {
+  public crearletra(letra: Letragrabar): Observable<any> {
     const url = `${this.url}/api/letra/save`; // Cambia esto según la estructura de tu API
-    return this.http.post(url, letra).pipe(
+    console.log('letra insertando...',letra)
+    return this.http.post<any>(url, letra).pipe(
+      
       catchError((error) => {
         console.error('Error en createCartera:', error);
         return throwError(error);
