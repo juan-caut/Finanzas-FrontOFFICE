@@ -1,5 +1,5 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { AfterViewInit, Component, model, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, model, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTableModule } from '@angular/material/table';
@@ -16,40 +16,51 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';  // Importa MatCardModule
+import { ApiService, letraResposive } from '../../../api/api.service';
+//import { Init } from 'v8';
 
 
+interface Letra {
+  nombreletra: number;
+  numletra: String;
+  fechaemision: String;
+  fechavencim: String;
+  tasaefectiva: String;
+  valornominal: String;
+}
 @Component({
   selector: 'app-letras',
   standalone: true,
-  imports: [MatPaginatorModule,MatCardModule,MatNativeDateModule,MatDatepickerModule, MatCheckboxModule, MatTableModule, MatIconModule, DetailLetrasComponent,CommonModule,FormsModule,MatTabsModule, MatFormFieldModule, MatInputModule],
+  imports: [MatPaginatorModule, MatCardModule, MatNativeDateModule, MatDatepickerModule, MatCheckboxModule, MatTableModule, MatIconModule, DetailLetrasComponent, CommonModule, FormsModule, MatTabsModule, MatFormFieldModule, MatInputModule],
   templateUrl: './letras.component.html',
   styleUrl: './letras.component.css'
 })
-export class LetrasComponent implements  AfterViewInit {
 
-  goLetraDetail:boolean=false;
-  idcartera!:number;
+export class LetrasComponent implements OnInit {
+  dataSource = new MatTableDataSource<Letra>([]);
+  @Input() idcartera!: number;
+  constructor(private server: ApiService) { }
+  ngOnInit(): void {
+    this.server.listaletra(this.idcartera).subscribe(
+      (data: letraResposive[]) => {
+        console.log('Datos obtenidos:', data);
 
+        const transformedData: Letra[] = data.map((letra) => ({
+          nombreletra: letra.idLetra,
+          numletra: letra.numeroLetra,
+          fechaemision: (letra.fechaEmision).toString(),
+          fechavencim: (letra.fechaVencimiento).toString(),
+          tasaefectiva: letra.tasaEfectiva.toString(),
+          valornominal: letra.valorNominal.toString(),
+        }));
+        this.dataSource.data = transformedData;
+      },
+    )
+  }
 
+  goLetraDetail: boolean = false;
+  displayedColumns: string[] = ['select', 'idletra', 'numletra', 'fechaemision', 'fechavencim', 'tasaefectiva', 'valornominal', 'detalle'];
 
-  displayedColumns: string[] = ['select','idletra', 'numletra', 'fechaemision', 'fechavencim', 'tasaefectiva', 'valornominal', 'detalle'];
-  
-  dataSource = new MatTableDataSource<Letra>([
-    { idletra: 10248, numletra: '234234', fechaemision: '2024-01-06', fechavencim: '2013-01-06', tasaefectiva: '10', valornominal: '10000' },
-    { idletra: 10249, numletra: '234334', fechaemision: '2024-01-06', fechavencim: '2013-01-06', tasaefectiva: '20', valornominal: '5800' },
-    { idletra: 10248, numletra: '234234', fechaemision: '2024-01-06', fechavencim: '2013-01-06', tasaefectiva: '10', valornominal: '10000' },
-    { idletra: 10249, numletra: '234334', fechaemision: '2024-01-06', fechavencim: '2013-01-06', tasaefectiva: '20', valornominal: '5800' },
-    { idletra: 10248, numletra: '234234', fechaemision: '2024-01-06', fechavencim: '2013-01-06', tasaefectiva: '10', valornominal: '10000' },
-    { idletra: 10249, numletra: '234334', fechaemision: '2024-01-06', fechavencim: '2013-01-06', tasaefectiva: '20', valornominal: '5800' },
-    { idletra: 10248, numletra: '234234', fechaemision: '2024-01-06', fechavencim: '2013-01-06', tasaefectiva: '10', valornominal: '10000' },
-    { idletra: 10249, numletra: '234334', fechaemision: '2024-01-06', fechavencim: '2013-01-06', tasaefectiva: '20', valornominal: '5800' },
-    { idletra: 10248, numletra: '234234', fechaemision: '2024-01-06', fechavencim: '2013-01-06', tasaefectiva: '10', valornominal: '10000' },
-    { idletra: 10249, numletra: '234334', fechaemision: '2024-01-06', fechavencim: '2013-01-06', tasaefectiva: '20', valornominal: '5800' },
-    { idletra: 10248, numletra: '234234', fechaemision: '2024-01-06', fechavencim: '2013-01-06', tasaefectiva: '10', valornominal: '10000' },
-    { idletra: 10249, numletra: '234334', fechaemision: '2024-01-06', fechavencim: '2013-01-06', tasaefectiva: '20', valornominal: '5800' },
-    { idletra: 10248, numletra: '234234', fechaemision: '2024-01-06', fechavencim: '2013-01-06', tasaefectiva: '10', valornominal: '10000' },
-    { idletra: 10249, numletra: '234334', fechaemision: '2024-01-06', fechavencim: '2013-01-06', tasaefectiva: '20', valornominal: '5800' },
-  ]);
 
   selection = new SelectionModel<Letra>(true, []);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -80,24 +91,24 @@ export class LetrasComponent implements  AfterViewInit {
     this.selection.toggle(row);
   }
 
-  verLetradetail(idletra:string){
-    this.goLetraDetail=true;
+  verLetradetail(idletra: string) {
+    this.goLetraDetail = true;
   }
 
   ///// ==========================================DIALOG REGISTRO LETRAA
   isDialogOpen = false; // Controla la visibilidad del diálogo
 
-  numletra: string='';
-  fechaemision: string='';
-  fechavencim: string="";
-  tasaefectiva: string='';
-  valornominal:string= '';
+  numletra: string = '';
+  fechaemision: string = '';
+  fechavencim: string = "";
+  tasaefectiva: string = '';
+  valornominal: string = '';
 
   //tasanominal
-  tasanominal: string="";
-  tipotasanominal: string='';
-  capitatasanom:string= '';
-  teacalc:string= '';
+  tasanominal: string = "";
+  tipotasanominal: string = '';
+  capitatasanom: string = '';
+  teacalc: string = '';
 
   openRegistrarLetra(): void {
     this.isDialogOpen = true; // Con
@@ -109,20 +120,29 @@ export class LetrasComponent implements  AfterViewInit {
 
   onRegister(): void {
     const data = {
-      numletra: this.numletra,
-      fechaemision: this.fechaemision,
-      fechavencim: this.fechavencim,
-      tasaefectiva: this.tasaefectiva,
-      valornominal:this.valornominal
+      cartera: { idCartera: this.idcartera },
+      fechaEmision: this.fechaemision,
+      fechaVencimiento: this.fechavencim,
+      numeroLetra: this.numletra,
+      tasaEfectiva: parseFloat(this.tasaefectiva),
+      valorNominal: parseFloat(this.valornominal)
     };
     console.log('Datos registrados:', data);
+    this.server.crearletra({
+      cartera: { idCartera: this.idcartera },
+      fechaEmision: this.fechaemision,
+      fechaVencimiento: this.fechavencim,
+      numeroLetra: this.numletra,
+      tasaEfectiva: parseFloat(this.tasaefectiva),
+      valorNominal: parseFloat(this.valornominal)
+    })
     this.isDialogOpen = false;
     // Restablece los campos del formulario
-    this.numletra='';
-    this.fechaemision='';
-    this.fechavencim='';
-    this.tasaefectiva='';
-    this.valornominal='';
+    this.numletra = '';
+    this.fechaemision = '';
+    this.fechavencim = '';
+    this.tasaefectiva = '';
+    this.valornominal = '';
   }
 
   activeTab = 'tab1'; // Define una propiedad para rastrear la pestaña activa
@@ -132,13 +152,4 @@ export class LetrasComponent implements  AfterViewInit {
     this.activeTab = tabId;
   }
 
-}
-
-interface Letra {
-  idletra: number;
-  numletra:string;
-  fechaemision: string;
-  fechavencim: string;
-  tasaefectiva: string;
-  valornominal: string;
 }

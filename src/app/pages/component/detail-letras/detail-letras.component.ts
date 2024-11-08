@@ -1,4 +1,4 @@
-import { Component, model, signal,ElementRef, ViewChild  } from '@angular/core';
+import { Component, model, signal,ElementRef, ViewChild, Input, OnInit  } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -16,6 +16,24 @@ import {
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule, DatePipe } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
+
+
+interface Letra {
+  idletra: number;
+  numletra: string;
+  fechaemision: string;
+  fechavencim: string;
+  tasaefectiva: string;
+  valornominal: string;
+}
+
+interface Descuento {
+  descuento: string;
+  valorNeto: string;
+  tcea: string;
+  valorRecibido: string;
+  valorEntregado: string;
+}
 
 
 @Component({
@@ -41,7 +59,7 @@ import { MatCardModule } from '@angular/material/card';
   providers: [DatePipe], // Añade DatePipe aquí
 })
 export class DetailLetrasComponent {
-  isDialogOpen = false; // Controla la visibilidad del diálogo
+  isDialogOpen = true; // Controla la visibilidad del diálogo
   readonly panelOpenState = signal(true);
   readonly panelOpenState2 = signal(true);
   readonly panelOpenState3 = signal(true);
@@ -76,9 +94,6 @@ export class DetailLetrasComponent {
   }
 
   @ViewChild('printSection') printSection!: ElementRef;
-
-
-  // Otras propiedades y métodos de tu componente
 
   Imprimir(): void {
     const printContents = this.printSection.nativeElement.innerHTML;
@@ -164,21 +179,3 @@ export class DetailLetrasComponent {
     this.costosfinalesD = '';
   }
 }
-
-interface Letra {
-  idletra: number;
-  numletra: string;
-  fechaemision: string;
-  fechavencim: string;
-  tasaefectiva: string;
-  valornominal: string;
-}
-
-interface Descuento {
-  descuento: string;
-  valorNeto: string;
-  tcea: string;
-  valorRecibido: string;
-  valorEntregado: string;
-}
-
