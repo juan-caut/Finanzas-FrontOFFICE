@@ -65,7 +65,7 @@
 
 </div>
 
-<app-letras *ngIf="goLetras=== true"></app-letras>
+<app-letras *ngIf="goLetras && selectedCarteraId !== null" [idcartera]="selectedCarteraId"></app-letras>
 
 <div *ngIf="goFacturas=== true">
   <app-facturas></app-facturas>
