@@ -1,6 +1,56 @@
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { catchError, Observable, throwError } from "rxjs";
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpParams,
+} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+//import test from "node:test";
+import { catchError, Observable, throwError } from 'rxjs';
+import { environment } from '../../environments/environment';
+
+
+export interface Letragrabar {
+  idLetra:number;
+  numeroLetra: string;
+  fechaEmision: string;
+  fechaVencimiento: string;
+  valorNominal: number;
+  tasaEfectiva: number;
+  carteraid: number;
+}
+
+
+
+
+export interface letraResposive {
+  idLetra: number;
+  numeroLetra: String;
+  fechaEmision: Date;
+  fechaVencimiento: Date;
+  valorNominal: number;
+  tasaEfectiva: number;
+  cartera: {
+    idCartera: number;
+    nombreCartera: String;
+    fechaCreacion: Date;
+    tipoDoc: String;
+    moneda: String;
+    tasaCambio: String;
+    usuarioCreador: {
+      iduser: number;
+      username: String;
+      ident: String;
+      password: String;
+      email: String;
+      estado: String;
+      fechacreacion: Date;
+      rol: {
+        idRol: number;
+        name: String;
+      };
+    };
+  };
+}
 export interface carteraGrabar {
   nombreCartera: String;
   tipoDoc: String;
@@ -18,39 +68,59 @@ export interface carteraGrabar {
     rol: {
       idRol: number;
       name: String;
-    }
-  }
-
+    };
+  };
+}
+export interface Cartera {
+  idCartera: number;
+  nombreCartera: String;
+  fechaCreacion: String;
+  tipoDoc: String;
+  moneda: String;
+  tasaCambio: String;
+  usuarioCreador: {
+    iduser: number;
+    username: String;
+    ident: String;
+    password: String;
+    email: String;
+    estado: String;
+    fechacreacion: String;
+    rol: {
+      idRol: number;
+      name: String;
+    };
+  };
 }
 
-
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class ApiService {
-  private url = 'http://localhost:8080'
+  private url = `${environment.base}`;
+
   constructor(private http: HttpClient) {}
-  public getData(username: string, password: string): Observable<any> {
-    const url = `${this.url}/api/usuario/login/${username}/${password}`;
-    return this.http.get(url, { responseType: 'text' }).pipe(
-      catchError(this.handleError)
-    );
-  }
-  public getdataUser(username: string): Observable<any> {
-    const url = `${this.url}/api/usuario/get/${username}`;
-    return this.http.get(url).pipe(
-      catchError(this.handleError)
-    );
+  public login(username: string, password: string): Observable<any> {
+    return this.http.get(`${this.url}/api/usuario/login`, {
+      params: { username, password },
+      responseType: 'text',
+    });
   }
 
-  public getlistCartera(usuarioId:string): Observable<any[]> {
-    const url = `${this.url}/api/carteraByUser/${usuarioId}`;
-    return this.http.get<any[]>(url);
+  public getdataUser(username: string): Observable<any> {
+    const url = `${this.url}/api/usuario/get`;
+    return this.http
+      .get(url, { params: { username: username } })
+      .pipe(catchError(this.handleError));
+  }
+
+  public getlistCartera(usuarioId: number): Observable<Cartera[]> {
+    const url = `${this.url}/api/cartera/carteraByUser`;
+    console.log('idusuiario ingresado:', usuarioId);
+    return this.http.get<Cartera[]>(url, { params: { usuarioId: usuarioId } });
   }
   public createCartera(carteraData: carteraGrabar): Observable<any> {
-    const url = `${this.url}/api/api/cartera`; // Cambia esto según la estructura de tu API
+    const url = `${this.url}/api/cartera`; // Cambia esto según la estructura de tu API
     return this.http.post<any>(url, carteraData).pipe(
       catchError((error) => {
         console.error('Error en createCartera:', error);
@@ -58,6 +128,27 @@ export class ApiService {
       })
     );
   }
+  public listaletra(carteraId: number): Observable<letraResposive[]> {
+    const url = `${this.url}/api/letra/letraByCartera`; // Cambia esto según la estructura de tu API
+    return this.http.get<letraResposive[]>(url, { params: { carteraId } }).pipe(
+      catchError((error) => {
+        console.error('Error en createCartera:', error);
+        return throwError(error);
+      })
+    );
+  }
+
+  public crearletra(letra: Letragrabar): Observable<any> {
+    const url = `${this.url}/api/letra`; // Cambia esto según la estructura de tu API
+    console.log('letra insertando...', letra);
+    return this.http.post<any>(url, letra);
+  }
+
+
+
+
+
+
 
 
 

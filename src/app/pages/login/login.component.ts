@@ -1,26 +1,20 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TabpanelComponent } from '../tabpanel/tabpanel.component';
 import { Router } from '@angular/router';
 import { ApiService } from '../../api/api.service';
-import { HttpClientModule } from '@angular/common/http';
-
-
 @Component({
   selector: 'app-login',
   standalone: true,
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css',
-  imports: [FormsModule,HttpClientModule ], // Módulos necesarios se importan directamente aquí
-
+  styleUrls: ['./login.component.css'],
+  imports: [FormsModule]
 })
 export class LoginComponent {
-
   
   @ViewChild(TabpanelComponent) panelComponent!: TabpanelComponent;
 
-  constructor( private router: Router,  private apiService:ApiService) {}
-
+  constructor(private router: Router, private apiService: ApiService) {}
 
   user = {
     username: '',
@@ -29,9 +23,10 @@ export class LoginComponent {
   };
 
   onSubmit() {
+    const { username, password } = this.user;
 
-    this.apiService.getData(this.user.username, this.user.password).subscribe({
-      next: (response) => {
+    this.apiService.login(username, password).subscribe({
+      next: () => {
         this.apiService.getdataUser(this.user.username).subscribe({
           next: (userData) => {
            sessionStorage.setItem('userData', JSON.stringify(userData));
@@ -43,10 +38,7 @@ export class LoginComponent {
           }
         });
       },
-      error: (err) => {
-        console.error('Error al autenticar:', err);
-      }
+     
     });
   }
- 
 }

@@ -14,17 +14,17 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/select';
 import { DetailLetrasComponent } from '../detail-letras/detail-letras.component';
-import { LetrasComponent } from '../letras/letras.component';
 import { FacturasComponent } from '../facturas/facturas.component';
 import { ApiService, carteraGrabar } from '../../../api/api.service';
+import { LetrasComponent } from '../letras/letras.component';
 
-interface Cartera {
+interface CarteraElect {
   idcartera: number;
-  nombrec: string;
-  fechacrea: string;
-  tipodoc: string;
-  moneda: string;
-  tasaCambio: string;
+  nombrec: String;
+  fechacrea: String;
+  tipodoc: String;
+  moneda: String;
+  tasaCambio: String;
 }
 @Component({
   selector: 'app-cartera',
@@ -43,36 +43,35 @@ interface Cartera {
     MatSelect,
     MatOption,
     DetailLetrasComponent,
-    LetrasComponent,
     FacturasComponent,
   ],
   templateUrl: './cartera.component.html',
   styleUrls: ['./cartera.component.css'], // Cambié `styleUrl` por `styleUrls`
 })
 export class CarteraComponent implements OnInit, AfterViewInit {
-  
   @ViewChild(LetrasComponent) letraComponent!: LetrasComponent;
   @ViewChild(FacturasComponent) facturaComponent!: FacturasComponent;
-  
-  selectedStatus: string = 'Gestión de carteras';
 
+  selectedStatus: string = 'Gestión de carteras';
+  selectedCarteraId!: number;
   goLetras: boolean = false;
   goFacturas: boolean = false;
 
-  cartera: Cartera[] = [];
-
+  carterau: CarteraElect[] = [];
   constructor(private carteraService: ApiService) {}
 
   ngOnInit(): void {
     const userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
     console.log('esto es la cartera', userData);
 
-    const activate = this.carteraService.getlistCartera(userData.iduser);
+    const activate = this.carteraService.getlistCartera(
+      parseInt(userData.iduser)
+    );
     activate.forEach((data) => {
       data.map(
         (datareal) =>
-          (this.cartera = [
-            ...this.cartera,
+          (this.carterau = [
+            ...this.carterau,
             {
               idcartera: datareal.idCartera,
               nombrec: datareal.nombreCartera,
@@ -84,17 +83,21 @@ export class CarteraComponent implements OnInit, AfterViewInit {
           ])
       );
     });
-    console.log('esto es la cartera', this.cartera);
-  }
-  
-  ngAfterViewInit(): void {
-    // Ahora `letraComponent` y `facturaComponent` están disponibles
+    console.log('esto es la cartera', this.carterau);
   }
 
+  ngAfterViewInit(): void {}
+
   get listCart() {
-    return this.cartera;
+    return this.carterau.slice().sort((a, b) => {
+      // Convertimos las fechas a objetos Date para una comparación precisa
+      const fechaA = a.idcartera;
+      const fechaB = b.idcartera;
+
+      return fechaA - fechaB; // Orden ascendente por fechacrea
+    });
   }
-  ///// ==========================================DIALOG REGISTRO CARTERA
+
   isDialogOpen = false; // Controla la visibilidad del diálogo
   nombredoc: string = '';
   tipodoc: string = '';
@@ -144,6 +147,7 @@ export class CarteraComponent implements OnInit, AfterViewInit {
     this.carteraService.createCartera(carteraData).subscribe({
       next: (response) => {
         console.log('Cartera creada exitosamente:', response);
+        this.ngOnInit();
       },
       error: (err) => {
         console.error('Error al crear la cartera:', err);
@@ -156,20 +160,19 @@ export class CarteraComponent implements OnInit, AfterViewInit {
     this.tasaCambio = '';
   }
 
-
-  _idcarteraselect!:number;
-
-
-  goListLetFac(carter: Cartera) {
-
-    this._idcarteraselect=carter.idcartera;
-
-    if (carter.tipodoc === 'LETRA' ) {
+  goListLetFac(carter: CarteraElect) {
+    this.selectedCarteraId = carter.idcartera ? carter.idcartera : 0;
+    console.log(this.selectedCarteraId);
+    if (this.selectedCarteraId !== null) {
+      this.goLetras = carter.tipodoc === 'LETRA';
+      this.goFacturas = carter.tipodoc === 'FACTURA';
+    }
+    if (carter.tipodoc === 'LETRA') {
       this.goLetras = true;
-      this.letraComponent.idcartera  = this._idcarteraselect;
+      //this.letraComponent.idcartera  = carter.idcartera;
     } else if (carter.tipodoc === 'FACTURA') {
       this.goFacturas = true;
-      this.facturaComponent.idcartera = this._idcarteraselect;
+      //this.facturaComponent.idcartera = carter.idcartera!;
     }
   }
 }
