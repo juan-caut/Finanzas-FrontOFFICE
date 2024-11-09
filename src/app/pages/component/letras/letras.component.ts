@@ -20,6 +20,7 @@ import { ApiService, letraResposive } from '../../../api/api.service';
 //import { Init } from 'v8';
 
 
+
 interface Letra {
   idletra: number;
   numletra: String;
@@ -131,14 +132,16 @@ export class LetrasComponent implements OnInit {
       cartera: this.idcartera ,
     };
     console.log('Datos registrados:', data);
+
     this.server.crearletra({
+      idLetra:0,
       numeroLetra: this.numletra,
       fechaEmision: this.fechaemisionI.toISOString().split('T')[0],
       fechaVencimiento: this.fechavencimI.toISOString().split('T')[0],
       valorNominal: parseFloat(this.valornominal),
       tasaEfectiva: parseFloat(this.tasaefectiva),
       carteraid: this.idcartera ,
-    })
+    }).subscribe()
     this.isDialogOpen = false;
     // Restablece los campos del formulario
     this.numletra = '';

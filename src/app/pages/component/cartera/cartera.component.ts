@@ -18,6 +18,7 @@ import { LetrasComponent } from '../letras/letras.component';
 import { FacturasComponent } from '../facturas/facturas.component';
 import { ApiService, carteraGrabar } from '../../../api/api.service';
 
+
 interface CarteraElect {
   idcartera: number;
   nombrec: String;
@@ -170,10 +171,10 @@ export class CarteraComponent implements OnInit, AfterViewInit {
     }
     if (carter.tipodoc === 'LETRA' ) {
       this.goLetras = true;
-      this.letraComponent.idcartera  = carter.idcartera;
+      //this.letraComponent.idcartera  = carter.idcartera;
     } else if (carter.tipodoc === 'FACTURA') {
       this.goFacturas = true;
-      this.facturaComponent.idcartera = carter.idcartera!;
+      //this.facturaComponent.idcartera = carter.idcartera!;
     }
   }
 

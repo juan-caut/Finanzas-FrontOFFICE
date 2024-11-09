@@ -1,53 +1,55 @@
-import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpParams,
+} from '@angular/common/http';
+import { Injectable } from '@angular/core';
 //import test from "node:test";
-import { catchError, Observable, throwError } from "rxjs";
+import { catchError, Observable, throwError } from 'rxjs';
+import { environment } from '../../environments/environment';
 
-export interface Letragrabar{
 
-  numeroLetra: String,
-  fechaEmision: String,
-  fechaVencimiento: String,
-  valorNominal: number,
-  tasaEfectiva: number,
-  carteraid: number
-  
+export interface Letragrabar {
+  idLetra:number;
+  numeroLetra: string;
+  fechaEmision: string;
+  fechaVencimiento: string;
+  valorNominal: number;
+  tasaEfectiva: number;
+  carteraid: number;
 }
 
 
 
 
 export interface letraResposive {
-  idLetra: number,
-  numeroLetra: String,
-  fechaEmision: Date,
-  fechaVencimiento: Date,
-  valorNominal: number,
-  tasaEfectiva: number,
+  idLetra: number;
+  numeroLetra: String;
+  fechaEmision: Date;
+  fechaVencimiento: Date;
+  valorNominal: number;
+  tasaEfectiva: number;
   cartera: {
-    idCartera: number,
-    nombreCartera: String,
-    fechaCreacion: Date,
-    tipoDoc: String,
-    moneda: String,
-    tasaCambio: String,
+    idCartera: number;
+    nombreCartera: String;
+    fechaCreacion: Date;
+    tipoDoc: String;
+    moneda: String;
+    tasaCambio: String;
     usuarioCreador: {
-      iduser: number,
-      username: String,
-      ident: String,
-      password: String,
-      email: String,
-      estado: String,
-      fechacreacion: Date,
+      iduser: number;
+      username: String;
+      ident: String;
+      password: String;
+      email: String;
+      estado: String;
+      fechacreacion: Date;
       rol: {
-        idRol: number,
-        name: String
-      }
-    }
-  }
-
-
-
+        idRol: number;
+        name: String;
+      };
+    };
+  };
 }
 export interface carteraGrabar {
   nombreCartera: String;
@@ -66,12 +68,10 @@ export interface carteraGrabar {
     rol: {
       idRol: number;
       name: String;
-    }
-  }
-
+    };
+  };
 }
 export interface Cartera {
-
   idCartera: number;
   nombreCartera: String;
   fechaCreacion: String;
@@ -89,38 +89,38 @@ export interface Cartera {
     rol: {
       idRol: number;
       name: String;
-    }
-  }
-
+    };
+  };
 }
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class ApiService {
-  private url = 'http://localhost:8080'
-  constructor(private http: HttpClient) { }
+  private url = `${environment.base}`;
+
+  constructor(private http: HttpClient) {}
   public login(username: string, password: string): Observable<any> {
-    return this.http.get(`${this.url}/api/usuario/login`, { params: { username, password }, responseType: 'text' })
-      ;
+    return this.http.get(`${this.url}/api/usuario/login`, {
+      params: { username, password },
+      responseType: 'text',
+    });
   }
 
   public getdataUser(username: string): Observable<any> {
     const url = `${this.url}/api/usuario/get`;
-    return this.http.get(url, { params: { username: username } }).pipe(
-      catchError(this.handleError)
-    );
+    return this.http
+      .get(url, { params: { username: username } })
+      .pipe(catchError(this.handleError));
   }
 
   public getlistCartera(usuarioId: number): Observable<Cartera[]> {
-    const url = `${this.url}/api/carteraByUser`;
+    const url = `${this.url}/api/cartera/carteraByUser`;
     console.log('idusuiario ingresado:', usuarioId);
-    return this.http.get<Cartera[]>(url, { params: { usuarioId: usuarioId } })
+    return this.http.get<Cartera[]>(url, { params: { usuarioId: usuarioId } });
   }
   public createCartera(carteraData: carteraGrabar): Observable<any> {
-    const url = `${this.url}/api/api/cartera`; // Cambia esto según la estructura de tu API
+    const url = `${this.url}/api/cartera`; // Cambia esto según la estructura de tu API
     return this.http.post<any>(url, carteraData).pipe(
       catchError((error) => {
         console.error('Error en createCartera:', error);
@@ -139,16 +139,17 @@ export class ApiService {
   }
 
   public crearletra(letra: Letragrabar): Observable<any> {
-    const url = `${this.url}/api/letra/save`; // Cambia esto según la estructura de tu API
-    console.log('letra insertando...',letra)
-    return this.http.post<any>(url, letra).pipe(
-      
-      catchError((error) => {
-        console.error('Error en createCartera:', error);
-        return throwError(error);
-      })
-    );
+    const url = `${this.url}/api/letra`; // Cambia esto según la estructura de tu API
+    console.log('letra insertando...', letra);
+    return this.http.post<any>(url, letra);
   }
+
+
+
+
+
+
+
 
 
 
