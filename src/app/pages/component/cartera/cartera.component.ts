@@ -3,21 +3,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import {
-  MatDialogActions,
-  MatDialogClose,
-  MatDialogContent,
-  MatDialogTitle,
-} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatSelect } from '@angular/material/select';
-import { MatOption } from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { DetailLetrasComponent } from '../detail-letras/detail-letras.component';
 import { LetrasComponent } from '../letras/letras.component';
 import { FacturasComponent } from '../facturas/facturas.component';
 import { ApiService, carteraGrabar } from '../../../api/api.service';
-
 
 interface CarteraElect {
   idcartera: number;
@@ -33,16 +26,12 @@ interface CarteraElect {
   imports: [
     MatIconModule,
     CommonModule,
-    MatDialogContent,
-    MatDialogTitle,
-    MatDialogClose,
+    MatDialogModule, // Incluye MatDialogContent, MatDialogTitle, MatDialogActions y MatDialogClose
     MatFormFieldModule,
     MatInputModule,
-    MatDialogActions,
     MatButtonModule,
     FormsModule,
-    MatSelect,
-    MatOption,
+    MatSelectModule, // Incluye MatSelect y MatOption
     DetailLetrasComponent,
     LetrasComponent,
     FacturasComponent,
@@ -51,23 +40,23 @@ interface CarteraElect {
   styleUrls: ['./cartera.component.css'], // Cambié `styleUrl` por `styleUrls`
 })
 export class CarteraComponent implements OnInit, AfterViewInit {
-
   @ViewChild(LetrasComponent) letraComponent!: LetrasComponent;
   @ViewChild(FacturasComponent) facturaComponent!: FacturasComponent;
-  
+
   selectedStatus: string = 'Gestión de carteras';
   selectedCarteraId!: number;
   goLetras: boolean = false;
   goFacturas: boolean = false;
 
- carterau:CarteraElect[]=[];
-  constructor(private carteraService: ApiService ) {}
+  carterau: CarteraElect[] = [];
+  constructor(private carteraService: ApiService) {}
 
   ngOnInit(): void {
     const userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
     console.log('esto es la cartera', userData);
-
-    const activate = this.carteraService.getlistCartera(parseInt(userData.iduser));
+    const activate = this.carteraService.getlistCartera(
+      parseInt(userData.iduser)
+    );
     activate.forEach((data) => {
       data.map(
         (datareal) =>
@@ -86,8 +75,12 @@ export class CarteraComponent implements OnInit, AfterViewInit {
     });
     console.log('esto es la cartera', this.carterau);
   }
-  
-  ngAfterViewInit(): void {
+
+  ngAfterViewInit(): void {}
+
+  refreslist():void{
+    this.carterau = []; // Restablece el estado del array de carteras
+    this.ngOnInit();    // Reejecuta el método ngOnInit
   }
 
   get listCart() {
@@ -95,7 +88,7 @@ export class CarteraComponent implements OnInit, AfterViewInit {
       // Convertimos las fechas a objetos Date para una comparación precisa
       const fechaA = a.idcartera;
       const fechaB = b.idcartera;
-  
+
       return fechaA - fechaB; // Orden ascendente por fechacrea
     });
   }
@@ -149,7 +142,6 @@ export class CarteraComponent implements OnInit, AfterViewInit {
     this.carteraService.createCartera(carteraData).subscribe({
       next: (response) => {
         console.log('Cartera creada exitosamente:', response);
-        this.ngOnInit()
       },
       error: (err) => {
         console.error('Error al crear la cartera:', err);
@@ -159,17 +151,18 @@ export class CarteraComponent implements OnInit, AfterViewInit {
     this.nombredoc = '';
     this.tipodoc = '';
     this.monedadoc = '';
-    this.tasaCambio = '';
+    this.tasaCambio = ''; 
+    
   }
 
   goListLetFac(carter: CarteraElect) {
-    this.selectedCarteraId = carter.idcartera?carter.idcartera:0;
-    console.log(this.selectedCarteraId)
+    this.selectedCarteraId = carter.idcartera ? carter.idcartera : 0;
+    console.log(this.selectedCarteraId);
     if (this.selectedCarteraId !== null) {
       this.goLetras = carter.tipodoc === 'LETRA';
       this.goFacturas = carter.tipodoc === 'FACTURA';
     }
-    if (carter.tipodoc === 'LETRA' ) {
+    if (carter.tipodoc === 'LETRA') {
       this.goLetras = true;
       //this.letraComponent.idcartera  = carter.idcartera;
     } else if (carter.tipodoc === 'FACTURA') {
@@ -177,5 +170,4 @@ export class CarteraComponent implements OnInit, AfterViewInit {
       //this.facturaComponent.idcartera = carter.idcartera!;
     }
   }
-
 }

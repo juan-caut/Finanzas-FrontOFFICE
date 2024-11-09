@@ -1,22 +1,29 @@
-<div *ngIf="goLetras === false && goFacturas===false" >
-  
-  
+<div *ngIf="goLetras === false && goFacturas === false">
   <div class="header">
     <h2 class="title-list">Carteras</h2>
-    <button (click)="openRegistrarDialog()" class="add-cartera">
-      Agregar cartera
-    </button>
+    <div class="butons-impo">
+      <mat-icon class="button-update" (click)="refreslist()">refresh</mat-icon>
+      <button (click)="openRegistrarDialog()" class="add-cartera">
+        Agregar cartera
+      </button>
+    </div>
   </div>
 
   <div *ngIf="listCart.length > 0; else noCarts">
     <section class="task-list">
       <div>
-        <div class="task-item" *ngFor="let cart of listCart"  (click)="goListLetFac(cart)">  
+        <div
+          class="task-item"
+          *ngFor="let cart of listCart"
+          (click)="goListLetFac(cart)"
+        >
           <div class="task-header">
             <strong>{{ cart.nombrec }} | {{ cart.moneda }}</strong>
             <mat-icon class="more-options">more_vert</mat-icon>
           </div>
-          <p class="task-details">{{ cart.tipodoc }} | {{ cart.fechacrea }} | {{cart.tasaCambio}}</p>
+          <p class="task-details">
+            {{ cart.tipodoc }} | {{ cart.fechacrea }} | {{ cart.tasaCambio }}
+          </p>
         </div>
       </div>
     </section>
@@ -62,11 +69,13 @@
       </div>
     </div>
   </div>
-
 </div>
 
-<app-letras *ngIf="goLetras && selectedCarteraId !== null" [idcartera]="selectedCarteraId"></app-letras>
+<app-letras
+  *ngIf="goLetras && selectedCarteraId !== null"
+  [idcartera]="selectedCarteraId"
+></app-letras>
 
-<div *ngIf="goFacturas=== true">
+<div *ngIf="goFacturas === true">
   <app-facturas></app-facturas>
 </div>

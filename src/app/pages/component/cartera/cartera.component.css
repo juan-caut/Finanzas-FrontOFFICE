@@ -23,6 +23,28 @@
   font-weight: 500;
 }
 
+.butons-impo{
+  
+  display: flex;         /* Usamos flex para alinear en fila */
+  align-items: center;    /* Alinea verticalmente al centro */
+  gap: 8px;               /* Espacio entre los elementos */
+}
+.button-update {
+  background-color: white;
+  color: rgb(95, 95, 95);
+  border: none;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 2rem;
+  border: 1px solid #ddd;
+}
+.button-update:hover {
+  background-color: #e0e0e0;
+}
+
 .add-cartera {
   background-color: white;
   color: rgb(0, 0, 0);

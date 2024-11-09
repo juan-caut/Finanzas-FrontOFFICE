@@ -20,21 +20,12 @@ import { MatCardModule } from '@angular/material/card';
 
 interface Letra {
   idletra: number;
-  numletra: string;
-  fechaemision: string;
-  fechavencim: string;
-  tasaefectiva: string;
-  valornominal: string;
+  numletra: String;
+  fechaemision: String;
+  fechavencim: String;
+  tasaefectiva: String;
+  valornominal: String;
 }
-
-interface Descuento {
-  descuento: string;
-  valorNeto: string;
-  tcea: string;
-  valorRecibido: string;
-  valorEntregado: string;
-}
-
 
 @Component({
   selector: 'app-detail-letras',
@@ -50,7 +41,6 @@ interface Descuento {
     MatDatepickerModule,
     MatIconModule,
     CommonModule,
-    DatePipe,
     MatCardModule,
   ],
 
@@ -59,39 +49,20 @@ interface Descuento {
   providers: [DatePipe], // Añade DatePipe aquí
 })
 export class DetailLetrasComponent {
-  isDialogOpen = true; // Controla la visibilidad del diálogo
+
+  isDialogOpen = false; // Controla la visibilidad del diálogo
   readonly panelOpenState = signal(true);
   readonly panelOpenState2 = signal(true);
   readonly panelOpenState3 = signal(true);
 
-  letra: Letra = {
-    idletra: 1,
-    numletra: '001',
-    fechaemision: '2024-11-05',
-    fechavencim: '2025-11-05',
-    tasaefectiva: '5.00',
-    valornominal: '1000.00',
-  };
-  descuento:Descuento={
-    descuento: "1234",
-    valorNeto: "5000",
-    tcea: "20.45",
-    valorRecibido: "4000",
-    valorEntregado: "4000",
-  };
+  @Input() idletra!: number;
+  @Input() letra!: Letra;
+
   
   fechadesc: string | null = null;
   costosiniciales: string = '';
   costosfinales: string = '';
 
-
-  registrarDatosDescuentoDialog(): void {
-    this.isDialogOpen = true; // Con
-  }
-  
-  calcularDescuento(): void {
-    //LLAMAR AL CONTROLADOR DE CALCDESCUENTO DE descuentocontroller
-  }
 
   @ViewChild('printSection') printSection!: ElementRef;
 
@@ -138,44 +109,4 @@ export class DetailLetrasComponent {
     return styles;
   }
 
-  ///===============DIALOG-----------------------------------------------REGISTRAR EN LA TABLA TRANSACCION
- 
-  fechadescD: string | null = null;
-  costosinicialesD: string = '';
-  costosfinalesD: string = '';
-
-  constructor(private datePipe: DatePipe) {}
-
-  
-  onDateChange(event: any): void {
-    // Aplica el formato MM-dd-yyyy
-    this.fechadescD = this.datePipe.transform(event, 'MM-dd-yyyy');
-  }
-
-  
-  
-  onCancel(): void {
-    this.isDialogOpen = false; // Cierra el diálogo
-    this.fechadescD = '';
-    this.costosinicialesD = '';
-    this.costosfinalesD = '';
-  }
-
-
-  onRegister(): void {
-    this.fechadesc = this.fechadescD;
-    this.costosiniciales = this.costosinicialesD;
-    this.costosfinales = this.costosfinalesD;
-    const data = {
-      fechadescueto: this.fechadescD,
-      costosiniciales: this.costosinicialesD,
-      costosfinales: this.costosfinalesD,
-    };
-    console.log('Datos registrados:', data);
-    this.isDialogOpen = false;
-    // Restablece los campos del formulario
-    this.fechadescD = '';
-    this.costosinicialesD = '';
-    this.costosfinalesD = '';
-  }
 }

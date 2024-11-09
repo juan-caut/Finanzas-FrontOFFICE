@@ -8,9 +8,8 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 
-
 export interface Letragrabar {
-  idLetra:number;
+  idLetra: number;
   numeroLetra: string;
   fechaEmision: string;
   fechaVencimiento: string;
@@ -19,8 +18,12 @@ export interface Letragrabar {
   carteraid: number;
 }
 
-
-
+export interface TasaConversion {
+  tasaNominal: number;
+  tipoTasa: number;
+  capitalizacion: number;
+  tasaEfectiva: number;
+}
 
 export interface letraResposive {
   idLetra: number;
@@ -144,16 +147,11 @@ export class ApiService {
     return this.http.post<any>(url, letra);
   }
 
-
-
-
-
-
-
-
-
-
-
+  public convTasa(tasaconv: TasaConversion): Observable<any> {
+    const url = `${this.url}/api/conversiontasa`; // Cambia esto según la estructura de tu API
+    console.log('tasaconv insertando...', tasaconv);
+    return this.http.post<any>(url, tasaconv);
+  }
 
 
 
