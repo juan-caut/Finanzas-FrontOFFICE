@@ -44,11 +44,13 @@ interface CarteraElect {
     MatOption,
     DetailLetrasComponent,
     FacturasComponent,
-  ],
+    LetrasComponent
+],
   templateUrl: './cartera.component.html',
   styleUrls: ['./cartera.component.css'], // Cambié `styleUrl` por `styleUrls`
 })
 export class CarteraComponent implements OnInit, AfterViewInit {
+  
   @ViewChild(LetrasComponent) letraComponent!: LetrasComponent;
   @ViewChild(FacturasComponent) facturaComponent!: FacturasComponent;
 
