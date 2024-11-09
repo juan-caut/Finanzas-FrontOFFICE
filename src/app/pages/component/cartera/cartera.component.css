@@ -54,7 +54,6 @@
   padding: 15px;
   overflow-y: auto; /* Activa el desplazamiento vertical */
   max-height: 60vh; /* Define la altura máxima para el contenido */
-  padding-right: 10px; /* Espacio para el scrollbar */
 }
 
 .task-item:hover {

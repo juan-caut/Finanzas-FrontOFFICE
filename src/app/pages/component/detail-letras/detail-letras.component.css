@@ -171,7 +171,6 @@ width: 240px;
   flex-grow: 1;
   overflow-y: auto; /* Activa el desplazamiento vertical */
   max-height: 60vh; /* Define la altura máxima para el contenido */
-  padding-right: 10px; /* Espacio para el scrollbar */
 }
 
 /* Campo del formulario */

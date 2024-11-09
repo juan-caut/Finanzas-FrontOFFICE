@@ -27,12 +27,12 @@
   flex-grow: 1;
   max-height: 85vh; /* Limita la altura del diálogo en general */
   overflow-y: auto; /* Activa el desplazamiento vertical */
-  padding-right: 10px; /* Espacio para el scrollbar */
 }
 
 table {
   width: 100%;
   background-color: white;
+  border:1px solid #ddd;
 }
 
 .mat-column-select,
