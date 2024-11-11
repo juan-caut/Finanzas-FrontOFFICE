@@ -66,8 +66,9 @@
 
 .registrar-data-desc {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
+  gap:20px;
   padding: 15px 20px;
 
 }
@@ -117,15 +118,6 @@ width: 240px;
 .imput-costos mat-icon:hover {
   transform: scale(1.5); /* Efecto de agrandado al pasar el ratón */
   color: #242424; /* Color al hacer hover */
-}
-
-
-.registrar-data-desc {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 20px;
-
 }
 
 .bt-registrar {

@@ -151,20 +151,36 @@ export class DetailLetrasComponent implements OnInit {
   valorNeto: number = 0;
 
   calcularDescuento(): void {
-    console.log('TRANSACCION ... :', this.idtransac);
-    //LLAMAR AL CONTROLADOR DE CALCDESCUENTO DE descuentocontroller
+    
     this.server
-      .getdescuentotra(this.idtransac)
-      .subscribe((data1: Descuento) => {
-        console.log('Datos obtenidos:', data1);
+    .gettransacpletra(this.letra.idletra)
+    .subscribe((data: Transaccion) => {
+      console.log('Datos obtenidos:', data);
 
-        this.descuento=data1.descuento;
-        this.tcea=data1.tcea;
-        this.valorEntregado=data1.valorEntregado;
-        this.valorRecibido=data1.valorRecibido;
-        this.valorNeto=data1.valorNeto;
+      this.fechadesc= data.fechaTransaccion;
+      this.costosiniciales= data.costesIniciales.toString();
+      this.costosfinales= data.costesFinales.toString();
+      this.diasdesc=data.diasadesc.toString()
+      this.idtransac=data.idTransaccion;
 
-      });
+      console.log('TRANSACCION ... :', this.idtransac);
+      //LLAMAR AL CONTROLADOR DE CALCDESCUENTO DE descuentocontroller
+      this.server
+        .getdescuentotra(this.idtransac)
+        .subscribe((data1: Descuento) => {
+          console.log('Datos obtenidos:', data1);
+  
+          this.descuento=data1.descuento;
+          this.tcea=data1.tcea;
+          this.valorEntregado=data1.valorEntregado;
+          this.valorRecibido=data1.valorRecibido;
+          this.valorNeto=data1.valorNeto;
+  
+        });
+
+    });
+    
+   
   }
   
   
@@ -177,9 +193,10 @@ export class DetailLetrasComponent implements OnInit {
 
 
   onRegister2(): void {
-    this.fechadesc= this.fechadescD!.toISOString().split('T')[0],
-    this.costosiniciales=this.costosinicialesD.toString();
-    this.costosfinales=this.costosfinalesD.toString();
+
+    //this.fechadesc= this.fechadescD!.toISOString().split('T')[0],
+    //this.costosiniciales=this.costosinicialesD.toString();
+    //this.costosfinales=this.costosfinalesD.toString();
     this.server.insertardatosdesc({
       idletra:this.letra.idletra,
       fechaTransaccion:this.fechadescD!.toISOString().split('T')[0],
@@ -187,12 +204,31 @@ export class DetailLetrasComponent implements OnInit {
       costesFinales:this.costosfinalesD,
       idTransaccion:0,
       diasadesc:0,
-    }).subscribe();
+    }).subscribe(() => {
+
+      console.log('TRANSACCION ... :', this.idtransac);
+      this.server
+      .gettransacpletra(this.letra.idletra)
+      .subscribe((data: Transaccion) => {
+        console.log('Datos obtenidos:', data);
+
+        this.fechadesc= data.fechaTransaccion;
+        this.costosiniciales= data.costesIniciales.toString();
+        this.costosfinales= data.costesFinales.toString();
+        this.diasdesc=data.diasadesc.toString()
+        this.idtransac=data.idTransaccion;
+
+      });
+      
+    });
     this.isDialogOpen2 = false;
     // Restablece los campos del formulario
     this.fechadescD = null;
     this.costosinicialesD = 0;
     this.costosfinalesD = 0;
+    //obtener el id de la transaccion
+   
+   
   }
 
 }
