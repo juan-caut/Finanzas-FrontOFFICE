@@ -1,5 +1,5 @@
 import { Component, model, signal,ElementRef, ViewChild, Input, OnInit  } from '@angular/core';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -16,6 +16,7 @@ import {
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule, DatePipe } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
+import { ApiService } from '../../../api/api.service';
 
 
 interface Letra {
@@ -48,24 +49,41 @@ interface Letra {
   styleUrl: './detail-letras.component.css',
   providers: [DatePipe], // Añade DatePipe aquí
 })
-export class DetailLetrasComponent {
+export class DetailLetrasComponent implements OnInit {
 
   isDialogOpen = false; // Controla la visibilidad del diálogo
   readonly panelOpenState = signal(true);
   readonly panelOpenState2 = signal(true);
   readonly panelOpenState3 = signal(true);
 
-  @Input() idletra!: number;
   @Input() letra!: Letra;
 
   
   fechadesc: string | null = null;
   costosiniciales: string = '';
   costosfinales: string = '';
+  diasdesc:string='';
+  idtransac!:number;
+  
+  dataSource1 = new MatTableDataSource<Transaccion>();
+
+  ngOnInit(): void {
+    this.server
+      .gettransacpletra(this.letra.idletra)
+      .subscribe((data: Transaccion) => {
+        console.log('Datos obtenidos:', data);
+
+        this.fechadesc= data.fechaTransaccion;
+        this.costosiniciales= data.costesIniciales.toString();
+        this.costosfinales= data.costesFinales.toString();
+        this.diasdesc=data.diasadesc.toString()
+        this.idtransac=data.idTransaccion;
+
+      });
+  }
 
 
   @ViewChild('printSection') printSection!: ElementRef;
-
   Imprimir(): void {
     const printContents = this.printSection.nativeElement.innerHTML;
     const originalContents = document.body.innerHTML;
@@ -109,4 +127,95 @@ export class DetailLetrasComponent {
     return styles;
   }
 
+
+  
+
+  //=============================DISCOUNT SECTION
+
+  
+  constructor(private server: ApiService,private datePipe: DatePipe) {}
+
+
+  fechadescD: Date | null = null;
+  costosinicialesD: number = 0;
+  costosfinalesD: number = 0;
+
+  isDialogOpen2 = false; // Controla la visibilidad del diálogo
+
+  descuento:Descuento={
+    descuento: "1234",
+    valorNeto: "5000",
+    tcea: "20.45",
+    valorRecibido: "4000",
+    valorEntregado: "4000",
+  };
+
+  registrarDatosDescuentoDialog(): void {
+    this.isDialogOpen2 = true; // Con
+  }
+  
+  calcularDescuento(): void {
+    //LLAMAR AL CONTROLADOR DE CALCDESCUENTO DE descuentocontroller
+  }
+  
+  
+  onCancel2(): void {
+    this.isDialogOpen2 = false; // Cierra el diálogo
+    this.fechadescD = null;
+    this.costosinicialesD = 0;
+    this.costosfinalesD = 0;
+  }
+
+
+  onRegister2(): void {
+    this.fechadesc= this.fechadescD!.toISOString().split('T')[0],
+    this.costosiniciales=this.costosinicialesD.toString();
+    this.costosfinales=this.costosfinalesD.toString();
+    this.server.insertardatosdesc({
+      idletra:this.letra.idletra,
+      fechaTransaccion:this.fechadescD!.toISOString().split('T')[0],
+      costesIniciales:this.costosinicialesD,
+      costesFinales:this.costosfinalesD,
+      idTransaccion:0,
+      diasadesc:0,
+    }).subscribe();
+    this.isDialogOpen2 = false;
+    // Restablece los campos del formulario
+    this.fechadescD = null;
+    this.costosinicialesD = 0;
+    this.costosfinalesD = 0;
+  }
+
+}
+
+
+
+
+interface Transaccion {
+  idTransaccion:number;
+  idletra: number;
+  fechaTransaccion: string;
+  costesIniciales: number;
+  costesFinales: number;
+  diasadesc:number;
+}
+
+
+
+
+interface Letra {
+  idletra: number;
+  numletra: String;
+  fechaemision: String;
+  fechavencim: String;
+  tasaefectiva: String;
+  valornominal: String;
+}
+
+interface Descuento {
+  descuento: string;
+  valorNeto: string;
+  tcea: string;
+  valorRecibido: string;
+  valorEntregado: string;
 }

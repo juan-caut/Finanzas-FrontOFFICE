@@ -54,6 +54,7 @@ export interface letraResposive {
     };
   };
 }
+
 export interface carteraGrabar {
   nombreCartera: String;
   tipoDoc: String;
@@ -153,6 +154,23 @@ export class ApiService {
     return this.http.post<any>(url, tasaconv);
   }
 
+  public gettransacpletra(id: number): Observable<Transaccion> {
+    const url = `${this.url}/api/transaccion/trapletr/${id}`; // Incluye `id` en la URL directamente
+    return this.http.get<Transaccion>(url).pipe(
+      catchError((error) => {
+        console.error('Error en createCartera:', error);
+        return throwError(error);
+      })
+    );
+  }
+  
+
+  
+  public insertardatosdesc(transac: Transaccion): Observable<any> {
+    const url = `${this.url}/api/transaccion`; // Cambia esto según la estructura de tu API
+    console.log('descuento insertando...', transac);
+    return this.http.post<any>(url, transac);
+  }
 
 
   private handleError(error: HttpErrorResponse) {
@@ -169,3 +187,14 @@ export class ApiService {
     return throwError(() => new Error(errorMessage));
   }
 }
+
+
+export interface Transaccion {
+  idTransaccion:number;
+  idletra: number;
+  fechaTransaccion: string;
+  costesIniciales: number;
+  costesFinales: number;
+  diasadesc:number;
+}
+

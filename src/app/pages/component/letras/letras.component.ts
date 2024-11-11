@@ -67,11 +67,14 @@ export class LetrasComponent implements OnInit {
     'valornominal',
     'detalle',
   ];
+
   dataSource = new MatTableDataSource<Letra>([]);
+  
   @Input() idcartera!: number;
 
   constructor(private server: ApiService,private datePipe: DatePipe) {}
 
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   ngOnInit(): void {
     this.server
       .listaletra(this.idcartera)
@@ -89,7 +92,8 @@ export class LetrasComponent implements OnInit {
         this.dataSource.data = transformedData;
       });
   }
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
