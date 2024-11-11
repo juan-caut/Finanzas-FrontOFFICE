@@ -1,10 +1,10 @@
-<div id="printableArea" #printSection>
+<div>
   <div class="header">
     <h2 class="title-list">Cartera - Letras - Detalle Letra</h2>
-    <button (click)="Imprimir()" class="bt-registrar">Imprimir</button>
+    <button (click)="Imprimir()" class="bt-registrar">Reporte</button>
   </div>
 
-  <div class="content-detail-letra">
+  <div class="content-detail-letra"  id="printableArea" #printSection>
     <div class="detail-letra-expansion">
       
       <mat-expansion-panel
@@ -89,7 +89,7 @@
             Registrar datos
           </button>
 
-          <button (click)="calcularDescuento()" class="bt-registrar">
+          <button (click)="calcularDescuento()" class="bt-registrar"  *ngIf="fechadesc!=null">
             Aplicar descuento
           </button>
         </div>
