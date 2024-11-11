@@ -8,8 +8,10 @@
           [class.active]="status === selectedStatus"
           (click)="selectStatus(status)"
         >
-          <i class="icon"></i>
-          {{ status }}
+        <mat-icon *ngIf="status=='Soporte'">support_agent</mat-icon> <!-- Icono de ejemplo -->
+        <mat-icon *ngIf="status=='Principal'">home</mat-icon> <!-- Icono de ejemplo -->
+        <mat-icon *ngIf="status=='Gestión de carteras'">list_alt</mat-icon> <!-- Icono de ejemplo -->
+        {{ status }}
         </li>
       </div>
       <div>
@@ -19,7 +21,8 @@
           (click)="selectStatus(botuse)"
           
         >
-          <i class="icon"></i>
+        <mat-icon *ngIf="botuse=='Cerrar sesión'">logout</mat-icon> <!-- Icono de ejemplo -->
+        <mat-icon *ngIf="botuse=='Mi cuenta'">account_circle</mat-icon> <!-- Icono de ejemplo -->
           {{ botuse }}
         </li>
       </div>
