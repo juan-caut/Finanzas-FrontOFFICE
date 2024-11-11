@@ -6,6 +6,7 @@
 
   <div class="content-detail-letra">
     <div class="detail-letra-expansion">
+      
       <mat-expansion-panel
         class="expansion-panel-detail-letra"
         [expanded]="panelOpenState()"
@@ -116,25 +117,25 @@
         <div class="letra-details">
           <div class="letra-detail-item">
             <span class="detail-label">Descuento:</span>
-            <span class="detail-value">{{ descuento.descuento }}</span>
+            <span class="detail-value">{{ descuento }}</span>
           </div>
           <div class="letra-detail-item">
             <span class="detail-label">Valor neto:</span>
-            <span class="detail-value">{{ descuento.valorNeto }}</span>
+            <span class="detail-value">{{ valorNeto }}</span>
           </div>
           <div class="letra-detail-item">
             <span class="detail-label">Valor entregado:</span>
-            <span class="detail-value">{{ descuento.valorEntregado }}</span>
+            <span class="detail-value">{{ valorEntregado }}</span>
           </div>
           <div class="letra-detail-item">
             <span class="detail-label">Valor recibido:</span>
-            <span class="detail-value">{{ descuento.valorRecibido }}</span>
+            <span class="detail-value">{{ valorRecibido }}</span>
           </div>
           <div class="letra-detail-item">
             <span class="detail-label"
               >Tasa de Costo Efectivo Anual (TCEA):</span
             >
-            <span class="detail-value">{{ descuento.tcea }}%</span>
+            <span class="detail-value">{{ tcea }}%</span>
           </div>
         </div>
       </mat-expansion-panel>

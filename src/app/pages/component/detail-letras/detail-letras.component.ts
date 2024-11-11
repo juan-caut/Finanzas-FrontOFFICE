@@ -65,8 +65,6 @@ export class DetailLetrasComponent implements OnInit {
   diasdesc:string='';
   idtransac!:number;
   
-  dataSource1 = new MatTableDataSource<Transaccion>();
-
   ngOnInit(): void {
     this.server
       .gettransacpletra(this.letra.idletra)
@@ -142,20 +140,31 @@ export class DetailLetrasComponent implements OnInit {
 
   isDialogOpen2 = false; // Controla la visibilidad del diálogo
 
-  descuento:Descuento={
-    descuento: "1234",
-    valorNeto: "5000",
-    tcea: "20.45",
-    valorRecibido: "4000",
-    valorEntregado: "4000",
-  };
-
   registrarDatosDescuentoDialog(): void {
     this.isDialogOpen2 = true; // Con
   }
-  
+
+  descuento: number = 0;
+  tcea: number = 0;
+  valorEntregado: number = 0;
+  valorRecibido: number = 0;
+  valorNeto: number = 0;
+
   calcularDescuento(): void {
+    console.log('TRANSACCION ... :', this.idtransac);
     //LLAMAR AL CONTROLADOR DE CALCDESCUENTO DE descuentocontroller
+    this.server
+      .getdescuentotra(this.idtransac)
+      .subscribe((data1: Descuento) => {
+        console.log('Datos obtenidos:', data1);
+
+        this.descuento=data1.descuento;
+        this.tcea=data1.tcea;
+        this.valorEntregado=data1.valorEntregado;
+        this.valorRecibido=data1.valorRecibido;
+        this.valorNeto=data1.valorNeto;
+
+      });
   }
   
   
@@ -189,6 +198,16 @@ export class DetailLetrasComponent implements OnInit {
 }
 
 
+interface Descuento {
+  idDescuento:number;
+  idtransaccion:Descuento;
+descuento: number;
+valorNeto: number;
+tcea: number;
+valorRecibido: number;
+valorEntregado: number;
+}
+
 
 
 interface Transaccion {
@@ -212,10 +231,9 @@ interface Letra {
   valornominal: String;
 }
 
-interface Descuento {
-  descuento: string;
-  valorNeto: string;
-  tcea: string;
-  valorRecibido: string;
-  valorEntregado: string;
-}
+
+
+  
+  
+  
+  

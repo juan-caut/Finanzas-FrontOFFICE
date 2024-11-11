@@ -164,13 +164,26 @@ export class ApiService {
     );
   }
   
-
-  
   public insertardatosdesc(transac: Transaccion): Observable<any> {
     const url = `${this.url}/api/transaccion`; // Cambia esto según la estructura de tu API
     console.log('descuento insertando...', transac);
     return this.http.post<any>(url, transac);
   }
+
+  public getdescuentotra(idtra: number): Observable<Descuento> {
+    const url = `${this.url}/api/descuento/descontar`; 
+    console.log('TRANSACCION ... :', idtra);
+    return this.http.get<Descuento>(url, { params: { idtra } }).pipe(
+      catchError((error) => {
+        console.error('Error en createCartera:', error);
+        return throwError(error);
+      })
+    );
+  }
+
+
+
+
 
 
   private handleError(error: HttpErrorResponse) {
@@ -197,4 +210,17 @@ export interface Transaccion {
   costesFinales: number;
   diasadesc:number;
 }
+
+export interface Descuento {
+  idDescuento:number;
+  idtransaccion:Descuento;
+descuento: number;
+valorNeto: number;
+tcea: number;
+valorRecibido: number;
+valorEntregado: number;
+}
+
+
+
 
