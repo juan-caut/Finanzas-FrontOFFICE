@@ -1,0 +1,520 @@
+
+/* ------------------------------------ TITLE  List */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 15px 20px;
+  
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .title-list {
+    color: #000;
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+  
+  .butons-impo{
+    
+    display: flex;         /* Usamos flex para alinear en fila */
+    align-items: center;    /* Alinea verticalmente al centro */
+    gap: 8px;               /* Espacio entre los elementos */
+  }
+  .button-update {
+    background-color: white;
+    color: rgb(95, 95, 95);
+    border: none;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 2rem;
+    border: 1px solid #ddd;
+  }
+  .button-update:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .table-container {
+    margin: 20px;
+    background-color: white;
+    max-width: 100%;
+    overflow: auto;
+    /*SCROLL TABLE*/
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    max-height: 85vh; /* Limita la altura del diálogo en general */
+    overflow-y: auto; /* Activa el desplazamiento vertical */
+  }
+  
+  table {
+    width: 100%;
+    background-color: white;
+    border:1px solid #ddd;
+  }
+  
+  .mat-column-select,
+  .mat-column-orderId,
+  .mat-column-city,
+  .mat-column-country,
+  .mat-column-region,
+  .mat-column-date,
+  .mat-column-amount {
+    text-align: left;
+  }
+  
+  .mat-header-cell,
+  .mat-cell {
+    padding: 8px;
+  }
+  
+  .mat-header-row {
+    background-color: #f5f5f5;
+  }
+  
+  .mat-mdc-row .mat-mdc-cell {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    height: inherit;
+    cursor: pointer;
+  }
+  
+  .mat-mdc-row:hover .mat-mdc-cell {
+    background-color: #dbe0e7;
+  }
+  
+  .demo-row-is-clicked {
+    font-weight: bold;
+  }
+  
+  /* styles.css o en el archivo de estilos del componente */
+  
+  .detalle-column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .detalle-column mat-icon {
+    color: #1976d2; /* Color personalizado para el icono */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el icono */
+    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+    font-size: 24px; /* Ajusta el tamaño del icono si es necesario */
+  }
+  
+  .detalle-column mat-icon:hover {
+    transform: scale(1.2); /* Efecto de agrandado al pasar el ratón */
+    color: #1565c0; /* Color al hacer hover */
+  }
+  
+  .add-letra {
+    background-color: white;
+    color: rgb(0, 0, 0);
+    border: none;
+    padding: 15px;
+    cursor: pointer;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+  }
+  .add-letra:hover {
+    background-color: #e0e0e0;
+  }
+  
+  /*=====================DIALOG LETRAA====================*/
+  
+  /*  ----------------------------------------DIALOG SIN ANGULAR-----------------------*/
+  .custom-dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  /* Contenedor principal del diálogo */
+  .custom-dialog {
+    background-color: #fff;
+    width: 550px;
+    padding: 50px;
+    border-radius: 0px;
+  
+    max-height: 80vh; /* Limita la altura del diálogo en general */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Título del diálogo */
+  .dialog-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  
+  /* Contenido del formulario */
+  .dialog-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 25px;
+    flex-grow: 1;
+    overflow-y: auto; /* Activa el desplazamiento vertical */
+    max-height: 60vh; /* Define la altura máxima para el contenido */
+    padding-right: 10px; /* Espacio para el scrollbar */
+  }
+  
+  /* Campo del formulario */
+  .form-field {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-field label {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 4px;
+  }
+  
+  .form-field input,
+  .form-field select {
+    padding: 12px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+  
+    font-size: 16px;
+  }
+  
+  .form-field .date-imput {
+    padding: 0px;
+    border: none;
+    margin: 0px;
+  border-radius: 0px;
+    font-size: 16px;
+  }
+  
+  
+  
+  
+  /* Botones de acción */
+  .dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+  
+  .cancel-button,
+  .confirm-button {
+    padding: 15px 15px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    border-radius: 0px;
+  }
+  
+  .cancel-button {
+    background: #ccc;
+    color: #333;
+  }
+  
+  .confirm-button {
+    background: #1976d2;
+    color: white;
+  }
+  
+  .confirm-button:hover {
+    background: #1565c0;
+  }
+  
+  /*  ----------------------------------------DIALOG SIN ANGULAR-----------------------*/
+  
+  /*  ----------------------------------------TAB GROUP-----------------------*/
+  /* Contenedor de pestañas */
+  .tab-container {
+    width: 100%;
+  }
+  
+  /* Encabezado de pestañas */
+  .tab-headers {
+    display: flex;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 10px;
+  }
+  
+  .tab-link {
+    background-color: #ffffff;
+    border: none;
+    outline: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    width: 50%;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  
+  .tab-link:hover {
+    background-color: #ddd;
+  }
+  
+  .tab-link.active {
+    background-color: #ddd;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Contenido de las pestañas */
+  .tab-content {
+    padding: 10px 0;
+  }
+  
+  .bt-calctea {
+    background-color: #f3f3f3;
+    border: none;
+    outline: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 10px 0px;
+    width: 100%;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  
+  .bt-calctea:hover {
+    background-color: #d4d3d3;
+  }
+  
+  .bt-calctea.active {
+    background-color: #ddd;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .mat-mdc-card {
+    width: 50%;
+    box-shadow: none;
+  }
+  
+  /*  ----------------------------------------TAB GROUP-----------------------*/
+  
+  /*  ----------------------------------------DISCOUNT AND RESULTS-----------------------*/
+  
+  
+  .detail-letra-expansion {
+    margin: 20px 0px;
+    border:  1px solid #ddd;
+  }
+  .expansion-panel-detail-letra {
+    border-radius: 0%;
+    box-shadow: none;
+  }
+  .expansion-panel-detail-letra .mat-expansion-panel-header {
+    background-color: white;
+    border: 1px solid #ddd;
+  }
+  
+  .mat-expansion-panel:not([class*=mat-elevation-z]) {
+    box-shadow: none;
+  }
+  
+  .divider-expansion-panels{
+    height: 30px;
+    width: 100%;
+  
+  }
+  
+  /* ------------------------------------ TITLE  List */
+  /* ------------------------------------ DATA LETRA */
+  
+  .letra-details {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .letra-detail-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+  }
+  
+  .detail-label {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .detail-value {
+    color: #555;
+  }
+  /* ------------------------------------ DATA LETRA */
+  /* ------------------------------------ DATA DESCUENTO */
+  
+  .descuent-detail{
+    align-items: center;
+    padding: 10px 10px 0px 10px;
+  }
+  
+  .imput-costos{
+  width: 240px;
+  }
+  
+  .imput-costos mat-icon {
+    color: #2c2c2c; /* Color personalizado para el icono */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el icono */
+    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+    font-size: 24px; /* Ajusta el tamaño del icono si es necesario */
+  }
+  
+  .imput-costos mat-icon:hover {
+    transform: scale(1.5); /* Efecto de agrandado al pasar el ratón */
+    color: #242424; /* Color al hacer hover */
+  }
+  
+  .registrar-data-desc {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap:20px;
+    padding: 15px 20px;
+  
+  }
+  
+  .bt-registrar {
+    background-color: white;
+    color: rgb(0, 0, 0);
+    border: none;
+    padding: 15px;
+    cursor: pointer;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+  }
+  .bt-registrar:hover {
+    background-color: #e0e0e0;
+  }
+  
+  
+  
+  /* ------------------------------------ DATA DESCUENTO */
+  /*  ----------------------------------------DIALOG SIN ANGULAR-----------------------*/
+  
+  .mat-form-date-desc .date-input-hidden{
+    padding: 0px;
+  }
+  .custom-dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  /* Contenedor principal del diálogo */
+  .custom-dialog {
+    background-color: #fff;
+    width: 400px;
+    padding: 50px;
+    border-radius: 0px;
+  
+    max-height: 80vh; /* Limita la altura del diálogo en general */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Título del diálogo */
+  .dialog-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  
+  /* Contenido del formulario */
+  .dialog-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 25px;
+    flex-grow: 1;
+    overflow-y: auto; /* Activa el desplazamiento vertical */
+    max-height: 60vh; /* Define la altura máxima para el contenido */
+  }
+  
+  /* Campo del formulario */
+  .form-field {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-field label {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 4px;
+  }
+  
+  .form-field input,
+  .form-field select {
+    padding: 12px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+  
+    font-size: 16px;
+  }
+  
+  .form-field .date-imput {
+    padding: 0px;
+    border: none;
+    margin: 0px;
+  border-radius: 0px;
+    font-size: 16px;
+  }
+  
+  
+  
+  
+  /* Botones de acción */
+  .dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+  
+  .cancel-button,
+  .confirm-button {
+    padding: 15px 15px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    border-radius: 0px;
+  }
+  
+  .cancel-button {
+    background: #ccc;
+    color: #333;
+  }
+  
+  .confirm-button {
+    background: #1976d2;
+    color: white;
+  }
+  
+  .confirm-button:hover {
+    background: #1565c0;
+  }
+  
+  /*  ----------------------------------------DIALOG SIN ANGULAR-----------------------*/
+  
+  /*  ----------------------------------------DISCOUNT AND RESULTS-----------------------*/

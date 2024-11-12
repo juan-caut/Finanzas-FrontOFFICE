@@ -1,1 +1,191 @@
-<p>detail-facturas works!</p>
+<div>
+    <div class="header">
+      <h2 class="title-list">Cartera - facturas - detalle factura</h2>
+      <button (click)="Imprimir()" class="bt-registrar">Reporte</button>
+    </div>
+  
+    <div class="content-detail-letra"  id="printableArea" #printSection>
+      <div class="detail-letra-expansion">
+        
+        <mat-expansion-panel
+          class="expansion-panel-detail-letra"
+          [expanded]="panelOpenState()"
+          (opened)="panelOpenState.set(true)"
+          (closed)="panelOpenState.set(false)"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-description
+              >Factura: {{ factura.numeroFactura }}</mat-panel-description
+            >
+          </mat-expansion-panel-header>
+  
+          <!-- Detalle de los datos de la letra -->
+          <div class="letra-details">
+            <div class="letra-detail-item">
+              <span class="detail-label">ID Factura:</span>
+              <span class="detail-value">{{ factura.idFactura }}</span>
+            </div>
+            <div class="letra-detail-item">
+              <span class="detail-label">Num Letra:</span>
+              <span class="detail-value">{{ factura.numeroFactura }}</span>
+            </div>
+            <div class="letra-detail-item">
+              <span class="detail-label">Fecha Emisión:</span>
+              <span class="detail-value">{{ factura.fechaEmision }}</span>
+            </div>
+            <div class="letra-detail-item">
+              <span class="detail-label">Fecha Vencimiento:</span>
+              <span class="detail-value">{{ factura.fechaVencimiento }}</span>
+            </div>
+            <div class="letra-detail-item">
+              <span class="detail-label">Tasa Efectiva Anual:</span>
+              <span class="detail-value">{{ factura.tasaEfectiva }}%</span>
+            </div>
+            <div class="letra-detail-item">
+              <span class="detail-label">Valor Nominal:</span>
+              <span class="detail-value">{{ factura.montoTotal }}</span>
+            </div>
+          </div>
+        </mat-expansion-panel>
+  
+      </div>
+      <div class="detail-letra-expansion">
+  
+        <mat-expansion-panel
+          class="expansion-panel-detail-letra"
+          [expanded]="panelOpenState2()"
+          (opened)="panelOpenState2.set(true)"
+          (closed)="panelOpenState2.set(false)"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-description>Descuento</mat-panel-description>
+          </mat-expansion-panel-header>
+  
+          <!-- Detalle de los datos de DESCUENTOO -->
+          <div class="letra-details">
+            <div class="letra-detail-item">
+              <span class="detail-label">Fecha de Descuento:</span>
+              <span class="detail-value">{{ fechadesc }}</span>
+            </div>
+            <div class="letra-detail-item">
+              <span class="detail-label">Costos Iniciales:</span>
+              <span class="detail-value">{{ costosiniciales }}</span>
+            </div>
+            <div class="letra-detail-item">
+              <span class="detail-label">Costos Finales:</span>
+              <span class="detail-value">{{ costosfinales }}</span>
+            </div>
+            <div class="letra-detail-item">
+              <span class="detail-label">Dias descontadas:</span>
+              <span class="detail-value">{{ diasdesc }}</span>
+            </div>
+          </div>
+  
+          <div class="registrar-data-desc">
+            <button
+              (click)="registrarDatosDescuentoDialog()"
+              class="bt-registrar"
+            >
+              Registrar datos
+            </button>
+  
+            <button (click)="calcularDescuento()" class="bt-registrar"  *ngIf="fechadesc!=null">
+              Aplicar descuento
+            </button>
+          </div>
+        </mat-expansion-panel>
+  
+      
+      </div>
+  
+  
+      <div class="detail-letra-expansion">
+       
+        <!-- ==================================RESULTS DETAIL=============== -->
+  
+        <mat-expansion-panel
+          class="expansion-panel-detail-letra"
+          [expanded]="panelOpenState3()"
+          (opened)="panelOpenState3.set(true)"
+          (closed)="panelOpenState3.set(false)"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-description>Resultados</mat-panel-description>
+          </mat-expansion-panel-header>
+  
+          <!-- Detalle de los datos de la letra -->
+          <div class="letra-details">
+            <div class="letra-detail-item">
+              <span class="detail-label">Descuento:</span>
+              <span class="detail-value">{{ descuento }}</span>
+            </div>
+            <div class="letra-detail-item">
+              <span class="detail-label">Valor neto:</span>
+              <span class="detail-value">{{ valorNeto }}</span>
+            </div>
+            <div class="letra-detail-item">
+              <span class="detail-label">Valor entregado:</span>
+              <span class="detail-value">{{ valorEntregado }}</span>
+            </div>
+            <div class="letra-detail-item">
+              <span class="detail-label">Valor recibido:</span>
+              <span class="detail-value">{{ valorRecibido }}</span>
+            </div>
+            <div class="letra-detail-item">
+              <span class="detail-label"
+                >Tasa de Costo Efectivo Anual (TCEA):</span
+              >
+              <span class="detail-value">{{ tcea }}%</span>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </div>
+  
+  
+  
+    </div>
+  </div>
+  
+  <!--==================================================DIALOG INPUT DISCOUNT DATA====================================================-->
+  
+  <div class="custom-dialog-overlay" *ngIf="isDialogOpen2">
+    <div class="custom-dialog">
+      <h2 class="dialog-title">Registrar datos de descuento</h2>
+  
+      <div class="dialog-content">
+        <div class="form-field">
+          <label for="fechadescD">Fecha de descuento</label>
+          <mat-form-field appearance="outline" class="mat-form-date-desc">
+            <input
+              placeholder="MM/DD/YYYY"
+              matInput
+              class="date-input-hidden"
+              [matDatepicker]="picker2"
+              [(ngModel)]="fechadescD" 
+            />
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="picker2"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+        </div>
+  
+        <div class="form-field">
+          <label for="numletra">Costes iniciales</label>
+          <input id="numletra" type="number" [(ngModel)]="costosinicialesD" />
+        </div>
+  
+        <div class="form-field">
+          <label for="valornominal">Costes finales</label>
+          <input id="valornominal" type="number" [(ngModel)]="costosfinalesD" />
+        </div>
+      </div>
+  
+      <div class="dialog-actions">
+        <button class="cancel-button" (click)="onCancel2()">CANCELAR</button>
+        <button class="confirm-button" (click)="onRegister2()">REGISTRAR</button>
+      </div>
+    </div>
+  </div>
+  

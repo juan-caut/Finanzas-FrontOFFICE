@@ -76,6 +76,7 @@
   [idcartera]="selectedCarteraId"
 ></app-letras>
 
-<div *ngIf="goFacturas === true">
-  <app-facturas></app-facturas>
-</div>
+<app-facturas
+  *ngIf="goFacturas === true && selectedCarteraId !== null"
+  [idcartera]="selectedCarteraId"
+></app-facturas>

@@ -51,13 +51,13 @@ interface Letra {
 })
 export class DetailLetrasComponent implements OnInit {
 
+
+  @Input() letra!: Letra;
+
   isDialogOpen = false; // Controla la visibilidad del diálogo
   readonly panelOpenState = signal(true);
   readonly panelOpenState2 = signal(true);
   readonly panelOpenState3 = signal(true);
-
-  @Input() letra!: Letra;
-
   
   fechadesc: string | null = null;
   costosiniciales: string = '';
@@ -204,6 +204,7 @@ export class DetailLetrasComponent implements OnInit {
       costesFinales:this.costosfinalesD,
       idTransaccion:0,
       diasadesc:0,
+      idfactura:0
     }).subscribe(() => {
 
       console.log('TRANSACCION ... :', this.idtransac);
@@ -249,6 +250,7 @@ valorEntregado: number;
 interface Transaccion {
   idTransaccion:number;
   idletra: number;
+  idfactura:number;
   fechaTransaccion: string;
   costesIniciales: number;
   costesFinales: number;
