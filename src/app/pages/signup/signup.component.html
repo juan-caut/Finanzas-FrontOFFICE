@@ -7,10 +7,11 @@
          <div appearance="outline" class="form-group">
         
             <input
-              type="user"
-              id="user"
-              name="user"
+              type="username"
+              id="username"
+              name="username"
               placeholder="User"
+               [(ngModel)]="user.username"
               class="form-control"
               required
             />
@@ -18,11 +19,12 @@
            <!-- DNI Input -->
          <div class="form-group">
             <input
-              type="dni"
-              id="dni"
-              name="dni"
+              type="ident"
+              id="ident"
+              name="ident"
               placeholder="Dni"
               class="form-control"
+               [(ngModel)]="user.ident"
               required
             />
           </div>
@@ -47,7 +49,7 @@
             name="password"
             placeholder="Password"
             class="form-control"
-            [(ngModel)]="user.password"
+            [(ngModel)]="user.passwordd"
             required
           />
         </div>

@@ -20,17 +20,11 @@
       <!-- Checkbox Column -->
       <ng-container matColumnDef="select">
         <th mat-header-cell *matHeaderCellDef>
-          <mat-checkbox
-            (change)="toggleSelectAll()"
-            [checked]="isAllSelected()"
-            indeterminate="isAnySelected()"
-          ></mat-checkbox>
+          <mat-checkbox (change)="toggleSelectAll()" [checked]="isAllSelected()"
+            indeterminate="isAnySelected()"></mat-checkbox>
         </th>
         <td mat-cell *matCellDef="let row">
-          <mat-checkbox
-            (change)="toggleRowSelection(row)"
-            [checked]="selection.isSelected(row)"
-          ></mat-checkbox>
+          <mat-checkbox (change)="toggleRowSelection(row)" [checked]="selection.isSelected(row)"></mat-checkbox>
         </td>
       </ng-container>
 
@@ -82,99 +76,84 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
-
-    <mat-paginator
-      [length]="dataSource.data.length"
-      [pageSize]="10"
-      [pageSizeOptions]="[5, 10, 25, 100]"
-    >
+    <div>
+<button (click)="printSelectedIds()" >Borrar</button>
+    </div>
+    <mat-paginator [length]="dataSource.data.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
     </mat-paginator>
 
 
 
-  <!-- ==================================EXPANSION DISCOUNT DETAIL=============== -->
-  <div class="detail-letra-expansion">
-    <mat-expansion-panel
-      class="expansion-panel-detail-letra"
-      [expanded]="panelOpenState2()"
-      (opened)="panelOpenState2.set(true)"
-      (closed)="panelOpenState2.set(false)"
-    >
-      <mat-expansion-panel-header>
-        <mat-panel-description>Descuento</mat-panel-description>
-      </mat-expansion-panel-header>
+    <!-- ==================================EXPANSION DISCOUNT DETAIL=============== -->
+    <div class="detail-letra-expansion">
+      <mat-expansion-panel class="expansion-panel-detail-letra" [expanded]="panelOpenState2()"
+        (opened)="panelOpenState2.set(true)" (closed)="panelOpenState2.set(false)">
+        <mat-expansion-panel-header>
+          <mat-panel-description>Descuento</mat-panel-description>
+        </mat-expansion-panel-header>
 
-      <!-- Detalle de los datos de DESCUENTOO -->
-      <div class="letra-details">
-        <div class="letra-detail-item">
-          <span class="detail-label">Fecha de Descuento:</span>
-          <span class="detail-value">{{ fechadesc }}</span>
+        <!-- Detalle de los datos de DESCUENTOO -->
+        <div class="letra-details">
+          <div class="letra-detail-item">
+            <span class="detail-label">Fecha de Descuento:</span>
+            <span class="detail-value">{{ fechadesc }}</span>
+          </div>
+          <div class="letra-detail-item">
+            <span class="detail-label">Costos Iniciales:</span>
+            <span class="detail-value">{{ costosiniciales }}</span>
+          </div>
+          <div class="letra-detail-item">
+            <span class="detail-label">Costos Finales:</span>
+            <span class="detail-value">{{ costosfinales }}</span>
+          </div>
         </div>
-        <div class="letra-detail-item">
-          <span class="detail-label">Costos Iniciales:</span>
-          <span class="detail-value">{{ costosiniciales }}</span>
-        </div>
-        <div class="letra-detail-item">
-          <span class="detail-label">Costos Finales:</span>
-          <span class="detail-value">{{ costosfinales }}</span>
-        </div>
-      </div>
 
-      <div class="registrar-data-desc">
-        <button
-          (click)="registrarDatosDescuentoDialog()"
-          class="bt-registrar"
-        >
-          Registrar datos
-        </button>
+        <div class="registrar-data-desc">
+          <button (click)="registrarDatosDescuentoDialog()" class="bt-registrar">
+            Registrar datos
+          </button>
 
-        <button (click)="calcularDescuento()" class="bt-registrar">
-          Aplicar descuento
-        </button>
-      </div>
-    </mat-expansion-panel>
-  </div>
+          <button (click)="calcularDescuento()" class="bt-registrar">
+            Aplicar descuento
+          </button>
+        </div>
+      </mat-expansion-panel>
+    </div>
 
-  
-  <!-- ==================================RESULTS DETAIL=============== -->
-  <div class="detail-letra-expansion">
-    <mat-expansion-panel
-      class="expansion-panel-detail-letra"
-      [expanded]="panelOpenState3()"
-      (opened)="panelOpenState3.set(true)"
-      (closed)="panelOpenState3.set(false)"
-    >
-      <mat-expansion-panel-header>
-        <mat-panel-description>Resultados</mat-panel-description>
-      </mat-expansion-panel-header>
 
-      <!-- Detalle de los datos de la letra -->
-      <div class="letra-details">
-        <div class="letra-detail-item">
-          <span class="detail-label">Descuento:</span>
-          <span class="detail-value">{{ descuento.descuento }}</span>
+    <!-- ==================================RESULTS DETAIL=============== -->
+    <div class="detail-letra-expansion">
+      <mat-expansion-panel class="expansion-panel-detail-letra" [expanded]="panelOpenState3()"
+        (opened)="panelOpenState3.set(true)" (closed)="panelOpenState3.set(false)">
+        <mat-expansion-panel-header>
+          <mat-panel-description>Resultados</mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <!-- Detalle de los datos de la letra -->
+        <div class="letra-details">
+          <div class="letra-detail-item">
+            <span class="detail-label">Descuento:</span>
+            <span class="detail-value">{{ descuento.descuento }}</span>
+          </div>
+          <div class="letra-detail-item">
+            <span class="detail-label">Valor neto:</span>
+            <span class="detail-value">{{ descuento.valorNeto }}</span>
+          </div>
+          <div class="letra-detail-item">
+            <span class="detail-label">Valor entregado:</span>
+            <span class="detail-value">{{ descuento.valorEntregado }}</span>
+          </div>
+          <div class="letra-detail-item">
+            <span class="detail-label">Valor recibido:</span>
+            <span class="detail-value">{{ descuento.valorRecibido }}</span>
+          </div>
+          <div class="letra-detail-item">
+            <span class="detail-label">Tasa de Costo Efectivo Anual (TCEA):</span>
+            <span class="detail-value">{{ descuento.tcea }}%</span>
+          </div>
         </div>
-        <div class="letra-detail-item">
-          <span class="detail-label">Valor neto:</span>
-          <span class="detail-value">{{ descuento.valorNeto }}</span>
-        </div>
-        <div class="letra-detail-item">
-          <span class="detail-label">Valor entregado:</span>
-          <span class="detail-value">{{ descuento.valorEntregado }}</span>
-        </div>
-        <div class="letra-detail-item">
-          <span class="detail-label">Valor recibido:</span>
-          <span class="detail-value">{{ descuento.valorRecibido }}</span>
-        </div>
-        <div class="letra-detail-item">
-          <span class="detail-label"
-            >Tasa de Costo Efectivo Anual (TCEA):</span
-          >
-          <span class="detail-value">{{ descuento.tcea }}%</span>
-        </div>
-      </div>
-    </mat-expansion-panel>
-  </div>
+      </mat-expansion-panel>
+    </div>
 
 
 
@@ -182,7 +161,7 @@
 
   </div>
 
-  
+
 
 
   <!--==================================================DIALOG INSERT LETRA====================================================-->
@@ -199,17 +178,9 @@
         <div class="form-field">
           <label for="fechaemisionI">Fecha de Emision</label>
           <mat-form-field appearance="outline" class="mat-form-date">
-            <input
-              placeholder="MM/DD/YYYY"
-              class="date-imput"
-              matInput
-              [matDatepicker]="picker1"
-              [(ngModel)]="fechaemisionI"
-            />
-            <mat-datepicker-toggle
-              matIconSuffix
-              [for]="picker1"
-            ></mat-datepicker-toggle>
+            <input placeholder="MM/DD/YYYY" class="date-imput" matInput [matDatepicker]="picker1"
+              [(ngModel)]="fechaemisionI" />
+            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker #picker1></mat-datepicker>
           </mat-form-field>
         </div>
@@ -217,17 +188,9 @@
         <div class="form-field">
           <label for="fechavencimI">Fecha de Vencimiento</label>
           <mat-form-field appearance="outline" class="mat-form-date">
-            <input
-              placeholder="MM/DD/YYYY"
-              class="date-imput"
-              matInput
-              [matDatepicker]="picker2"
-              [(ngModel)]="fechavencimI"
-            />
-            <mat-datepicker-toggle
-              matIconSuffix
-              [for]="picker2"
-            ></mat-datepicker-toggle>
+            <input placeholder="MM/DD/YYYY" class="date-imput" matInput [matDatepicker]="picker2"
+              [(ngModel)]="fechavencimI" />
+            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
             <mat-datepicker #picker2></mat-datepicker>
           </mat-form-field>
         </div>
@@ -237,18 +200,10 @@
         <div class="tab-container">
           <!-- Encabezados de las pestañas -->
           <div class="tab-headers">
-            <button
-              class="tab-link"
-              [ngClass]="{ active: activeTab === 'tab1' }"
-              (click)="openTab('tab1')"
-            >
+            <button class="tab-link" [ngClass]="{ active: activeTab === 'tab1' }" (click)="openTab('tab1')">
               Tasa Efectiva
             </button>
-            <button
-              class="tab-link"
-              [ngClass]="{ active: activeTab === 'tab2' }"
-              (click)="openTab('tab2')"
-            >
+            <button class="tab-link" [ngClass]="{ active: activeTab === 'tab2' }" (click)="openTab('tab2')">
               Tasa Nominal
             </button>
           </div>
@@ -257,11 +212,7 @@
           <div *ngIf="activeTab === 'tab1'" class="tab-content">
             <div class="form-field">
               <label>Tasa Efectiva Anual</label>
-              <input
-                id="tasaefectiva"
-                type="number"
-                [(ngModel)]="tasaefectiva"
-              />
+              <input id="tasaefectiva" type="number" [(ngModel)]="tasaefectiva" />
             </div>
           </div>
 
@@ -298,12 +249,7 @@
                 Calcular Tasa Efectiva Anual (TEA)
               </button>
 
-              <input
-                id="teacalc"
-                type="number"
-                [readonly]="true"
-                [(ngModel)]="teacalc"
-              />
+              <input id="teacalc" type="number" [readonly]="true" [(ngModel)]="teacalc" />
             </div>
           </div>
         </div>
@@ -332,17 +278,9 @@
         <div class="form-field">
           <label for="fechadescD">Fecha de descuento</label>
           <mat-form-field appearance="outline" class="mat-form-date-desc">
-            <input
-              placeholder="MM/DD/YYYY"
-              matInput
-              class="date-input-hidden"
-              [matDatepicker]="picker2"
-              (dateChange)="onDateChange($event.value)"
-            />
-            <mat-datepicker-toggle
-              matIconSuffix
-              [for]="picker2"
-            ></mat-datepicker-toggle>
+            <input placeholder="MM/DD/YYYY" matInput class="date-input-hidden" [matDatepicker]="picker2"
+              (dateChange)="onDateChange($event.value)" />
+            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
             <mat-datepicker #picker2></mat-datepicker>
           </mat-form-field>
         </div>
@@ -369,7 +307,4 @@
 
 </div>
 
-<app-detail-letras
-  *ngIf="goLetraDetail === true && selectedLetraid != null"
-  [letra]="letraDetalle"
-></app-detail-letras>
+<app-detail-letras *ngIf="goLetraDetail === true && selectedLetraid != null" [letra]="letraDetalle"></app-detail-letras>
