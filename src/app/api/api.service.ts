@@ -7,7 +7,13 @@ import { Injectable } from '@angular/core';
 //import test from "node:test";
 import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
-
+export interface LetraModificar {
+  id: number;
+  fechaInicial: String,
+  fechaVencimiento: String,
+  tasaEfectAnual:number,
+    valorNominal:number,
+}
 export interface Letragrabar {
   idLetra: number;
   numeroLetra: string;
@@ -32,6 +38,7 @@ export interface letraResposive {
   fechaVencimiento: Date;
   valorNominal: number;
   tasaEfectiva: number;
+  visible: boolean;
   cartera: {
     idCartera: number;
     nombreCartera: String;
@@ -75,6 +82,13 @@ export interface carteraGrabar {
     };
   };
 }
+export interface UserCrearRequest {
+  username: String,
+  ident: String,
+  email: String,
+  passwordd: String,
+  idRol: number
+}
 export interface Cartera {
   idCartera: number;
   nombreCartera: String;
@@ -104,8 +118,10 @@ export class ApiService {
   private url = `${environment.base}`;
 
 
+
   //USER SERVICES
   constructor(private http: HttpClient) {}
+
   public login(username: string, password: string): Observable<any> {
     return this.http.get(`${this.url}/api/usuario/login`, {
       params: { username, password },
@@ -122,14 +138,21 @@ export class ApiService {
 
   //CARTERA SERVICES
 
+  public crearuser(username: UserCrearRequest): Observable<any> {
+    const url = `${this.url}/api/usuario`;
+    return this.http
+      .post(url, username)
+      .pipe(catchError(this.handleError));
+  }
+
   public getlistCartera(usuarioId: number): Observable<Cartera[]> {
     const url = `${this.url}/api/cartera/carteraByUser`;
     console.log('idusuiario ingresado:', usuarioId);
     return this.http.get<Cartera[]>(url, { params: { usuarioId: usuarioId } });
   }
-  public createCartera(carteraData: carteraGrabar): Observable<any> {
+  public createCartera(carteraData: carteraGrabar): Observable<String> {
     const url = `${this.url}/api/cartera`; // Cambia esto según la estructura de tu API
-    return this.http.post<any>(url, carteraData).pipe(
+    return this.http.post<String>(url, carteraData).pipe(
       catchError((error) => {
         console.error('Error en createCartera:', error);
         return throwError(error);
@@ -137,8 +160,17 @@ export class ApiService {
     );
   }
 
-  
   //LETRA SERVICES
+
+  public eliminarCartera(id:number){
+    const url = `${this.url}/api/cartera/eliminar`;
+    const params = new HttpParams().set('id',id);
+    return this.http
+    .delete(url, {params})
+    .pipe(catchError(this.handleError));
+  }
+
+
 
   public listaletra(carteraId: number): Observable<letraResposive[]> {
     const url = `${this.url}/api/letra/letraByCartera`; // Cambia esto según la estructura de tu API
@@ -154,6 +186,19 @@ export class ApiService {
     const url = `${this.url}/api/letra`; // Cambia esto según la estructura de tu API
     console.log('letra insertando...', letra);
     return this.http.post<any>(url, letra);
+  }
+  public modificarletra(letra: LetraModificar): Observable<any> {
+    const url = `${this.url}/api/letra/actualizacion`;
+    return this.http
+      .put(url, letra)
+      .pipe(catchError(this.handleError));
+  }
+  public eliminarLetra(id:number){
+    const url = `${this.url}/api/letra/eliminar`;
+    const params = new HttpParams().set('id',id);
+    return this.http
+    .delete(url, {params})
+    .pipe(catchError(this.handleError));
   }
 
   //CONV TASA SERVICES

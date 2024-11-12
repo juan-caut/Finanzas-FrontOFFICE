@@ -26,7 +26,7 @@ import { MatCardModule } from '@angular/material/card'; // Importa MatCardModule
 import { ApiService, letraResposive } from '../../../api/api.service';
 //import { Init } from 'v8';
 
-import { signal,ElementRef  } from '@angular/core';
+import { signal, ElementRef } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 
 import {
@@ -38,9 +38,9 @@ import { DatePipe } from '@angular/common';
   selector: 'app-letras',
   standalone: true,
   imports: [
-    MatPaginatorModule,MatExpansionModule,
+    MatPaginatorModule, MatExpansionModule,
     MatCardModule,
-    MatNativeDateModule,MatDatepicker,
+    MatNativeDateModule, MatDatepicker,
     MatDatepickerModule,
     MatCheckboxModule,
     MatTableModule,
@@ -72,16 +72,18 @@ export class LetrasComponent implements OnInit {
   
   @Input() idcartera!: number;
 
-  constructor(private server: ApiService,private datePipe: DatePipe) {}
+  constructor(private server: ApiService, private datePipe: DatePipe) { }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   ngOnInit(): void {
+
     this.server
       .listaletra(this.idcartera)
       .subscribe((data: letraResposive[]) => {
         console.log('Datos obtenidos:', data);
 
-        const transformedData: Letra[] = data.map((letra) => ({
+        const transformedData: Letra[] = data.map((letra) =>
+        ({
           idletra: letra.idLetra,
           numletra: letra.numeroLetra,
           fechaemision: letra.fechaEmision.toString(),
@@ -118,17 +120,50 @@ export class LetrasComponent implements OnInit {
 
   selection = new SelectionModel<Letra>(true, []);
 
+  printSelectedIds(): void {
+    const data = this.selection.selected.map((letra) => {
+      console.log('Eliminando letra con id:', letra.idletra);
+  
+      // Llamamos al método de eliminación y usamos subscribe para manejar la respuesta
+      this.server.eliminarLetra(letra.idletra).subscribe(
+        (response) => {
+          console.log('Letra eliminada con éxito:', response);
+          // Realiza cualquier otra acción que desees tras la eliminación
+          this.refreslist();
+        },
+        (error) => {
+          console.error('Error al eliminar la letra:', error);
+        }
+      );
+    });
+  
 
+    console.log('Proceso de eliminación iniciado');
+  }
+  loadLetras(): void {
+    this.server.listaletra(this.idcartera).subscribe((data: letraResposive[]) => {
+      console.log('Datos obtenidos:', data);
+      const transformedData: Letra[] = data.map((letra) => ({
+        idletra: letra.idLetra,
+        numletra: letra.numeroLetra,
+        fechaemision: letra.fechaEmision.toString(),
+        fechavencim: letra.fechaVencimiento.toString(),
+        tasaefectiva: letra.tasaEfectiva.toString(),
+        valornominal: letra.valorNominal.toString(),
+      }));
+      this.dataSource.data = transformedData;
+    });
+  }
   //==========================LETRA DETAIL VIEW
   goLetraDetail: boolean = false;
- 
+
   selectedLetraid!: number;
-  letraDetalle!:Letra;
+  letraDetalle!: Letra;
   verLetradetail(let1: Letra) {
-    this.letraDetalle=let1;
-    this.selectedLetraid=let1.idletra?let1.idletra:0;
+    this.letraDetalle = let1;
+    this.selectedLetraid = let1.idletra ? let1.idletra : 0;
     this.goLetraDetail = true;
-    
+
   }
 
   ///// ==========================================DIALOG REGISTRO LETRAA
@@ -219,8 +254,8 @@ export class LetrasComponent implements OnInit {
       this.activeTab = 'tab1';
     }
   }
-  refreslist():void{
-    this.dataSource= new MatTableDataSource<Letra>([]);; // Restablece el estado del array de carteras
+  refreslist(): void {
+    this.dataSource = new MatTableDataSource<Letra>([]);; // Restablece el estado del array de carteras
     this.ngOnInit();    // Reejecuta el método ngOnInit
   }
 
@@ -269,11 +304,11 @@ export class LetrasComponent implements OnInit {
 
   //=============================DISCOUNT SECTION
 
-  
+
   readonly panelOpenState2 = signal(false);
   readonly panelOpenState3 = signal(false);
 
-   
+
   fechadesc: string | null = null;
   costosiniciales: string = '';
   costosfinales: string = '';
@@ -284,7 +319,7 @@ export class LetrasComponent implements OnInit {
 
   isDialogOpen2 = false; // Controla la visibilidad del diálogo
 
-  descuento:Descuento={
+  descuento: Descuento = {
     descuento: "1234",
     valorNeto: "5000",
     tcea: "20.45",
@@ -295,17 +330,17 @@ export class LetrasComponent implements OnInit {
   registrarDatosDescuentoDialog(): void {
     this.isDialogOpen2 = true; // Con
   }
-  
+
   calcularDescuento(): void {
     //LLAMAR AL CONTROLADOR DE CALCDESCUENTO DE descuentocontroller
   }
-  
+
   onDateChange(event: any): void {
     // Aplica el formato MM-dd-yyyy
     this.fechadescD = this.datePipe.transform(event, 'MM-dd-yyyy');
   }
-  
-  
+
+
   onCancel2(): void {
     this.isDialogOpen2 = false; // Cierra el diálogo
     this.fechadescD = '';
@@ -341,8 +376,8 @@ interface Letra {
   numletra: String;
   fechaemision: String;
   fechavencim: String;
-  tasaefectiva: String;
-  valornominal: String;
+  tasaefectiva: string;
+  valornominal: string;
 }
 
 interface Descuento {
