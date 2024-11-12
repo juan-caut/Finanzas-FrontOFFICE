@@ -137,19 +137,6 @@ export class ApiService {
       .post(url, username)
       .pipe(catchError(this.handleError));
   }
-  public modificarletra(letra: LetraModificar): Observable<any> {
-    const url = `${this.url}/api/letra/actualizacion`;
-    return this.http
-      .put(url, letra)
-      .pipe(catchError(this.handleError));
-  }
-  public eliminarLetra(id:number){
-    const url = `${this.url}/api/letra/eliminar`;
-    const params = new HttpParams().set('id',id);
-    return this.http
-    .delete(url, {params})
-    .pipe(catchError(this.handleError));
-  }
 
 
   public getlistCartera(usuarioId: number): Observable<Cartera[]> {
@@ -166,6 +153,16 @@ export class ApiService {
       })
     );
   }
+  public eliminarCartera(id:number){
+    const url = `${this.url}/api/cartera/eliminar`;
+    const params = new HttpParams().set('id',id);
+    return this.http
+    .delete(url, {params})
+    .pipe(catchError(this.handleError));
+  }
+
+
+
   public listaletra(carteraId: number): Observable<letraResposive[]> {
     const url = `${this.url}/api/letra/letraByCartera`; // Cambia esto según la estructura de tu API
     return this.http.get<letraResposive[]>(url, { params: { carteraId } }).pipe(
@@ -180,6 +177,19 @@ export class ApiService {
     const url = `${this.url}/api/letra`; // Cambia esto según la estructura de tu API
     console.log('letra insertando...', letra);
     return this.http.post<any>(url, letra);
+  }
+  public modificarletra(letra: LetraModificar): Observable<any> {
+    const url = `${this.url}/api/letra/actualizacion`;
+    return this.http
+      .put(url, letra)
+      .pipe(catchError(this.handleError));
+  }
+  public eliminarLetra(id:number){
+    const url = `${this.url}/api/letra/eliminar`;
+    const params = new HttpParams().set('id',id);
+    return this.http
+    .delete(url, {params})
+    .pipe(catchError(this.handleError));
   }
 
   public convTasa(tasaconv: TasaConversion): Observable<any> {

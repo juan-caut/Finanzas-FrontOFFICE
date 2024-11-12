@@ -11,7 +11,7 @@ import { DetailLetrasComponent } from '../detail-letras/detail-letras.component'
 import { LetrasComponent } from '../letras/letras.component';
 import { FacturasComponent } from '../facturas/facturas.component';
 import { ApiService, carteraGrabar } from '../../../api/api.service';
-
+import { MatMenuModule } from '@angular/material/menu';
 interface CarteraElect {
   idcartera: number;
   nombrec: String;
@@ -35,6 +35,8 @@ interface CarteraElect {
     DetailLetrasComponent,
     LetrasComponent,
     FacturasComponent,
+    MatMenuModule
+
   ],
   templateUrl: './cartera.component.html',
   styleUrls: ['./cartera.component.css'], // Cambié `styleUrl` por `styleUrls`
@@ -49,7 +51,7 @@ export class CarteraComponent implements OnInit, AfterViewInit {
   goFacturas: boolean = false;
 
   carterau: CarteraElect[] = [];
-  constructor(private carteraService: ApiService) {}
+  constructor(private carteraService: ApiService) { }
 
   ngOnInit(): void {
     const userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
@@ -60,25 +62,43 @@ export class CarteraComponent implements OnInit, AfterViewInit {
     activate.forEach((data) => {
       data.map(
         (datareal) =>
-          (this.carterau = [
-            ...this.carterau,
-            {
-              idcartera: datareal.idCartera,
-              nombrec: datareal.nombreCartera,
-              moneda: datareal.moneda,
-              tipodoc: datareal.tipoDoc,
-              fechacrea: datareal.fechaCreacion,
-              tasaCambio: datareal.tasaCambio,
-            },
-          ])
+        (this.carterau = [
+          ...this.carterau,
+          {
+            idcartera: datareal.idCartera,
+            nombrec: datareal.nombreCartera,
+            moneda: datareal.moneda,
+            tipodoc: datareal.tipoDoc,
+            fechacrea: datareal.fechaCreacion,
+            tasaCambio: datareal.tasaCambio,
+          },
+        ])
       );
     });
     console.log('esto es la cartera', this.carterau);
   }
+  editarCartera(cartera: any) {
+    // Implementa la lógica para editar la cartera
+    console.log('Editando cartera:', cartera);
+  }
 
-  ngAfterViewInit(): void {}
+  eliminarCartera(cartera: any) {
+    console.log('Editando cartera:', cartera);
 
-  refreslist():void{
+    this.carteraService.eliminarCartera(cartera.idcartera).subscribe(
+      (response) => {
+        console.log('Cartera eliminada con éxito:', response);
+        // Realiza cualquier otra acción que desees tras la eliminación
+        this.refreslist();
+      },
+      (error) => {
+        console.error('Error al eliminar la Cartera:', error);
+      }
+    );;
+  }
+  ngAfterViewInit(): void { }
+
+  refreslist(): void {
     this.carterau = []; // Restablece el estado del array de carteras
     this.ngOnInit();    // Reejecuta el método ngOnInit
   }
@@ -151,8 +171,8 @@ export class CarteraComponent implements OnInit, AfterViewInit {
     this.nombredoc = '';
     this.tipodoc = '';
     this.monedadoc = '';
-    this.tasaCambio = ''; 
-    
+    this.tasaCambio = '';
+
   }
 
   goListLetFac(carter: CarteraElect) {
