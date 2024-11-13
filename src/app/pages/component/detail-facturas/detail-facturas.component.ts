@@ -61,8 +61,8 @@ export class DetailFacturasComponent implements OnInit{
         console.log('Datos obtenidos:', data);
 
         this.fechadesc= data.fechaTransaccion;
-        this.costosiniciales= data.costesIniciales.toString();
-        this.costosfinales= data.costesFinales.toString();
+        this.costosiniciales= data.costesIniciales!=null? data.costesIniciales.toString():"0";
+        this.costosfinales= data.costesFinales!=null? data.costesFinales.toString():"0";
         this.diasdesc=data.diasadesc.toString()
         this.idtransac=data.idTransaccion;
 
@@ -83,7 +83,7 @@ export class DetailFacturasComponent implements OnInit{
       popupWin.document.write(`
         <html>
           <head>
-            <title>Imprimir Detalle Letra</title>
+            <title>Imprimir detalle factura</title>
             <style>
               /* Aquí puedes incluir los estilos necesarios para la impresión */
               @media print {
@@ -147,8 +147,8 @@ export class DetailFacturasComponent implements OnInit{
       console.log('Datos obtenidos:', data);
 
       this.fechadesc= data.fechaTransaccion;
-      this.costosiniciales= data.costesIniciales.toString();
-      this.costosfinales= data.costesFinales.toString();
+      this.costosiniciales= data.costesIniciales!=null?data.costesIniciales.toString():"0";
+      this.costosfinales= data.costesFinales!=null? data.costesFinales.toString():"0";
       this.diasdesc=data.diasadesc.toString()
       this.idtransac=data.idTransaccion;
 

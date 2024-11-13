@@ -17,3 +17,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
  
   height: 0px!important; /* Para reducir el espacio */
 }
+
+.mat-expansion-panel-body{
+  padding: 0px!important; /* Para reducir el espacio */
+}

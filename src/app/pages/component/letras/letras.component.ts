@@ -67,16 +67,32 @@ export class LetrasComponent implements OnInit {
     'valornominal',
     'detalle',
   ];
+  displayedColumns2: string[] = [
+    'idlet',
+    'numlet',
+    'fechaem',
+    'fechaven',
+    'valornom',
+    'tea',
+    'fechadesc',
+    'valorneto',
+    'costeinicial',
+    'costefinal',
+    'valorrecibido',
+    'valorentregado',
+    'tcea',
+  ];
 
   dataSource = new MatTableDataSource<Letra>([]);
+  dataSource2 = new MatTableDataSource<Reporte>([]);
   
   @Input() idcartera!: number;
+  idtransac!:number;
 
   constructor(private server: ApiService, private datePipe: DatePipe) { }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   ngOnInit(): void {
-
     this.server
       .listaletra(this.idcartera)
       .subscribe((data: letraResposive[]) => {
@@ -92,6 +108,32 @@ export class LetrasComponent implements OnInit {
           valornominal: letra.valorNominal.toString(),
         }));
         this.dataSource.data = transformedData;
+
+        //obtiene la transaccion de la cartera
+        this.server
+      .getreport(this.idcartera)
+      .subscribe((data: Reporte[]) => {
+        console.log('Datos obtenidos:', data);
+
+        const transformedData2: Reporte[] = data.map((reporte) =>
+        ({
+          idletfac:reporte.idletfac,
+          numletfac:reporte.numletfac,
+          fechaem:reporte.fechaem,
+          valornom:reporte.valornom,
+          tea:reporte.tea,
+          fechaven:reporte.fechaven,
+          fechadesc:reporte.fechadesc,
+          valorneto:reporte.valorneto,
+          costeinicial:reporte.costeinicial,
+          costefinal:reporte.costefinal,
+          valorrecibido:reporte.valorrecibido,
+          valorentregado:reporte.valorentregado,
+          tcea:reporte.tcea
+        }));
+        this.dataSource2.data = transformedData2;       
+      });  
+
       });
   }
 
@@ -256,6 +298,7 @@ export class LetrasComponent implements OnInit {
   }
   refreslist(): void {
     this.dataSource = new MatTableDataSource<Letra>([]);; // Restablece el estado del array de carteras
+    this.dataSource2 = new MatTableDataSource<Reporte>([]);; // Restablece el estado del array de carteras
     this.ngOnInit();    // Reejecuta el método ngOnInit
   }
 
@@ -310,22 +353,11 @@ export class LetrasComponent implements OnInit {
 
 
   fechadesc: string | null = null;
-  costosiniciales: string = '';
-  costosfinales: string = '';
 
-  fechadescD: string | null = null;
-  costosinicialesD: string = '';
-  costosfinalesD: string = '';
-
+  fechadescD: Date | null = null;
   isDialogOpen2 = false; // Controla la visibilidad del diálogo
 
-  descuento: Descuento = {
-    descuento: "1234",
-    valorNeto: "5000",
-    tcea: "20.45",
-    valorRecibido: "4000",
-    valorEntregado: "4000",
-  };
+
 
   registrarDatosDescuentoDialog(): void {
     this.isDialogOpen2 = true; // Con
@@ -333,42 +365,120 @@ export class LetrasComponent implements OnInit {
 
   calcularDescuento(): void {
     //LLAMAR AL CONTROLADOR DE CALCDESCUENTO DE descuentocontroller
-  }
-
-  onDateChange(event: any): void {
-    // Aplica el formato MM-dd-yyyy
-    this.fechadescD = this.datePipe.transform(event, 'MM-dd-yyyy');
+    this.dataSource2 = new MatTableDataSource<Reporte>([]);; // Restablece el estado del array de carteras
+    this.ngOnInit();    // Reejecuta el método ngOnInit
   }
 
 
   onCancel2(): void {
     this.isDialogOpen2 = false; // Cierra el diálogo
-    this.fechadescD = '';
-    this.costosinicialesD = '';
-    this.costosfinalesD = '';
+    this.fechadescD = null;
   }
 
 
   onRegister2(): void {
-    this.fechadesc = this.fechadescD;
-    this.costosiniciales = this.costosinicialesD;
-    this.costosfinales = this.costosfinalesD;
-    const data = {
-      fechadescueto: this.fechadescD,
-      costosiniciales: this.costosinicialesD,
-      costosfinales: this.costosfinalesD,
-    };
-    console.log('Datos registrados:', data);
+    
+    this.fechadesc= this.fechadescD!.toISOString().split('T')[0],
+
+    this.server.insertardescC({
+      id_cartera:this.idcartera,
+      fechaTransaccion:this.fechadescD!.toISOString().split('T')[0],
+    }).subscribe(() => {
+
+      console.log('TRANSACCION REALIZADA:');
+      
+      
+    });
     this.isDialogOpen2 = false;
     // Restablece los campos del formulario
-    this.fechadescD = '';
-    this.costosinicialesD = '';
-    this.costosfinalesD = '';
+    this.fechadescD = null;
+    //obtener el id de la transaccion
+   
   }
+
+
+  ///=====================IMPRIMIR REPORTE============
+  
+
+  @ViewChild('printSection') printSection!: ElementRef;
+  Imprimir(): void {
+    const printContents = this.printSection.nativeElement.innerHTML;
+    const originalContents = document.body.innerHTML;
+
+    // Abrir una nueva ventana
+    const popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+
+    if (popupWin) {
+      popupWin.document.open();
+      popupWin.document.write(`
+        <html>
+          <head>
+            <title>Imprimir detalle letra</title>
+            <style>
+              /* Aquí puedes incluir los estilos necesarios para la impresión */
+              @media print {
+                body {
+                  -webkit-print-color-adjust: exact;
+                }
+              }
+              /* Copia los estilos de tu aplicación */
+              ${this.getStyles()}
+            </style>
+          </head>
+          <body onload="window.print(); window.close();">
+            ${printContents}
+          </body>
+        </html>
+      `);
+      popupWin.document.close();
+    } else {
+      alert('No se pudo abrir la ventana de impresión. Por favor, permite las ventanas emergentes en tu navegador.');
+    }
+  }
+
+  // Método para obtener los estilos de tu aplicación
+  private getStyles(): string {
+    const styles = Array.from(document.querySelectorAll('style, link[rel="stylesheet"]'))
+      .map(style => style.outerHTML)
+      .join('\n');
+    return styles;
+  }
+
+
 }
 
 
+export interface TransaccionC {
+  fechaTransaccion: string;
+  id_cartera: number;
+}
 
+
+ interface Reporte{
+  idletfac: number ;
+  numletfac: string;
+  fechaem: string;
+  fechaven: string;
+  valornom: number ;
+  tea: number ;
+  fechadesc: string;
+  valorneto: number ;
+  costeinicial: number ;
+  costefinal: number ;
+  valorrecibido: number ;
+  valorentregado: number ;
+  tcea: number ;
+}
+
+interface Transaccion {
+  idTransaccion:number;
+  idletra: number;
+  idfactura:number;
+  fechaTransaccion: string;
+  costesIniciales: number;
+  costesFinales: number;
+  diasadesc:number;
+}
 
 
 interface Letra {

@@ -1,100 +1,92 @@
 <div *ngIf="goFacturaDetail === false">
+  <div class="header">
+    <h2 class="title-list">Cartera - Facturas</h2>
 
-  
-    <div class="header">
-  
-      <h2 class="title-list">Cartera - Facturas</h2>
-  
-      <div class="butons-impo">
-        <mat-icon class="button-update" (click)="refreslist()">refresh</mat-icon>
-        <button (click)="openRegistrarFactura()" class="add-letra">
-          Agregar factura
-        </button>
-      </div>
+    <div class="butons-impo">
+      <mat-icon class="button-update" (click)="refreslist()">refresh</mat-icon>
+      <button (click)="Imprimir()" class="bt-registrar">Reporte</button>
+      <button (click)="openRegistrarFactura()" class="add-letra">
+        Agregar factura
+      </button>
     </div>
-  
-  
-  
-    <!-- ==================================TABLA DE CONTENIDO=============== -->
-    <div class="table-container">
-  
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-        <!-- Checkbox Column -->
-        <ng-container matColumnDef="select">
-          <th mat-header-cell *matHeaderCellDef>
-            <mat-checkbox
-              (change)="toggleSelectAll()"
-              [checked]="isAllSelected()"
-              indeterminate="isAnySelected()"
-            ></mat-checkbox>
-          </th>
-          <td mat-cell *matCellDef="let row">
-            <mat-checkbox
-              (change)="toggleRowSelection(row)"
-              [checked]="selection.isSelected(row)"
-            ></mat-checkbox>
-          </td>
-        </ng-container>
+  </div>
 
-   
-        <!-- Order ID Column -->
-        <ng-container matColumnDef="idfactura">
-          <th mat-header-cell *matHeaderCellDef>ID Factura</th>
-          <td mat-cell *matCellDef="let doc">{{ doc.idFactura }}</td>
-        </ng-container>
-  
-        <!-- City Column -->
-        <ng-container matColumnDef="numfactura">
-          <th mat-header-cell *matHeaderCellDef>Nombre Factura</th>
-          <td mat-cell *matCellDef="let doc">{{ doc.numeroFactura }}</td>
-        </ng-container>
-  
-        <!-- Country Column -->
-        <ng-container matColumnDef="fechaemision">
-          <th mat-header-cell *matHeaderCellDef>Fecha Emision</th>
-          <td mat-cell *matCellDef="let doc">{{ doc.fechaEmision }}</td>
-        </ng-container>
-  
-        <!-- Region Column -->
-        <ng-container matColumnDef="fechavencim">
-          <th mat-header-cell *matHeaderCellDef>Fecha Vencimiento</th>
-          <td mat-cell *matCellDef="let doc">{{ doc.fechaVencimiento }}</td>
-        </ng-container>
-   
-        <!-- Date Column -->
-        <ng-container matColumnDef="tasaefectiva">
-          <th mat-header-cell *matHeaderCellDef>TEA</th>
-          <td mat-cell *matCellDef="let doc">{{ doc.tasaEfectiva }}</td>
-        </ng-container>
-  
-        <!-- Amount Column -->
-        <ng-container matColumnDef="valornominal">
-          <th mat-header-cell *matHeaderCellDef>Valor Nominal</th>
-          <td mat-cell *matCellDef="let doc">{{ doc.montoTotal }}</td>
-        </ng-container>
-  
-        <!-- Detail Button Column -->
-        <ng-container matColumnDef="detalle">
-          <th mat-header-cell *matHeaderCellDef>Detalle</th>
-          <td mat-cell *matCellDef="let doc" class="detalle-column">
-            <mat-icon (click)="verFacturadetail(doc)">visibility</mat-icon>
-          </td>
-        </ng-container>
-  
-        <!-- Header and Row Declarations -->
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-      </table>
-  
-      <mat-paginator
-        [length]="dataSource.data.length"
-        [pageSize]="10"
-        [pageSizeOptions]="[5, 10, 25, 100]"
-      >
-      </mat-paginator>
-  
-  
-  
+  <!-- ==================================TABLA DE CONTENIDO=============== -->
+  <div class="table-container">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <!-- Checkbox Column -->
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox
+            (change)="toggleSelectAll()"
+            [checked]="isAllSelected()"
+            indeterminate="isAnySelected()"
+          ></mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox
+            (change)="toggleRowSelection(row)"
+            [checked]="selection.isSelected(row)"
+          ></mat-checkbox>
+        </td>
+      </ng-container>
+
+      <!-- Order ID Column -->
+      <ng-container matColumnDef="idfactura">
+        <th mat-header-cell *matHeaderCellDef>ID Factura</th>
+        <td mat-cell *matCellDef="let doc">{{ doc.idFactura }}</td>
+      </ng-container>
+
+      <!-- City Column -->
+      <ng-container matColumnDef="numfactura">
+        <th mat-header-cell *matHeaderCellDef>Nombre Factura</th>
+        <td mat-cell *matCellDef="let doc">{{ doc.numeroFactura }}</td>
+      </ng-container>
+
+      <!-- Country Column -->
+      <ng-container matColumnDef="fechaemision">
+        <th mat-header-cell *matHeaderCellDef>Fecha Emision</th>
+        <td mat-cell *matCellDef="let doc">{{ doc.fechaEmision }}</td>
+      </ng-container>
+
+      <!-- Region Column -->
+      <ng-container matColumnDef="fechavencim">
+        <th mat-header-cell *matHeaderCellDef>Fecha Vencimiento</th>
+        <td mat-cell *matCellDef="let doc">{{ doc.fechaVencimiento }}</td>
+      </ng-container>
+
+      <!-- Date Column -->
+      <ng-container matColumnDef="tasaefectiva">
+        <th mat-header-cell *matHeaderCellDef>TEA</th>
+        <td mat-cell *matCellDef="let doc">{{ doc.tasaEfectiva }}</td>
+      </ng-container>
+
+      <!-- Amount Column -->
+      <ng-container matColumnDef="valornominal">
+        <th mat-header-cell *matHeaderCellDef>Valor Nominal</th>
+        <td mat-cell *matCellDef="let doc">{{ doc.montoTotal }}</td>
+      </ng-container>
+
+      <!-- Detail Button Column -->
+      <ng-container matColumnDef="detalle">
+        <th mat-header-cell *matHeaderCellDef>Detalle</th>
+        <td mat-cell *matCellDef="let doc" class="detalle-column">
+          <mat-icon (click)="verFacturadetail(doc)">visibility</mat-icon>
+        </td>
+      </ng-container>
+
+      <!-- Header and Row Declarations -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-paginator
+      [length]="dataSource.data.length"
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+    >
+    </mat-paginator>
+
     <!-- ==================================EXPANSION DISCOUNT DETAIL=============== -->
     <div class="detail-letra-expansion">
       <mat-expansion-panel
@@ -106,23 +98,15 @@
         <mat-expansion-panel-header>
           <mat-panel-description>Descuento</mat-panel-description>
         </mat-expansion-panel-header>
-  
+
         <!-- Detalle de los datos de DESCUENTOO -->
         <div class="letra-details">
           <div class="letra-detail-item">
             <span class="detail-label">Fecha de Descuento:</span>
             <span class="detail-value">{{ fechadesc }}</span>
           </div>
-          <div class="letra-detail-item">
-            <span class="detail-label">Costos Iniciales:</span>
-            <span class="detail-value">{{ costosiniciales }}</span>
-          </div>
-          <div class="letra-detail-item">
-            <span class="detail-label">Costos Finales:</span>
-            <span class="detail-value">{{ costosfinales }}</span>
-          </div>
         </div>
-  
+
         <div class="registrar-data-desc">
           <button
             (click)="registrarDatosDescuentoDialog()"
@@ -130,15 +114,14 @@
           >
             Registrar datos
           </button>
-  
+
           <button (click)="calcularDescuento()" class="bt-registrar">
             Aplicar descuento
           </button>
         </div>
       </mat-expansion-panel>
     </div>
-  
-    
+
     <!-- ==================================RESULTS DETAIL=============== -->
     <div class="detail-letra-expansion">
       <mat-expansion-panel
@@ -150,230 +133,285 @@
         <mat-expansion-panel-header>
           <mat-panel-description>Resultados</mat-panel-description>
         </mat-expansion-panel-header>
-  
+
         <!-- Detalle de los datos de la letra -->
-        <div class="letra-details">
-          <div class="letra-detail-item">
-            <span class="detail-label">Descuento:</span>
-            <span class="detail-value">{{ descuento.descuento }}</span>
-          </div>
-          <div class="letra-detail-item">
-            <span class="detail-label">Valor neto:</span>
-            <span class="detail-value">{{ descuento.valorNeto }}</span>
-          </div>
-          <div class="letra-detail-item">
-            <span class="detail-label">Valor entregado:</span>
-            <span class="detail-value">{{ descuento.valorEntregado }}</span>
-          </div>
-          <div class="letra-detail-item">
-            <span class="detail-label">Valor recibido:</span>
-            <span class="detail-value">{{ descuento.valorRecibido }}</span>
-          </div>
-          <div class="letra-detail-item">
-            <span class="detail-label"
-              >Tasa de Costo Efectivo Anual (TCEA):</span
-            >
-            <span class="detail-value">{{ descuento.tcea }}%</span>
+        <!-- ========================================REPORTE ==================-->
+
+        <div class="letra-details1">
+          <div class="table-container1">
+            <div id="printableArea" #printSection>
+              <table
+                mat-table
+                [dataSource]="dataSource2"
+                class="mat-elevation-z8 table1"
+              >
+                <!-- Order ID Column -->
+                <ng-container matColumnDef="idlet">
+                  <th mat-header-cell *matHeaderCellDef>ID</th>
+                  <td mat-cell *matCellDef="let doc">{{ doc.idletfac }}</td>
+                </ng-container>
+
+                <!-- City Column -->
+                <ng-container matColumnDef="numlet">
+                  <th mat-header-cell *matHeaderCellDef>Num Factura</th>
+                  <td mat-cell *matCellDef="let doc">{{ doc.numletfac }}</td>
+                </ng-container>
+
+                <!-- Country Column -->
+                <ng-container matColumnDef="fechaem">
+                  <th mat-header-cell *matHeaderCellDef>Fecha Emision</th>
+                  <td mat-cell *matCellDef="let doc">{{ doc.fechaem }}</td>
+                </ng-container>
+
+                <!-- Region Column -->
+                <ng-container matColumnDef="fechaven">
+                  <th mat-header-cell *matHeaderCellDef>Fecha Vencim.</th>
+                  <td mat-cell *matCellDef="let doc">{{ doc.fechaven }}</td>
+                </ng-container>
+                <!-- Date Column -->
+                <ng-container matColumnDef="valornom">
+                  <th mat-header-cell *matHeaderCellDef>Valor Nominal</th>
+                  <td mat-cell *matCellDef="let doc">{{ doc.valornom }}</td>
+                </ng-container>
+
+                <!-- Amount Column -->
+                <ng-container matColumnDef="tea">
+                  <th mat-header-cell *matHeaderCellDef>TEA</th>
+                  <td mat-cell *matCellDef="let doc">{{ doc.tea }}</td>
+                </ng-container>
+
+                <!-- Order ID Column -->
+                <ng-container matColumnDef="fechadesc">
+                  <th mat-header-cell *matHeaderCellDef>Fecha Descuento</th>
+                  <td mat-cell *matCellDef="let doc">{{ doc.fechadesc }}</td>
+                </ng-container>
+
+                <!-- City Column -->
+                <ng-container matColumnDef="valorneto">
+                  <th mat-header-cell *matHeaderCellDef>Valor Neto</th>
+                  <td mat-cell *matCellDef="let doc">{{ doc.valorneto }}</td>
+                </ng-container>
+
+                <!-- Country Column -->
+                <ng-container matColumnDef="costeinicial">
+                  <th mat-header-cell *matHeaderCellDef>Coste Inicial</th>
+                  <td mat-cell *matCellDef="let doc">{{ doc.costeinicial }}</td>
+                </ng-container>
+
+                <!-- Region Column -->
+                <ng-container matColumnDef="costefinal">
+                  <th mat-header-cell *matHeaderCellDef>Coste Final</th>
+                  <td mat-cell *matCellDef="let doc">{{ doc.costefinal }}</td>
+                </ng-container>
+
+                <!-- Date Column -->
+                <ng-container matColumnDef="valorrecibido">
+                  <th mat-header-cell *matHeaderCellDef>Val. Recibido</th>
+                  <td mat-cell *matCellDef="let doc">
+                    {{ doc.valorrecibido }}
+                  </td>
+                </ng-container>
+
+                <!-- Amount Column -->
+                <ng-container matColumnDef="valorentregado">
+                  <th mat-header-cell *matHeaderCellDef>Val. Entregado</th>
+                  <td mat-cell *matCellDef="let doc">
+                    {{ doc.valorentregado }}
+                  </td>
+                </ng-container>
+                <!-- Date Column -->
+                <ng-container matColumnDef="tcea">
+                  <th mat-header-cell *matHeaderCellDef>TCEA</th>
+                  <td mat-cell *matCellDef="let doc">{{ doc.tcea }}</td>
+                </ng-container>
+
+                <!-- Header and Row Declarations -->
+                <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: displayedColumns2"
+                ></tr>
+              </table>
+            </div>
           </div>
         </div>
       </mat-expansion-panel>
     </div>
-  
-  
-  
-  
-  
-    </div>
-  
-    
-  
-  
-    <!--==================================================DIALOG INSERT LETRA====================================================-->
-    <div class="custom-dialog-overlay" *ngIf="isDialogOpen">
-      <div class="custom-dialog">
-        <h2 class="dialog-title">Alta Factura</h2>
-  
-        <div class="dialog-content">
-          <div class="form-field">
-            <label for="numfactura">Nombre Factura</label>
-            <input id="numfactura" type="text" [(ngModel)]="numfactura" />
-          </div>
-  
-          <div class="form-field">
-            <label for="fechaemisionI">Fecha de Emision</label>
-            <mat-form-field appearance="outline" class="mat-form-date">
-              <input
-                placeholder="MM/DD/YYYY"
-                class="date-imput"
-                matInput
-                [matDatepicker]="picker1"
-                [(ngModel)]="fechaemisionI"
-              />
-              <mat-datepicker-toggle
-                matIconSuffix
-                [for]="picker1"
-              ></mat-datepicker-toggle>
-              <mat-datepicker #picker1></mat-datepicker>
-            </mat-form-field>
-          </div>
-  
-          <div class="form-field">
-            <label for="fechavencimI">Fecha de Vencimiento</label>
-            <mat-form-field appearance="outline" class="mat-form-date">
-              <input
-                placeholder="MM/DD/YYYY"
-                class="date-imput"
-                matInput
-                [matDatepicker]="picker2"
-                [(ngModel)]="fechavencimI"
-              />
-              <mat-datepicker-toggle
-                matIconSuffix
-                [for]="picker2"
-              ></mat-datepicker-toggle>
-              <mat-datepicker #picker2></mat-datepicker>
-            </mat-form-field>
-          </div>
-  
-          <!-- INGRESAR TASA EFECTIVA O NOMINAL -->
-  
-          <div class="tab-container">
-            <!-- Encabezados de las pestañas -->
-            <div class="tab-headers">
-              <button
-                class="tab-link"
-                [ngClass]="{ active: activeTab === 'tab1' }"
-                (click)="openTab('tab1')"
-              >
-                Tasa Efectiva
-              </button>
-              <button
-                class="tab-link"
-                [ngClass]="{ active: activeTab === 'tab2' }"
-                (click)="openTab('tab2')"
-              >
-                Tasa Nominal
-              </button>
-            </div>
-  
-            <!-- Contenido de cada pestaña -->
-            <div *ngIf="activeTab === 'tab1'" class="tab-content">
-              <div class="form-field">
-                <label>Tasa Efectiva Anual</label>
-                <input
-                  id="tasaefectiva"
-                  type="number"
-                  [(ngModel)]="tasaefectiva"
-                />
-              </div>
-            </div>
-  
-            <div *ngIf="activeTab === 'tab2'" class="tab-content">
-              <div class="form-field">
-                <label for="tasanomconv">Tasa Nominal</label>
-                <input id="tasanomconv" type="number" [(ngModel)]="tasanominal" />
-  
-                <label for="tipotasa">Tipo de Tasa</label>
-                <select id="tipotasa" [(ngModel)]="tipotasanominal">
-                  <option value="360">Tasa Nominal Anual (TNA)</option>
-                  <option value="180">Tasa Nominal Semestral (TNS)</option>
-                  <option value="120">Tasa Nominal Cuatrimestral (TNC)</option>
-                  <option value="90">Tasa Nominal Trimestral (TNT)</option>
-                  <option value="60">Tasa Nominal Bimestral (TNB)</option>
-                  <option value="30">Tasa Nominal Mensua (TNM)</option>
-                  <option value="15">Tasa Nominal Quincenal (TNQ)</option>
-                  <option value="1">Tasa Nominal Diaria (TND)</option>
-                </select>
-  
-                <label for="capitalizacion">Capitalización</label>
-                <select id="capitalizacion" [(ngModel)]="capitatasanom">
-                  <option value="360">ANUAL</option>
-                  <option value="180">SEMESTRAL</option>
-                  <option value="120">CUATRIMENTRAL</option>
-                  <option value="90">TRIMESTRAL</option>
-                  <option value="60">BIMESTRAL</option>
-                  <option value="30">MENSUAL</option>
-                  <option value="15">QUINCENAL</option>
-                  <option value="1">DIARIA</option>
-                </select>
-  
-                <button class="bt-calctea" (click)="onCalcTEA()">
-                  Calcular Tasa Efectiva Anual (TEA)
-                </button>
-  
-                <input
-                  id="teacalc"
-                  type="number"
-                  [readonly]="true"
-                  [(ngModel)]="teacalc"
-                />
-              </div>
-            </div>
-          </div>
-  
-          <div class="form-field">
-            <label for="valornominal">Valor Nominal</label>
-            <input id="valornominal" type="number" [(ngModel)]="valornominal" />
-          </div>
-        </div>
-  
-        <div class="dialog-actions">
-          <button class="cancel-button" (click)="onCancel()">CANCELAR</button>
-          <button class="confirm-button" (click)="onRegister()">REGISTRAR</button>
-        </div>
-      </div>
-    </div>
-  
-  
-    <!--==================================================DIALOG INPUT DISCOUNT DATA====================================================-->
-  
-    <div class="custom-dialog-overlay" *ngIf="isDialogOpen2">
-      <div class="custom-dialog">
-        <h2 class="dialog-title">Registrar datos de descuento</h2>
-  
-        <div class="dialog-content">
-          <div class="form-field">
-            <label for="fechadescD">Fecha de descuento</label>
-            <mat-form-field appearance="outline" class="mat-form-date-desc">
-              <input
-                placeholder="MM/DD/YYYY"
-                matInput
-                class="date-input-hidden"
-                [matDatepicker]="picker2"
-                (dateChange)="onDateChange($event.value)"
-              />
-              <mat-datepicker-toggle
-                matIconSuffix
-                [for]="picker2"
-              ></mat-datepicker-toggle>
-              <mat-datepicker #picker2></mat-datepicker>
-            </mat-form-field>
-          </div>
-  
-          <div class="form-field">
-            <label for="numletra">Costes iniciales</label>
-            <input id="numletra" type="number" [(ngModel)]="costosinicialesD" />
-          </div>
-  
-          <div class="form-field">
-            <label for="valornominal">Costes finales</label>
-            <input id="valornominal" type="number" [(ngModel)]="costosfinalesD" />
-          </div>
-        </div>
-  
-        <div class="dialog-actions">
-          <button class="cancel-button" (click)="onCancel2()">CANCELAR</button>
-          <button class="confirm-button" (click)="onRegister2()">REGISTRAR</button>
-        </div>
-      </div>
-    </div>
-  
-  
-  
   </div>
-  
-  <app-detail-facturas
-    *ngIf="goFacturaDetail === true"
-    [factura]="facturaDetalle"
-  ></app-detail-facturas>
-  
+
+  <!--==================================================DIALOG INSERT LETRA====================================================-->
+  <div class="custom-dialog-overlay" *ngIf="isDialogOpen">
+    <div class="custom-dialog">
+      <h2 class="dialog-title">Alta Factura</h2>
+
+      <div class="dialog-content">
+        <div class="form-field">
+          <label for="numfactura">Nombre Factura</label>
+          <input id="numfactura" type="text" [(ngModel)]="numfactura" />
+        </div>
+
+        <div class="form-field">
+          <label for="fechaemisionI">Fecha de Emision</label>
+          <mat-form-field appearance="outline" class="mat-form-date">
+            <input
+              placeholder="MM/DD/YYYY"
+              class="date-imput"
+              matInput
+              [matDatepicker]="picker1"
+              [(ngModel)]="fechaemisionI"
+            />
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="picker1"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="form-field">
+          <label for="fechavencimI">Fecha de Vencimiento</label>
+          <mat-form-field appearance="outline" class="mat-form-date">
+            <input
+              placeholder="MM/DD/YYYY"
+              class="date-imput"
+              matInput
+              [matDatepicker]="picker2"
+              [(ngModel)]="fechavencimI"
+            />
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="picker2"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <!-- INGRESAR TASA EFECTIVA O NOMINAL -->
+
+        <div class="tab-container">
+          <!-- Encabezados de las pestañas -->
+          <div class="tab-headers">
+            <button
+              class="tab-link"
+              [ngClass]="{ active: activeTab === 'tab1' }"
+              (click)="openTab('tab1')"
+            >
+              Tasa Efectiva
+            </button>
+            <button
+              class="tab-link"
+              [ngClass]="{ active: activeTab === 'tab2' }"
+              (click)="openTab('tab2')"
+            >
+              Tasa Nominal
+            </button>
+          </div>
+
+          <!-- Contenido de cada pestaña -->
+          <div *ngIf="activeTab === 'tab1'" class="tab-content">
+            <div class="form-field">
+              <label>Tasa Efectiva Anual</label>
+              <input
+                id="tasaefectiva"
+                type="number"
+                [(ngModel)]="tasaefectiva"
+              />
+            </div>
+          </div>
+
+          <div *ngIf="activeTab === 'tab2'" class="tab-content">
+            <div class="form-field">
+              <label for="tasanomconv">Tasa Nominal</label>
+              <input id="tasanomconv" type="number" [(ngModel)]="tasanominal" />
+
+              <label for="tipotasa">Tipo de Tasa</label>
+              <select id="tipotasa" [(ngModel)]="tipotasanominal">
+                <option value="360">Tasa Nominal Anual (TNA)</option>
+                <option value="180">Tasa Nominal Semestral (TNS)</option>
+                <option value="120">Tasa Nominal Cuatrimestral (TNC)</option>
+                <option value="90">Tasa Nominal Trimestral (TNT)</option>
+                <option value="60">Tasa Nominal Bimestral (TNB)</option>
+                <option value="30">Tasa Nominal Mensua (TNM)</option>
+                <option value="15">Tasa Nominal Quincenal (TNQ)</option>
+                <option value="1">Tasa Nominal Diaria (TND)</option>
+              </select>
+
+              <label for="capitalizacion">Capitalización</label>
+              <select id="capitalizacion" [(ngModel)]="capitatasanom">
+                <option value="360">ANUAL</option>
+                <option value="180">SEMESTRAL</option>
+                <option value="120">CUATRIMENTRAL</option>
+                <option value="90">TRIMESTRAL</option>
+                <option value="60">BIMESTRAL</option>
+                <option value="30">MENSUAL</option>
+                <option value="15">QUINCENAL</option>
+                <option value="1">DIARIA</option>
+              </select>
+
+              <button class="bt-calctea" (click)="onCalcTEA()">
+                Calcular Tasa Efectiva Anual (TEA)
+              </button>
+
+              <input
+                id="teacalc"
+                type="number"
+                [readonly]="true"
+                [(ngModel)]="teacalc"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="valornominal">Valor Nominal</label>
+          <input id="valornominal" type="number" [(ngModel)]="valornominal" />
+        </div>
+      </div>
+
+      <div class="dialog-actions">
+        <button class="cancel-button" (click)="onCancel()">CANCELAR</button>
+        <button class="confirm-button" (click)="onRegister()">REGISTRAR</button>
+      </div>
+    </div>
+  </div>
+
+  <!--==================================================DIALOG INPUT DISCOUNT DATA====================================================-->
+
+  <div class="custom-dialog-overlay" *ngIf="isDialogOpen2">
+    <div class="custom-dialog">
+      <h2 class="dialog-title">Registrar datos de descuento</h2>
+
+      <div class="dialog-content">
+        <div class="form-field">
+          <label for="fechadescD">Fecha de descuento</label>
+          <mat-form-field appearance="outline" class="mat-form-date-desc">
+            <input
+              placeholder="MM/DD/YYYY"
+              matInput
+              class="date-input-hidden"
+              [matDatepicker]="picker2"
+              [(ngModel)]="fechadescD"
+            />
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="picker2"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="dialog-actions">
+        <button class="cancel-button" (click)="onCancel2()">CANCELAR</button>
+        <button class="confirm-button" (click)="onRegister2()">
+          REGISTRAR
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-detail-facturas
+  *ngIf="goFacturaDetail === true"
+  [factura]="facturaDetalle"
+></app-detail-facturas>

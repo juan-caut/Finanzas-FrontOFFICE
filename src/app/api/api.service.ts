@@ -9,10 +9,10 @@ import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 export interface LetraModificar {
   id: number;
-  fechaInicial: String,
-  fechaVencimiento: String,
-  tasaEfectAnual:number,
-    valorNominal:number,
+  fechaInicial: String;
+  fechaVencimiento: String;
+  tasaEfectAnual: number;
+  valorNominal: number;
 }
 export interface Letragrabar {
   idLetra: number;
@@ -83,11 +83,11 @@ export interface carteraGrabar {
   };
 }
 export interface UserCrearRequest {
-  username: String,
-  ident: String,
-  email: String,
-  passwordd: String,
-  idRol: number
+  username: String;
+  ident: String;
+  email: String;
+  passwordd: String;
+  idRol: number;
 }
 export interface Cartera {
   idCartera: number;
@@ -117,8 +117,6 @@ export interface Cartera {
 export class ApiService {
   private url = `${environment.base}`;
 
-
-
   //USER SERVICES
   constructor(private http: HttpClient) {}
 
@@ -140,9 +138,7 @@ export class ApiService {
 
   public crearuser(username: UserCrearRequest): Observable<any> {
     const url = `${this.url}/api/usuario`;
-    return this.http
-      .post(url, username)
-      .pipe(catchError(this.handleError));
+    return this.http.post(url, username).pipe(catchError(this.handleError));
   }
 
   public getlistCartera(usuarioId: number): Observable<Cartera[]> {
@@ -162,15 +158,11 @@ export class ApiService {
 
   //LETRA SERVICES
 
-  public eliminarCartera(id:number){
+  public eliminarCartera(id: number) {
     const url = `${this.url}/api/cartera/eliminar`;
-    const params = new HttpParams().set('id',id);
-    return this.http
-    .delete(url, {params})
-    .pipe(catchError(this.handleError));
+    const params = new HttpParams().set('id', id);
+    return this.http.delete(url, { params }).pipe(catchError(this.handleError));
   }
-
-
 
   public listaletra(carteraId: number): Observable<letraResposive[]> {
     const url = `${this.url}/api/letra/letraByCartera`; // Cambia esto según la estructura de tu API
@@ -189,16 +181,12 @@ export class ApiService {
   }
   public modificarletra(letra: LetraModificar): Observable<any> {
     const url = `${this.url}/api/letra/actualizacion`;
-    return this.http
-      .put(url, letra)
-      .pipe(catchError(this.handleError));
+    return this.http.put(url, letra).pipe(catchError(this.handleError));
   }
-  public eliminarLetra(id:number){
+  public eliminarLetra(id: number) {
     const url = `${this.url}/api/letra/eliminar`;
-    const params = new HttpParams().set('id',id);
-    return this.http
-    .delete(url, {params})
-    .pipe(catchError(this.handleError));
+    const params = new HttpParams().set('id', id);
+    return this.http.delete(url, { params }).pipe(catchError(this.handleError));
   }
 
   //CONV TASA SERVICES
@@ -229,8 +217,16 @@ export class ApiService {
     );
   }
 
+
   public insertardatosdesc(transac: Transaccion): Observable<any> {
     const url = `${this.url}/api/transaccion`; // Cambia esto según la estructura de tu API
+    console.log('transaccion insertando...', transac);
+    return this.http.post<any>(url, transac);
+  }
+
+  
+  public insertardescC(transac: TransaccionC): Observable<any> {
+    const url = `${this.url}/api/transaccion/transacart`; // Cambia esto según la estructura de tu API
     console.log('transaccion insertando...', transac);
     return this.http.post<any>(url, transac);
   }
@@ -238,7 +234,7 @@ export class ApiService {
   //DESCUENTO SERVICES
 
   public getdescuentotra(idtra: number): Observable<Descuento> {
-    const url = `${this.url}/api/descuento/descontar`; 
+    const url = `${this.url}/api/descuento/descontar`;
     console.log('TRANSACCION ... :', idtra);
     return this.http.get<Descuento>(url, { params: { idtra } }).pipe(
       catchError((error) => {
@@ -265,7 +261,12 @@ export class ApiService {
     return this.http.post<any>(url, fac);
   }
 
-
+//REPORTE:
+public getreport(idcar: number): Observable<Reporte[]> {
+  const url = `${this.url}/api/cartera/carterareport`;
+  console.log('REPORTE POR CARTERA:', idcar);
+  return this.http.get<Reporte[]>(url, { params: { idcar: idcar } });
+}
 
 
 
@@ -283,6 +284,28 @@ export class ApiService {
     return throwError(() => new Error(errorMessage));
   }
 }
+
+export interface TransaccionC {
+  fechaTransaccion: string;
+  id_cartera: number;
+}
+
+export interface Reporte{
+   idletfac: number ;
+   numletfac: string;
+   fechaem: string;
+   fechaven: string;
+   valornom: number ;
+   tea: number ;
+   fechadesc: string;
+   valorneto: number ;
+   costeinicial: number ;
+   costefinal: number ;
+   valorrecibido: number ;
+   valorentregado: number ;
+   tcea: number ;
+}
+
 export interface Factura {
   idFactura: number;
   numeroFactura: String;
@@ -290,30 +313,25 @@ export interface Factura {
   fechaVencimiento: String;
   montoTotal: String;
   tasaEfectiva: String;
-  idcartera:number;
+  idcartera: number;
 }
 
 export interface Transaccion {
-  idTransaccion:number;
+  idTransaccion: number;
   idletra: number;
   idfactura: number;
   fechaTransaccion: string;
   costesIniciales: number;
   costesFinales: number;
-  diasadesc:number;
+  diasadesc: number;
 }
-
 
 export interface Descuento {
-  idDescuento:number;
-  idtransaccion:Descuento;
-descuento: number;
-valorNeto: number;
-tcea: number;
-valorRecibido: number;
-valorEntregado: number;
+  idDescuento: number;
+  idtransaccion: Descuento;
+  descuento: number;
+  valorNeto: number;
+  tcea: number;
+  valorRecibido: number;
+  valorEntregado: number;
 }
-
-
-
-
