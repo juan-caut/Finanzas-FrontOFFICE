@@ -1,10 +1,6 @@
-
-export const environment={
-production:true,
-  base:"http://10.128.0.3:8080"
+export const environment = {
+  production: true,
+  base: '/api',
   //desmarcar y npm run server
   //CORS
-
-
-}
-
+};
