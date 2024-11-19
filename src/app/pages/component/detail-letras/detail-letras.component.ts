@@ -19,15 +19,6 @@ import { MatCardModule } from '@angular/material/card';
 import { ApiService } from '../../../api/api.service';
 
 
-interface Letra {
-  idletra: number;
-  numletra: String;
-  fechaemision: String;
-  fechavencim: String;
-  tasaefectiva: number;
-  valornominal: number;
-}
-
 @Component({
   selector: 'app-detail-letras',
   standalone: true,
@@ -263,13 +254,9 @@ interface Letra {
   numletra: String;
   fechaemision: String;
   fechavencim: String;
-  tasaefectiva: number;
-  valornominal: number;
+  tasaefectiva: String;
+  valornominal: String;
 }
 
-
-
-  
-  
   
   

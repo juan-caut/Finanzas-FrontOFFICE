@@ -253,8 +253,8 @@ interface Factura {
   numeroFactura: String;
   fechaEmision: String;
   fechaVencimiento: String;
-  montoTotal: number;
-  tasaEfectiva: number;
+  montoTotal: String;
+  tasaEfectiva: String;
   idcartera:number
 }
 
