@@ -2,13 +2,14 @@ import { Component, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TabpanelComponent } from '../tabpanel/tabpanel.component';
 import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { ApiService } from '../../api/api.service';
 @Component({
   selector: 'app-login',
   standalone: true,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  imports: [FormsModule]
+  imports: [FormsModule,RouterModule]
 })
 export class LoginComponent {
   
