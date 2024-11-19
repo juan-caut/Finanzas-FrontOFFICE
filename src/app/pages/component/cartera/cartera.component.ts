@@ -55,7 +55,7 @@ export class CarteraComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     const userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
-    console.log('esto es la cartera', userData);
+    //console.log('esto es la cartera', userData);
     const activate = this.carteraService.getlistCartera(
       parseInt(userData.iduser)
     );
@@ -75,19 +75,19 @@ export class CarteraComponent implements OnInit, AfterViewInit {
         ])
       );
     });
-    console.log('esto es la cartera', this.carterau);
+    //console.log('esto es la cartera', this.carterau);
   }
   editarCartera(cartera: any) {
     // Implementa la lógica para editar la cartera
-    console.log('Editando cartera:', cartera);
+    //console.log('Editando cartera:', cartera);
   }
 
   eliminarCartera(cartera: any) {
-    console.log('Editando cartera:', cartera);
+    //console.log('Editando cartera:', cartera);
 
     this.carteraService.eliminarCartera(cartera.idcartera).subscribe(
       (response) => {
-        console.log('Cartera eliminada con éxito:', response);
+       // console.log('Cartera eliminada con éxito:', response);
         // Realiza cualquier otra acción que desees tras la eliminación
         this.refreslist();
       },
@@ -158,10 +158,10 @@ export class CarteraComponent implements OnInit, AfterViewInit {
         },
       },
     };
-    console.log('esta el el json ', carteraData);
+   // console.log('esta el el json ', carteraData);
     this.carteraService.createCartera(carteraData).subscribe({
       next: (response) => {
-        console.log('Cartera creada exitosamente:', response);
+       // console.log('Cartera creada exitosamente:', response);
       },
       error: (err) => {
         console.error('Error al crear la cartera:', err);
@@ -177,7 +177,7 @@ export class CarteraComponent implements OnInit, AfterViewInit {
 
   goListLetFac(carter: CarteraElect) {
     this.selectedCarteraId = carter.idcartera ? carter.idcartera : 0;
-    console.log(this.selectedCarteraId);
+    //console.log(this.selectedCarteraId);
     if (this.selectedCarteraId !== null) {
       this.goLetras = carter.tipodoc === 'LETRA';
       this.goFacturas = carter.tipodoc === 'FACTURA';

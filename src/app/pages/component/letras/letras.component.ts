@@ -96,7 +96,7 @@ export class LetrasComponent implements OnInit {
     this.server
       .listaletra(this.idcartera)
       .subscribe((data: letraResposive[]) => {
-        console.log('Datos obtenidos:', data);
+        //console.log('Datos obtenidos:', data);
 
         const transformedData: Letra[] = data.map((letra) =>
         ({
@@ -113,7 +113,7 @@ export class LetrasComponent implements OnInit {
         this.server
       .getreport(this.idcartera)
       .subscribe((data: Reporte[]) => {
-        console.log('Datos obtenidos:', data);
+        //console.log('Datos obtenidos:', data);
 
         const transformedData2: Reporte[] = data.map((reporte) =>
         ({
@@ -164,12 +164,12 @@ export class LetrasComponent implements OnInit {
 
   printSelectedIds(): void {
     const data = this.selection.selected.map((letra) => {
-      console.log('Eliminando letra con id:', letra.idletra);
+      //console.log('Eliminando letra con id:', letra.idletra);
   
       // Llamamos al método de eliminación y usamos subscribe para manejar la respuesta
       this.server.eliminarLetra(letra.idletra).subscribe(
         (response) => {
-          console.log('Letra eliminada con éxito:', response);
+          //console.log('Letra eliminada con éxito:', response);
           // Realiza cualquier otra acción que desees tras la eliminación
           this.refreslist();
         },
@@ -180,11 +180,11 @@ export class LetrasComponent implements OnInit {
     });
   
 
-    console.log('Proceso de eliminación iniciado');
+    //console.log('Proceso de eliminación iniciado');
   }
   loadLetras(): void {
     this.server.listaletra(this.idcartera).subscribe((data: letraResposive[]) => {
-      console.log('Datos obtenidos:', data);
+      //console.log('Datos obtenidos:', data);
       const transformedData: Letra[] = data.map((letra) => ({
         idletra: letra.idLetra,
         numletra: letra.numeroLetra,
@@ -241,7 +241,7 @@ export class LetrasComponent implements OnInit {
         tasaEfectiva: parseFloat(this.tasaefectiva),
         cartera: this.idcartera,
       };
-      console.log('Datos registrados:', data);
+      //console.log('Datos registrados:', data);
       this.server
         .crearletra({
           idLetra: 0,
@@ -269,7 +269,7 @@ export class LetrasComponent implements OnInit {
         tasaEfectiva: this.teacalc,
         cartera: this.idcartera,
       };
-      console.log('Datos registrados:', data);
+      //console.log('Datos registrados:', data);
       this.server
         .crearletra({
           idLetra: 0,
@@ -322,7 +322,7 @@ export class LetrasComponent implements OnInit {
       capitalizacion: this.capitatasanom,
       tasaEfectiva: 0,
     };
-    console.log('Datos de conversion:', data);
+    //console.log('Datos de conversion:', data);
     this.server
       .convTasa({
         tasaNominal: this.tasanominal,
@@ -333,7 +333,7 @@ export class LetrasComponent implements OnInit {
       .subscribe({
         next: (valorConvertido: number) => {
           // `valorConvertido` es el número que retorna el backend
-          console.log('Valor convertido:', valorConvertido);
+          //console.log('Valor convertido:', valorConvertido);
           // Puedes almacenar este valor en una variable para utilizarlo más adelante
           this.teacalc = valorConvertido;
         },
@@ -385,7 +385,7 @@ export class LetrasComponent implements OnInit {
       fechaTransaccion:this.fechadescD!.toISOString().split('T')[0],
     }).subscribe(() => {
 
-      console.log('TRANSACCION REALIZADA:');
+      //console.log('TRANSACCION REALIZADA:');
       
       
     });

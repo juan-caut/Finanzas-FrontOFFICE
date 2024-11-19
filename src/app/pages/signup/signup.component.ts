@@ -30,7 +30,10 @@ export class SignupComponent {
     const data = this.usercreate.crearuser({
       email: this.user.email, ident: this.user.ident, idRol: 2, passwordd: this.user.passwordd, username: this.user.username
     })
-    data.forEach(data => { console.log('usuario creado') })
+    data.forEach(data => { 
+      //console.log('usuario creado') 
+
+    })
     this.route.navigate(['/panel']);
   }
 }

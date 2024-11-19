@@ -30,7 +30,7 @@ export class LoginComponent {
         this.apiService.getdataUser(this.user.username).subscribe({
           next: (userData) => {
            sessionStorage.setItem('userData', JSON.stringify(userData));
-           console.log('data',userData)
+           //console.log('data',userData)
             this.router.navigate(['/panel']);
           },
           error: (err) => {

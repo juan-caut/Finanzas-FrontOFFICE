@@ -90,9 +90,9 @@ export class FacturasComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   ngOnInit(): void {
     this.server.listafactura(this.idcartera).subscribe((data: Factura[]) => {
-      console.log('Datos obtenidos:', data);
+      //console.log('Datos obtenidos:', data);
 
-      console.log('CARTERA NUM:', this.idcartera);
+      //console.log('CARTERA NUM:', this.idcartera);
 
       const transformedData: Factura[] = data.map((factura) => ({
         idFactura: factura.idFactura,
@@ -106,7 +106,7 @@ export class FacturasComponent {
       this.dataSource.data = transformedData;
 
       this.server.getreport(this.idcartera).subscribe((data: Reporte[]) => {
-        console.log('Datos obtenidos:', data);
+        //console.log('Datos obtenidos:', data);
 
         const transformedData2: Reporte[] = data.map((reporte) => ({
           idletfac: reporte.idletfac,
@@ -196,7 +196,7 @@ export class FacturasComponent {
         tasaEfectiva: parseFloat(this.tasaefectiva),
         cartera: this.idcartera,
       };
-      console.log('Datos registrados:', data);
+      //console.log('Datos registrados:', data);
       this.server
         .crearfactura({
           idFactura: 0,
@@ -224,7 +224,7 @@ export class FacturasComponent {
         tasaEfectiva: this.teacalc,
         cartera: this.idcartera,
       };
-      console.log('Datos registrados:', data);
+      //console.log('Datos registrados:', data);
       this.server
         .crearfactura({
           idFactura: 0,
@@ -277,7 +277,7 @@ export class FacturasComponent {
       capitalizacion: this.capitatasanom,
       tasaEfectiva: 0,
     };
-    console.log('Datos de conversion:', data);
+    //console.log('Datos de conversion:', data);
     this.server
       .convTasa({
         tasaNominal: this.tasanominal,
@@ -288,7 +288,7 @@ export class FacturasComponent {
       .subscribe({
         next: (valorConvertido: number) => {
           // `valorConvertido` es el número que retorna el backend
-          console.log('Valor convertido:', valorConvertido);
+          //console.log('Valor convertido:', valorConvertido);
           // Puedes almacenar este valor en una variable para utilizarlo más adelante
           this.teacalc = valorConvertido;
         },
@@ -347,7 +347,7 @@ export class FacturasComponent {
           fechaTransaccion: this.fechadescD!.toISOString().split('T')[0],
         })
         .subscribe(() => {
-          console.log('TRANSACCION REALIZADA :');
+          //console.log('TRANSACCION REALIZADA :');
         });
     this.isDialogOpen2 = false;
     // Restablece los campos del formulario

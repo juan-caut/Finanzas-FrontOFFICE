@@ -24,8 +24,8 @@ interface Letra {
   numletra: String;
   fechaemision: String;
   fechavencim: String;
-  tasaefectiva: String;
-  valornominal: String;
+  tasaefectiva: number;
+  valornominal: number;
 }
 
 @Component({
@@ -69,7 +69,7 @@ export class DetailLetrasComponent implements OnInit {
     this.server
       .gettransacpletra(this.letra.idletra)
       .subscribe((data: Transaccion) => {
-        console.log('Datos obtenidos:', data);
+        //console.log('Datos obtenidos:', data);
 
         this.fechadesc= data.fechaTransaccion;
         this.costosiniciales= data.costesIniciales!=null? data.costesIniciales.toString():"0";
@@ -155,19 +155,19 @@ export class DetailLetrasComponent implements OnInit {
     this.server
     .gettransacpletra(this.letra.idletra)
     .subscribe((data: Transaccion) => {
-      console.log('Datos obtenidos:', data);
+      //console.log('Datos obtenidos:', data);
       this.fechadesc= data.fechaTransaccion;
       this.costosiniciales= data.costesIniciales!=null? data.costesIniciales.toString():"0";
       this.costosfinales= data.costesFinales!=null? data.costesFinales.toString():"0";
       this.diasdesc=data.diasadesc.toString()
       this.idtransac=data.idTransaccion;
 
-      console.log('TRANSACCION ... :', this.idtransac);
+      //console.log('TRANSACCION ... :', this.idtransac);
       //LLAMAR AL CONTROLADOR DE CALCDESCUENTO DE descuentocontroller
       this.server
         .getdescuentotra(this.idtransac)
         .subscribe((data1: Descuento) => {
-          console.log('Datos obtenidos:', data1);
+          //console.log('Datos obtenidos:', data1);
   
           this.descuento=data1.descuento;
           this.tcea=data1.tcea;
@@ -205,11 +205,11 @@ export class DetailLetrasComponent implements OnInit {
       idfactura:0
     }).subscribe(() => {
 
-      console.log('TRANSACCION ... :', this.idtransac);
+      //console.log('TRANSACCION ... :', this.idtransac);
       this.server
       .gettransacpletra(this.letra.idletra)
       .subscribe((data: Transaccion) => {
-        console.log('Datos obtenidos:', data);
+        //console.log('Datos obtenidos:', data);
 
         this.fechadesc= data.fechaTransaccion;
         this.costosiniciales= data.costesIniciales.toString();
@@ -263,8 +263,8 @@ interface Letra {
   numletra: String;
   fechaemision: String;
   fechavencim: String;
-  tasaefectiva: String;
-  valornominal: String;
+  tasaefectiva: number;
+  valornominal: number;
 }
 
 

@@ -58,7 +58,7 @@ export class DetailFacturasComponent implements OnInit{
     this.server
       .gettransacpfactura(this.factura.idFactura)
       .subscribe((data: Transaccion) => {
-        console.log('Datos obtenidos:', data);
+       // console.log('Datos obtenidos:', data);
 
         this.fechadesc= data.fechaTransaccion;
         this.costosiniciales= data.costesIniciales!=null? data.costesIniciales.toString():"0";
@@ -144,7 +144,7 @@ export class DetailFacturasComponent implements OnInit{
     this.server
     .gettransacpfactura(this.factura.idFactura)
     .subscribe((data: Transaccion) => {
-      console.log('Datos obtenidos:', data);
+      //console.log('Datos obtenidos:', data);
 
       this.fechadesc= data.fechaTransaccion;
       this.costosiniciales= data.costesIniciales!=null?data.costesIniciales.toString():"0";
@@ -152,12 +152,12 @@ export class DetailFacturasComponent implements OnInit{
       this.diasdesc=data.diasadesc.toString()
       this.idtransac=data.idTransaccion;
 
-      console.log('TRANSACCION ... :', this.idtransac);
+     // console.log('TRANSACCION ... :', this.idtransac);
       //LLAMAR AL CONTROLADOR DE CALCDESCUENTO DE descuentocontroller
       this.server
         .getdescuentotra(this.idtransac)
         .subscribe((data1: Descuento) => {
-          console.log('Datos obtenidos:', data1);
+         // console.log('Datos obtenidos:', data1);
   
           this.descuento=data1.descuento;
           this.tcea=data1.tcea;
@@ -196,11 +196,11 @@ export class DetailFacturasComponent implements OnInit{
       idletra:0
     }).subscribe(() => {
 
-      console.log('TRANSACCION ... :', this.idtransac);
+     // console.log('TRANSACCION ... :', this.idtransac);
       this.server
       .gettransacpfactura(this.factura.idFactura)
       .subscribe((data: Transaccion) => {
-        console.log('Datos obtenidos:', data);
+        //console.log('Datos obtenidos:', data);
 
         this.fechadesc= data.fechaTransaccion;
         this.costosiniciales= data.costesIniciales.toString();
@@ -253,8 +253,8 @@ interface Factura {
   numeroFactura: String;
   fechaEmision: String;
   fechaVencimiento: String;
-  montoTotal: String;
-  tasaEfectiva: String;
+  montoTotal: number;
+  tasaEfectiva: number;
   idcartera:number
 }
 

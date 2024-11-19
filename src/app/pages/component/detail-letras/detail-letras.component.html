@@ -39,11 +39,11 @@
           </div>
           <div class="letra-detail-item">
             <span class="detail-label">Tasa Efectiva Anual:</span>
-            <span class="detail-value">{{ letra.tasaefectiva }}%</span>
+            <span class="detail-value">{{ letra.tasaefectiva | number:'1.2-2' }}%</span>
           </div>
           <div class="letra-detail-item">
             <span class="detail-label">Valor Nominal:</span>
-            <span class="detail-value">{{ letra.valornominal }}</span>
+            <span class="detail-value">S/.{{ letra.valornominal | number:'1.2-2' }}</span>
           </div>
         </div>
       </mat-expansion-panel>
@@ -69,11 +69,11 @@
           </div>
           <div class="letra-detail-item">
             <span class="detail-label">Costos Iniciales:</span>
-            <span class="detail-value">{{ costosiniciales }}</span>
+            <span class="detail-value">{{ costosiniciales | number:'1.2-2'}}</span>
           </div>
           <div class="letra-detail-item">
             <span class="detail-label">Costos Finales:</span>
-            <span class="detail-value">{{ costosfinales }}</span>
+            <span class="detail-value">{{ costosfinales | number:'1.2-2' }}</span>
           </div>
           <div class="letra-detail-item">
             <span class="detail-label">Dias descontadas:</span>
@@ -117,25 +117,25 @@
         <div class="letra-details">
           <div class="letra-detail-item">
             <span class="detail-label">Descuento:</span>
-            <span class="detail-value">{{ descuento }}</span>
+            <span class="detail-value">S/.{{ descuento | number:'1.2-2'}}</span>
           </div>
           <div class="letra-detail-item">
             <span class="detail-label">Valor neto:</span>
-            <span class="detail-value">{{ valorNeto }}</span>
+            <span class="detail-value">S/.{{ valorNeto | number:'1.2-2'}}</span>
           </div>
           <div class="letra-detail-item">
             <span class="detail-label">Valor entregado:</span>
-            <span class="detail-value">{{ valorEntregado }}</span>
+            <span class="detail-value">S/.{{ valorEntregado | number:'1.2-2'}}</span>
           </div>
           <div class="letra-detail-item">
             <span class="detail-label">Valor recibido:</span>
-            <span class="detail-value">{{ valorRecibido }}</span>
+            <span class="detail-value">S/.{{ valorRecibido | number:'1.2-2'}}</span>
           </div>
           <div class="letra-detail-item">
             <span class="detail-label"
               >Tasa de Costo Efectivo Anual (TCEA):</span
             >
-            <span class="detail-value">{{ tcea }}%</span>
+            <span class="detail-value">{{ tcea | number:'1.2-2'}}%</span>
           </div>
         </div>
       </mat-expansion-panel>

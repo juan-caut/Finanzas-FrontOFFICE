@@ -65,7 +65,7 @@ export class TabpanelComponent {
         break;
       case 'Cerrar sesión':
           sessionStorage.setItem('userData','')
-          console.log("user",sessionStorage.getItem('userData'));
+          //console.log("user",sessionStorage.getItem('userData'));
           this.router.navigate(['/login']);
           
         break;
